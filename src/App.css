@@ -1,0 +1,266 @@
+/* =========================================
+   Hero Section — Freelance Theme
+   ========================================= */
+
+#center.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  #center.hero-section {
+    padding: 40px 16px;
+    gap: 18px;
+  }
+}
+
+/* Badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Headline */
+.hero-title {
+  font-family: var(--heading);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: var(--text-h);
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 34px;
+    margin: 0 0 12px;
+  }
+}
+
+/* Subheadline */
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text);
+  max-width: 620px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .hero-subtitle {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Action buttons */
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px -4px rgba(170, 59, 255, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-h);
+  border: 1.5px solid var(--border);
+}
+
+.btn-outline:hover {
+  background: var(--code-bg);
+  border-color: var(--text-h);
+}
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  z-index: 2;
+  position: relative;
+}
+
+.hero-logo {
+  position: absolute;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  z-index: 1;
+}
+
+.hero-logo.react {
+  top: 40px;
+  left: 20%;
+  width: 70px;
+  height: auto;
+  transform: rotate(-12deg);
+}
+
+.hero-logo.vite {
+  bottom: 30px;
+  right: 20%;
+  width: 60px;
+  height: auto;
+  transform: rotate(10deg);
+}
+
+@media (max-width: 1024px) {
+  .hero-visual {
+    max-width: 240px;
+    height: 240px;
+  }
+  .hero-logo.react {
+    width: 50px;
+    top: 30px;
+    left: 15%;
+  }
+  .hero-logo.vite {
+    width: 45px;
+    bottom: 20px;
+    right: 15%;
+  }
+}
+
+/* Counter (kept from original, restyled) */
+.hero-counter {
+  margin-bottom: 32px;
+}
+
+.counter {
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.counter:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.counter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Availability / flags bar */
+.hero-availability {
+  width: 100%;
+  max-width: 700px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.hero-availability:hover {
+  opacity: 1;
+}
+
+.availability-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.flag-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.flag-item {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  background: var(--bg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flag-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 1024px) {
+  .hero-availability {
+    max-width: 100%;
+    padding-top: 16px;
+  }
+  .flag-item {
+    width: 36px;
+    height: 36px;
+    gap: 10px;
+  }
+}

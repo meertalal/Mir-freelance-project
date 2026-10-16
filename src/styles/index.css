@@ -1,0 +1,16 @@
+
+@keyframes hero-route-dash {
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+
+.hero-route {
+  animation: hero-route-dash 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-route {
+    animation: none;
+  }
+}

@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #fff; color: #0f172a; }
+
+.hero-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(115deg, #fff 0%, #fff 45%, #f5faff 100%);
+}
+.hero-container {
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+  align-items: center;
+  gap: 1.25rem;
+  width: min(100% - 3rem, 1248px);
+  min-height: 620px;
+  margin-inline: auto;
+  padding-block: 2.5rem;
+}
+.hero-copy { position: relative; z-index: 10; min-width: 0; }
+.hero-eyebrow {
+  margin: 0 0 .8rem;
+  color: #2563eb;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.hero-title {
+  margin: 0 0 .8rem;
+  max-width: 600px;
+  color: #10234b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.45vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -.045em;
+  line-height: 1.06;
+}
+.hero-description {
+  max-width: 490px;
+  margin: 0 0 1rem;
+  color: #475569;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.hero-button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: 6px;
+  padding: 0 1rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .25s ease, background-color .25s ease, border-color .25s ease;
+}
+.hero-button:hover { transform: translateY(-2px); }
+.hero-button:focus-visible { outline: 2px solid #2563eb; outline-offset: 4px; }
+.hero-button-primary { border: 1px solid #2563eb; background: #2563eb; color: #fff; box-shadow: 0 4px 12px #2563eb24; }
+.hero-button-primary:hover { border-color: #1d4ed8; background: #1d4ed8; }
+.hero-button-secondary { border: 1px solid #cbd5e1; background: #fff; color: #0f172a; }
+.hero-button-secondary:hover { border-color: #93c5fd; background: #eff6ff; }
+.hero-trust-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: 1.25rem; }
+.hero-country-row { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1rem; margin-top: 1.25rem; }
+.hero-visual { display: flex; min-width: 0; align-items: center; justify-content: center; }
+
+.world-map-illustration { position: relative; width: 100%; max-width: 590px; aspect-ratio: 600 / 520; }
+.world-map-glow { position: absolute; inset: 5%; border-radius: 50%; background: #dbeafe99; filter: blur(38px); }
+.world-map-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map-country {
+  position: absolute; z-index: 20; display: flex; align-items: center; gap: 5px;
+  border: 1px solid #e2e8f0e8; border-radius: 8px; background: #fff;
+  padding: 5px 9px; color: #1e293b; font-size: 10px; font-weight: 700;
+  box-shadow: 0 4px 12px #0f172a14; white-space: nowrap;
+}
+.map-country-canada { left: 35%; top: 12%; }
+.map-country-uk { left: 57%; top: 13%; }
+.map-country-usa { left: 26%; top: 30%; }
+.map-country-uae { right: 4%; top: 34%; }
+.map-country-oman { right: 1%; top: 47%; }
+.map-country-australia { right: 2%; top: 65%; }
+.hero-workspace-frame {
+  position: absolute; z-index: 10; left: 26%; top: 30%; width: 48%; height: 43%;
+  overflow: hidden; border: 4px solid white; border-radius: 24px; background: #f1f5f9;
+  box-shadow: 0 15px 40px #0f172a2e;
+}
+.hero-workspace-caption { position: absolute; inset: auto 0 0; padding: 2rem .75rem .75rem; background: linear-gradient(to top, #020617c9, transparent); }
+.floating-info-card {
+  position: absolute; z-index: 30; display: flex; align-items: center; gap: 8px;
+  border: 1px solid #e2e8f0e8; border-radius: 12px; background: white; padding: 9px;
+  box-shadow: 0 8px 24px #0f172a1f;
+}
+.floating-info-icon { display: flex; width: 32px; height: 32px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 8px; background: #eff6ff; color: #2563eb; }
+.floating-card-experience { left: 9%; top: 43%; }
+.floating-card-projects { left: 17%; bottom: 19%; }
+.floating-card-global { right: 1%; bottom: 16%; }
+.world-map-handwriting { position: absolute; right: 7%; bottom: 1%; z-index: 5; display: none; transform: rotate(-12deg); color: #1e3a8a; font-family: Georgia, serif; font-size: 13px; font-style: italic; line-height: 1.15; text-align: right; }
+
+@keyframes hero-route-dash { to { stroke-dashoffset: -44; } }
+.hero-route { animation: hero-route-dash 8s linear infinite; }
+
+@media (min-width: 640px) {
+  .world-map-handwriting { display: block; }
+}
+@media (max-width: 1023px) {
+  .hero-container { min-height: 560px; gap: .75rem; width: min(100% - 2rem, 900px); }
+  .hero-title { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+  .map-country { padding: 4px 6px; font-size: 9px; }
+  .floating-info-card { gap: 6px; padding: 7px; }
+  .floating-info-icon { width: 28px; height: 28px; }
+}
+@media (max-width: 767px) {
+  .hero-container { grid-template-columns: minmax(0, 1fr); min-height: auto; width: min(100% - 2rem, 600px); gap: 2rem; padding-block: 2.5rem; }
+  .hero-title { max-width: 580px; font-size: clamp(2rem, 7.4vw, 2.8rem); }
+  .hero-description { font-size: 13px; }
+  .hero-visual { width: 100%; }
+  .world-map-illustration { max-width: 540px; }
+}
+@media (max-width: 420px) {
+  .hero-container { width: min(100% - 1.5rem, 600px); }
+  .hero-title { font-size: clamp(1.8rem, 8vw, 2.2rem); letter-spacing: -.04em; }
+  .hero-trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-country-row { gap: .65rem; }
+  .map-country { gap: 3px; padding: 4px 5px; font-size: 8px; }
+  .floating-info-card { gap: 4px; padding: 5px; }
+  .floating-info-card > span:last-child { transform: scale(.92); transform-origin: left center; }
+  .floating-info-icon { width: 24px; height: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
