@@ -2,14 +2,16 @@ import { ArrowRight } from "lucide-react";
 import WorldMapIllustration from "./WorldMapIllustration";
 import { countries, trustItems } from "../data/hero.data";
 
+
 export default function HeroSection() {
   return (
-    <section id="home" aria-labelledby="hero-title" className="relative isolate overflow-hidden bg-[linear-gradient(115deg,#fff_0%,#fff_45%,#f5faff_100%)]">
-      <div className="mx-auto grid min-h-[620px] w-[calc(100%-3rem)] max-w-[1248px] grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)] items-center gap-5 py-10 max-[1023px]:min-h-[560px] max-[1023px]:w-[calc(100%-2rem)] max-[1023px]:gap-3 max-[767px]:min-h-0 max-[767px]:grid-cols-1 max-[767px]:gap-8 max-[767px]:py-10 max-[420px]:w-[calc(100%-1.5rem)]">
+    <section id="home" aria-labelledby="hero-title" className="w-full min-h-screen bg-[url('/image/home-hero/global-connections-world-map.png')] bg-cover bg-center bg-no-repeat relative isolate overflow-hidden bg-[linear-gradient(115deg,#fff_0%,#fff_45%,#f5faff_100%)]">
+      <div className="mx-auto grid min-h-155 w-[calc(100%-3rem)] max-w-312 grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)] items-center gap-5 py-10 max-[1023px]:min-h-140 max-[1023px]:w-[calc(100%-2rem)] max-[1023px]:gap-3 max-[767px]:min-h-0 max-[767px]:grid-cols-1 max-[767px]:gap-8 max-[767px]:py-10 max-[420px]:w-[calc(100%-1.5rem)]">
         <div className="relative z-10 min-w-0">
           <p className="mb-[0.8rem] text-[10px] font-extrabold uppercase tracking-[0.07em] text-blue-600">Software Development · AI · Automation</p>
-          <h1 id="hero-title" className="mb-[0.8rem] max-w-[600px] font-serif text-[clamp(2rem,3.45vw,2.9rem)] font-bold leading-[1.06] tracking-[-0.045em] text-[#10234b] max-[1023px]:text-[clamp(1.8rem,4vw,2.4rem)] max-[767px]:max-w-[580px] max-[767px]:text-[clamp(2rem,7.4vw,2.8rem)] max-[420px]:text-[clamp(1.8rem,8vw,2.2rem)] max-[420px]:tracking-[-0.04em]">
-            Digital Solutions<br />for Businesses in<br /><span className="text-blue-600">USA,</span>{" "}<span className="text-red-500">Canada,</span> UK,<br className="hidden sm:block" />Australia, UAE &amp; Oman
+          <h1 id="hero-title" className="mb-[0.8rem] max-w-[600px] font-playfair
+           text-[clamp(2rem,3.45vw,2.9rem)] font-bold leading-[1.06] tracking-[-0.045em] text-[#10234b] max-[1023px]:text-[clamp(1.8rem,4vw,2.4rem)] max-[767px]:max-w-[580px] max-[767px]:text-[clamp(2rem,7.4vw,2.8rem)] max-[420px]:text-[clamp(1.8rem,8vw,2.2rem)] max-[420px]:tracking-[-0.04em]">
+            Digital Solutions<br />for Businesses in<br />Worldwide
           </h1>
           <p className="mb-4 max-w-[490px] text-xs leading-[1.65] text-slate-600 max-[767px]:text-[13px]">We help startups and businesses build modern websites, mobile apps, AI agents, chatbots, SaaS platforms and automation solutions with reliable support and on-time delivery.</p>
           <div className="flex flex-wrap items-center gap-3">
@@ -28,7 +30,7 @@ export default function HeroSection() {
             {countries.map(({ name, flag }) => <span key={name} className="inline-flex items-center gap-1.5 text-[9px] text-slate-600"><span className="text-base leading-none" aria-hidden="true">{flag}</span>{name}</span>)}
           </div>
         </div>
-        <div className="flex min-w-0 items-center justify-center max-[767px]:w-full"><WorldMapIllustration /></div>
+        {/* <div className="flex min-w-0 items-center justify-center max-[767px]:w-full"><WorldMapIllustration /></div> */}
       </div>
     </section>
   );
