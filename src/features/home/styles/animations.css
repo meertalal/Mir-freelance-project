@@ -1,0 +1,630 @@
+
+/* =========================================================
+   HERO BACKGROUND & AMBIENT EFFECTS
+   ========================================================= */
+
+.hero-background {
+  transform-origin: center;
+  will-change: transform;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.hero-ambient-glow {
+  will-change: opacity, transform;
+}
+
+/* =========================================================
+   REVEAL ANIMATIONS
+   ========================================================= */
+
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroVisualReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(28px, 12px, 0) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes heroBackground {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes ambientGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translate3d(-18px, 12px, 0) scale(1.08);
+  }
+}
+
+@keyframes flagFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* =========================================================
+   WORLD MAP & PROFILE IMAGE
+   ========================================================= */
+
+@keyframes profileReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes mapGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes imageShimmer {
+  0%,
+  65%,
+  100% {
+    transform: translateX(-100%);
+  }
+
+  85% {
+    transform: translateX(100%);
+  }
+}
+
+.world-map-glow {
+  animation: mapGlow 8s ease-in-out infinite;
+}
+
+.world-map-profile {
+  animation: profileReveal 1000ms
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.world-map-image-shimmer {
+  animation: imageShimmer 7s ease-in-out 2s infinite;
+}
+
+/* =========================================================
+   FLOATING INFORMATION CARDS
+   ========================================================= */
+
+@keyframes infoCardReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes infoCardFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.info-card-entrance {
+  animation: infoCardReveal 850ms
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--card-delay, 0ms);
+}
+
+.info-card-float {
+  animation: infoCardFloat 5s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
+/* Desktop card positions */
+
+.floating-card-experience {
+  top: 9%;
+  left: 0;
+}
+
+.floating-card-projects {
+  top: 24%;
+  right: -1%;
+}
+
+.floating-card-global {
+  right: 0;
+  bottom: 8%;
+}
+
+/* =========================================================
+   COUNTRY FLAGS
+   ========================================================= */
+
+.hero-country-flags {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-country-flag {
+  flex-shrink: 0;
+  animation: flagFloat 4s ease-in-out infinite;
+  animation-delay: var(--flag-delay, 0ms);
+  will-change: transform;
+}
+
+/* =========================================================
+   MOBILE BACKGROUND
+   Applies to 767px and below, including 533px screens.
+   Desktop/tablet widths above 767px retain the desktop image.
+   ========================================================= */
+
+@media screen and (max-width: 767px) {
+  .hero-section {
+    min-height: auto;
+    isolation: isolate;
+    background-color: #f5faff;
+  }
+
+  /*
+    Mobile image path:
+    public/image/home-hero/global-connections-world-map-mobile.png
+
+    Use cover so the portrait image fills the hero background.
+    The background layer stretches with the full hero section,
+    including content below the initial viewport.
+  */
+
+  .hero-background {
+    background-image: url("/image/home-hero/global-connections-world-map-mobile.png") !important;
+    background-position: center top !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .hero-ambient-glow {
+    right: -7rem;
+    top: 16rem;
+  }
+
+  /* Keep all three trust items on one row */
+
+  .hero-trust-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    align-items: start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .hero-trust-grid > div {
+    min-width: 0;
+    gap: 5px;
+  }
+
+  .hero-trust-grid > div p {
+    overflow-wrap: anywhere;
+  }
+
+  /* Keep all country flags on one horizontal line */
+
+  .hero-country-flags {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero-country-flag {
+    flex: 0 1 32px;
+    width: 32px;
+    height: 32px;
+    min-width: 0;
+    animation: none !important;
+  }
+
+  .hero-country-flag img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Reduce the gap before the profile image */
+
+  .world-map-illustration {
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
+  }
+
+  .world-map-profile {
+    width: 88%;
+    margin-top: 12px !important;
+  }
+
+  /* Mobile floating cards */
+
+  .floating-card-experience {
+    top: 3%;
+    left: -1%;
+  }
+
+  .floating-card-projects {
+    top: 17%;
+    right: -1%;
+  }
+
+  .floating-card-global {
+    right: -1%;
+    bottom: 4%;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media screen and (max-width: 420px) {
+  .hero-background {
+    background-position: center top !important;
+    background-size: cover !important;
+  }
+
+  .hero-trust-grid {
+    gap: 4px;
+  }
+
+  .hero-trust-grid > div {
+    gap: 3px;
+  }
+
+  .hero-country-flags {
+    gap: 3px !important;
+  }
+
+  .hero-country-flag {
+    flex-basis: 24px;
+    width: 24px;
+    height: 24px;
+    border-width: 1px;
+  }
+
+  .world-map-illustration {
+    padding-top: 0 !important;
+    padding-bottom: 6px !important;
+  }
+
+  .world-map-profile {
+    width: 88%;
+    margin-top: 8px !important;
+  }
+
+  .floating-card-experience {
+    top: 3%;
+    left: -2%;
+  }
+
+  .floating-card-projects {
+    top: 17%;
+    right: -2%;
+  }
+
+  .floating-card-global {
+    right: -1%;
+    bottom: 3%;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-background,
+  .hero-ambient-glow,
+  .world-map-glow,
+  .world-map-profile,
+  .world-map-image-shimmer,
+  .info-card-entrance,
+  .info-card-float,
+  .hero-country-flag {
+    animation: none !important;
+    will-change: auto;
+  }
+}
+
+
+/* =========================================================
+   SERVICES SECTION ANIMATIONS
+   Add this block AFTER your existing Hero section CSS.
+   No Hero section styles are modified by this block.
+   ========================================================= */
+
+/* Services section heading entrance */
+@keyframes servicesHeadingReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Service card entrance */
+@keyframes serviceCardReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Statistics entrance */
+@keyframes serviceStatsReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Floating decorative element */
+@keyframes serviceOrbFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+/* Section heading */
+.services-section .services-heading,
+.services-section .section-heading {
+  animation: servicesHeadingReveal 750ms
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Section description */
+.services-section .services-subtitle,
+.services-section .section-description {
+  animation: servicesHeadingReveal 750ms ease-out 120ms both;
+}
+
+/* Service cards with staggered entrance */
+.services-section .service-card {
+  animation: serviceCardReveal 700ms
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--service-delay, 0ms);
+  transition:
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+/* Stagger delays for cards without an inline delay */
+.services-section .service-card:nth-child(1) {
+  --service-delay: 0ms;
+}
+
+.services-section .service-card:nth-child(2) {
+  --service-delay: 90ms;
+}
+
+.services-section .service-card:nth-child(3) {
+  --service-delay: 180ms;
+}
+
+.services-section .service-card:nth-child(4) {
+  --service-delay: 270ms;
+}
+
+.services-section .service-card:nth-child(5) {
+  --service-delay: 360ms;
+}
+
+.services-section .service-card:nth-child(6) {
+  --service-delay: 450ms;
+}
+
+.services-section .service-card:nth-child(7) {
+  --service-delay: 540ms;
+}
+
+.services-section .service-card:nth-child(8) {
+  --service-delay: 630ms;
+}
+
+/* Decorative card shine */
+.services-section .service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgb(255 255 255 / 35%) 50%,
+    transparent 75%
+  );
+  transform: translateX(-130%);
+  transition: transform 650ms ease;
+}
+
+/* Keep card content above the shine */
+.services-section .service-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Card hover and icon transitions */
+.services-section .service-icon {
+  transition: transform 300ms ease;
+}
+
+.services-section .service-arrow {
+  transition: transform 250ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .services-section .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgb(15 23 42 / 10%);
+  }
+
+  .services-section .service-card:hover::before {
+    transform: translateX(130%);
+  }
+
+  .services-section .service-card:hover .service-icon {
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  .services-section .service-card:hover .service-arrow {
+    transform: translateX(4px);
+  }
+}
+
+/* Services statistics */
+.services-section .service-stats,
+.services-section .services-stats {
+  animation: serviceStatsReveal 800ms
+    cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+}
+
+/* Individual statistic items */
+.services-section .service-stat-item {
+  transition: background-color 250ms ease;
+}
+
+/* Decorative floating element */
+.services-section .services-orb {
+  animation: serviceOrbFloat 8s ease-in-out infinite;
+}
+
+/* Keyboard accessibility */
+.services-section .service-card:focus-visible {
+  outline: 3px solid rgb(59 130 246 / 75%);
+  outline-offset: 4px;
+}
+
+/* Tablet and mobile adjustments */
+@media screen and (max-width: 767px) {
+  .services-section .service-card {
+    animation-duration: 600ms;
+  }
+
+  .services-section .services-orb {
+    animation: none;
+  }
+}
+
+/* Small phone adjustments */
+@media screen and (max-width: 420px) {
+  .services-section .service-card {
+    border-radius: 14px;
+  }
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .services-section .services-heading,
+  .services-section .section-heading,
+  .services-section .services-subtitle,
+  .services-section .section-description,
+  .services-section .service-card,
+  .services-section .service-stats,
+  .services-section .services-stats,
+  .services-section .services-orb {
+    animation: none !important;
+  }
+
+  .services-section .service-card,
+  .services-section .service-card *,
+  .services-section .service-stat-item {
+    transition: none !important;
+  }
+
+  .services-section .service-card::before {
+    display: none;
+  }
+}

@@ -119,7 +119,7 @@ export default function Navbar({
     "rounded-lg bg-[#5882E8] px-4",
     "font-playfair text-xs font-semibold text-[#000000]",
     "shadow-sm transition-all duration-300 ease-out",
-    "hover:-translate-y-0.5 hover:bg-[#FFFFFF] hover:shadow-md",
+    "hover:-translate-y-0.5 hover:bg-[#092f87] hover:shadow-md",
     "active:translate-y-0",
     "focus-visible:outline-2 focus-visible:outline-offset-4",
     "focus-visible:outline-white",
