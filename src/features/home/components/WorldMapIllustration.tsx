@@ -1,122 +1,73 @@
-import { Award, Globe2, Layers3 } from "lucide-react";
-import CountryBadge from "./CountryLabel";
+
+import type { CSSProperties } from "react";
 import FloatingInfoCard from "./InfoCard";
-import { floatingCards, mapCountries } from "../data/hero.data";
-
-const cardIcons = {
-  award: Award,
-  layers: Layers3,
-  globe: Globe2,
-} as const;
-
-const locationPins = [
-  { x: 155, y: 140 },
-  { x: 183, y: 104 },
-  { x: 337, y: 126 },
-  { x: 370, y: 145 },
-  { x: 400, y: 230 },
-  { x: 420, y: 335 },
-];
+import {
+  floatingCards,
+  floatingCardIcons,
+} from "../data/hero.data";
 
 export default function WorldMapIllustration() {
   return (
-    <div className="world-map-illustration" aria-label="Global service coverage">
-      <div className="world-map-glow" aria-hidden="true" />
-
-      <svg
-        viewBox="0 0 600 520"
-        className="world-map-svg"
-        fill="none"
+    <div
+      className="world-map-illustration relative isolate mx-auto w-full max-w-3xl border-0 py-12 outline-none ring-0 max-[767px]:py-1 max-[420px]:py-0"
+      aria-label="Global technology services and project experience"
+    >
+      {/* Ambient glow */}
+      <div
         aria-hidden="true"
-      >
-        <defs>
-          <pattern id="hero-map-dots" width="8" height="8" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1.5" fill="#93C5FD" />
-          </pattern>
-          <radialGradient id="hero-map-glow">
-            <stop offset="0%" stopColor="#DBEAFE" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#EFF6FF" stopOpacity="0.08" />
-          </radialGradient>
-        </defs>
+        className="world-map-glow pointer-events-none absolute left-1/2 top-1/2 -z-10 h-3/4 w-3/4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-200/30 opacity-70 blur-3xl"
+      />
 
-        <ellipse cx="320" cy="245" rx="260" ry="220" fill="url(#hero-map-glow)" />
-
-        <g fill="#BFDBFE" opacity="0.72">
-          <path d="M75 105 L104 70 146 54 177 65 202 90 190 115 164 124 155 150 133 163 119 190 95 180 85 152 65 137Z" />
-          <path d="M161 194 L193 205 210 241 198 280 184 312 170 353 150 333 148 297 135 264 141 230Z" />
-          <path d="M244 100 L269 81 296 91 313 112 302 134 277 143 265 130Z" />
-          <path d="M283 148 L320 143 349 164 357 195 341 226 331 269 308 299 286 277 276 244 263 212 265 179Z" />
-          <path d="M310 105 L340 80 383 64 430 75 468 96 505 110 520 135 499 151 463 145 442 166 413 159 395 177 370 161 349 143 328 139Z" />
-          <path d="M386 178 L423 173 455 191 474 218 455 241 431 251 415 284 394 271 386 239 368 214Z" />
-          <path d="M454 296 L484 282 514 294 527 317 512 343 481 348 459 330Z" />
-          <path d="M495 369 L514 359 535 370 538 387 520 399 500 389Z" />
-        </g>
-
-        <g fill="url(#hero-map-dots)" opacity="0.82">
-          <path d="M75 105 L104 70 146 54 177 65 202 90 190 115 164 124 155 150 133 163 119 190 95 180 85 152 65 137Z" />
-          <path d="M161 194 L193 205 210 241 198 280 184 312 170 353 150 333 148 297 135 264 141 230Z" />
-          <path d="M244 100 L269 81 296 91 313 112 302 134 277 143 265 130Z" />
-          <path d="M283 148 L320 143 349 164 357 195 341 226 331 269 308 299 286 277 276 244 263 212 265 179Z" />
-          <path d="M310 105 L340 80 383 64 430 75 468 96 505 110 520 135 499 151 463 145 442 166 413 159 395 177 370 161 349 143 328 139Z" />
-          <path d="M386 178 L423 173 455 191 474 218 455 241 431 251 415 284 394 271 386 239 368 214Z" />
-        </g>
-
-        <g className="hero-route" stroke="#2563EB" strokeWidth="2" strokeDasharray="4 7" strokeLinecap="round" opacity="0.8">
-          <path d="M155 140 Q245 38 337 126" />
-          <path d="M155 140 Q285 185 370 145" />
-          <path d="M155 140 Q300 255 420 335" />
-          <path d="M337 126 Q360 180 400 230" />
-          <path d="M370 145 Q410 240 420 335" />
-        </g>
-
-        {locationPins.map(({ x, y }) => (
-          <g key={`${x}-${y}`} transform={`translate(${x} ${y})`}>
-            <circle r="10" fill="#2563EB" fillOpacity="0.12" />
-            <circle r="5.5" fill="white" stroke="#2563EB" strokeWidth="2" />
-            <circle r="2" fill="#2563EB" />
-          </g>
-        ))}
-
-        <g transform="translate(500 63) rotate(-28)" fill="#334155">
-          <path d="M-20 0 L-4 -3 L8 -18 L13 -18 L9 -2 L24 2 L24 6 L8 5 L1 15 L-4 15 L-1 4 L-20 4Z" />
-        </g>
-      </svg>
-
-      {mapCountries.map((country) => (
-        <CountryBadge key={country.name} {...country} />
-      ))}
-
-      <div className="hero-workspace-frame">
-        <img
-          src="/images/hero-workspace.webp"
-          alt="Developer working at a computer"
-          className="hero-workspace-image"
-          width={700}
-          height={500}
-          loading="eager"
+      {/* Profile image */}
+      <div className="world-map-profile group relative z-10 mx-auto mt-28 w-[76%] overflow-hidden rounded-2xl border-0 bg-white/70 shadow-[0_20px_60px_rgba(15,48,91,0.14)] outline-none ring-0 transition-shadow duration-500 hover:shadow-[0_28px_70px_rgba(37,99,235,0.22)] sm:mt-36 sm:w-[74%] sm:rounded-3xl max-[767px]:mt-3 max-[767px]:w-[88%] max-[420px]:mt-2">
+        {/* Image highlight */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-10 rounded-2xl ring-1 ring-inset ring-white/30 sm:rounded-3xl"
         />
-        <div className="hero-workspace-caption">
-          <p className="text-[10px] font-semibold text-white sm:text-xs">Digital innovation</p>
-          <p className="mt-0.5 text-[9px] text-white/80 sm:text-[10px]">Built for businesses worldwide</p>
-        </div>
+
+        <img
+          src="/image/profile.jpeg"
+          alt="Professional workspace representing web development and digital solutions"
+          className="block aspect-[4/3] h-auto w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035] sm:aspect-[3/2] motion-reduce:transition-none"
+          width={900}
+          height={600}
+          fetchPriority="high"
+        />
+
+        {/* Subtle image shimmer */}
+        <div
+          aria-hidden="true"
+          className="world-map-image-shimmer pointer-events-none absolute inset-0 z-10 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent motion-reduce:animate-none"
+        />
       </div>
 
-      {floatingCards.map((card) => {
-        const Icon = cardIcons[card.icon];
+      {/* Floating information cards */}
+      {floatingCards.map((card, index) => {
+        const Icon = floatingCardIcons[card.icon];
+
+        const entranceStyle = {
+          "--card-delay": `${350 + index * 220}ms`,
+          "--float-delay": `${index * -1.2}s`,
+        } as CSSProperties;
+
         return (
-          <FloatingInfoCard
+          <div
             key={card.title}
-            title={card.title}
-            subtitle={card.subtitle}
-            Icon={Icon}
-            className={card.className}
-          />
+            style={entranceStyle}
+            className={`info-card-entrance absolute z-20 border-0 outline-none ring-0 ${card.className}`}
+          >
+            <div className="info-card-float">
+              <FloatingInfoCard
+                title={card.title}
+                subtitle={card.subtitle}
+                Icon={Icon}
+                className="!static !z-auto !gap-2 !rounded-xl !border-0 !px-2 !py-2 shadow-[0_8px_24px_rgba(15,48,91,0.12)] transition-shadow duration-300 hover:shadow-[0_14px_32px_rgba(37,99,235,0.22)] sm:!gap-3 sm:!px-3 sm:!py-3"
+              />
+            </div>
+          </div>
         );
       })}
-
-      <p className="world-map-handwriting" aria-hidden="true">
-        Delivering Digital<br />Success Worldwide
-      </p>
     </div>
   );
 }
