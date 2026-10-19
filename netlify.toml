@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # This is a Vite app, not Next.js. Skip the Next.js Runtime that was
+  # auto-enabled in the Netlify UI so it doesn't look for a .next directory.
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+# Single-page app fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
