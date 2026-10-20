@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# This is a Vite SPA, not a Next.js app.
+# Disable the auto-installed Next.js plugin so Netlify does not
+# look for Next.js build output inside "dist".
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  enabled = false
+
+# SPA fallback: any unknown route serves index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
