@@ -1,7 +1,7 @@
-
 import Navbar from "./components/layout/Navbar";
-import Hero from "./features/home/components/hero";
-import Service from "./features/home/components/ServicesSection";
+import Hero from "./features/home/components/home/hero";
+import Service from "./features/home/components/service/ServicesSection";
+import Works from "./features/home/components/Works/FeaturedWork";
 
 export default function App() {
   return (
@@ -10,6 +10,7 @@ export default function App() {
       <main>
         <Hero />
         <Service />
+        <Works />
       </main>
     </>
   );

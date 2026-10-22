@@ -1,8 +1,7 @@
-
 import type { CSSProperties } from "react";
 import { ArrowRight } from "lucide-react";
 import WorldMapIllustration from "./WorldMapIllustration";
-import { countries, trustItems } from "../data/hero.data";
+import { countries, trustItems } from "../../data/hero.data";
 
 export default function HeroSection() {
   return (
@@ -14,7 +13,7 @@ export default function HeroSection() {
       {/* Background: desktop image by default; mobile image via animations.css */}
       <div
         aria-hidden="true"
-        className="hero-background pointer-events-none absolute inset-0 z-0 bg-[url('/image/home-hero/global-connections-world-map.png')] bg-cover bg-center bg-no-repeat motion-safe:animate-[heroBackground_24s_ease-in-out_infinite_alternate]"
+        className="hero-background pointer-events-none absolute inset-0 z-0 bg-[url('/image/home-hero/global-connections-world-map.webp')] bg-cover bg-center bg-no-repeat motion-safe:animate-[heroBackground_24s_ease-in-out_infinite_alternate]"
       />
 
       {/* Ambient blue glow */}

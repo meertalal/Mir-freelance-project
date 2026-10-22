@@ -24,43 +24,43 @@ export type TrustItem = {
 export const countries: Country[] = [
   {
     name: "USA",
-    flag: "/image/flags/usa-flag.png",
+    flag: "/image/flags/usa-flag.webp",
   },
   {
     name: "Canada",
-    flag: "/image/flags/canadian-flag.png",
+    flag: "/image/flags/canadian-flag.webp",
   },
   {
     name: "UK",
-    flag: "/image/flags/uk-flag.png",
+    flag: "/image/flags/uk-flag.webp",
   },
   {
     name: "Australia",
-    flag: "/image/flags/australian-flag.png",
+    flag: "/image/flags/australian-flag.webp",
   },
   {
     name: "UAE",
-    flag: "/image/flags/uae-flag.png",
+    flag: "/image/flags/uae-flag.webp",
   },
   {
     name: "Oman",
-    flag: "/image/flags/omani-flag.png",
+    flag: "/image/flags/omani-flag.webp",
   },
   {
     name: "Bahrain",
-    flag: "/image/flags/bahrain-flag.png",
+    flag: "/image/flags/bahrain-flag.webp",
   },
   {
     name: "Switzerland",
-    flag: "/image/flags/switzerland-flag.png",
+    flag: "/image/flags/switzerland-flag.webp",
   },
   {
     name: "Turkey",
-    flag: "/image/flags/turkish-flag.png",
+    flag: "/image/flags/turkish-flag.webp",
   },
   {
     name: "Germany",
-    flag: "/image/flags/german-flag.png",
+    flag: "/image/flags/german-flag.webp",
   },
 ];
 
