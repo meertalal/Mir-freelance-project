@@ -1,6 +1,6 @@
 
 import Navbar from "../components/layout/Navbar";
-import Hero from "../features/home/components/hero";
+import Hero from "../features/home/components/home/hero";
 // import Services from "../features/services/components/Services";
 // import Projects from "../features/portfolio/components/Projects";
 // import About from "../features/about/components/About";

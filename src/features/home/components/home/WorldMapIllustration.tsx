@@ -1,10 +1,6 @@
-
 import type { CSSProperties } from "react";
-import FloatingInfoCard from "./InfoCard";
-import {
-  floatingCards,
-  floatingCardIcons,
-} from "../data/hero.data";
+import FloatingInfoCard from "././InfoCard";
+import {floatingCards, floatingCardIcons,} from "../../data/hero.data";
 
 export default function WorldMapIllustration() {
   return (
@@ -27,7 +23,7 @@ export default function WorldMapIllustration() {
         />
 
         <img
-          src="/image/profile.jpeg"
+          src="/image/profile.webp"
           alt="Professional workspace representing web development and digital solutions"
           className="block aspect-[4/3] h-auto w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035] sm:aspect-[3/2] motion-reduce:transition-none"
           width={900}
