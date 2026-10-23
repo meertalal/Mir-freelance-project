@@ -1,4 +1,3 @@
-import type { LucideIcon } from "lucide-react";
 import type {InfoCardProps} from "../../types/hero.types";
 
 export default function FloatingInfoCard({
