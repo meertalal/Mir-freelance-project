@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
-import type { ServicesSectionProps } from "../types/services.types";
-
-import { services, serviceStats } from "../data/services.data";
+import type { ServicesSectionProps } from "../../types/services.types";
+import { services, serviceStats } from "../../data/services.data";
 import ServiceCard from "./ServiceCard";
 import ServiceStats from "./ServiceStats";
 

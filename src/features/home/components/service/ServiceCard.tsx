@@ -1,11 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import type { CSSProperties } from "react";
-import type { Service } from "../types/services.types";
-
-interface ServiceCardProps {
-  service: Service;
-  index?: number;
-}
+import type { ServiceCardProps } from "../../types/services.types";
 
 export default function ServiceCard({
   service,
@@ -81,7 +76,7 @@ export default function ServiceCard({
         {/* Title */}
         <h3
           className="
-            mb-2 font-playfair text-[13px] font-bold
+            mb-2 font-georgia text-[13px] font-bold
             leading-snug tracking-tight text-[#10234B]
             transition-colors duration-300
             group-hover:text-[#174A91]

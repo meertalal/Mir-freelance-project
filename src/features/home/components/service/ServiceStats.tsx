@@ -1,9 +1,5 @@
 import type { CSSProperties } from "react";
-import type { ServiceStat } from "../types/services.types";
-
-interface ServiceStatsProps {
-  stats: ServiceStat[];
-}
+import type { ServiceStatsProps } from "../../types/services.types";
 
 export default function ServiceStats({
   stats,
@@ -81,7 +77,7 @@ export default function ServiceStats({
             <div className="min-w-0">
               <p
                 className="
-                  font-playfair text-lg font-bold
+                  font-lato text-lg font-bold
                   leading-tight tracking-tight text-[#10234B]
                   min-[480px]:text-xl sm:text-2xl
                 "

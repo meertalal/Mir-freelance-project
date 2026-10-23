@@ -219,7 +219,7 @@
 
   /*
     Mobile image path:
-    public/image/home-hero/global-connections-world-map-mobile.png
+    public/image/home-hero/global-connections-world-map-mobile.webp
 
     Use cover so the portrait image fills the hero background.
     The background layer stretches with the full hero section,
@@ -227,7 +227,7 @@
   */
 
   .hero-background {
-    background-image: url("/image/home-hero/global-connections-world-map-mobile.png") !important;
+    background-image: url("/image/home-hero/global-connections-world-map-mobile.webp") !important;
     background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
