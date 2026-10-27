@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-
 import type { SectionHeaderProps } from "../../types/works.types";
 
 export default function SectionHeader({
@@ -10,47 +9,52 @@ export default function SectionHeader({
   actionHref = "#",
 }: SectionHeaderProps) {
   return (
-    <div className="mb-5 flex flex-col items-center gap-4 text-center">
-      {/* Eyebrow and action button */}
-      <div className="relative flex w-full items-center justify-center">
-        {/* Centered eyebrow with decorative lines */}
-        <div className="flex items-center justify-center gap-3">
+    <div className="mb-4 flex w-full flex-col items-center gap-3 text-center sm:mb-10 lg:mb-12">
+      {/* Eyebrow and action link */}
+      <div className="relative flex min-h-6 w-full items-center justify-center">
+        <div className="flex items-center justify-center gap-2 sm:gap-3">
           <span
             aria-hidden="true"
-            className="h-px w-10 shrink-0 bg-[#092F58]"
+            className="h-px w-4 shrink-0 bg-[#092F58] sm:w-10"
           />
-
-          <p className="whitespace-nowrap font-playfair text-xs font-bold uppercase tracking-[0.16em] text-[#092F58] sm:text-base">
+          <p className="whitespace-nowrap font-playfair text-[8px] font-bold uppercase tracking-[0.1em] text-[#092F58] sm:text-sm sm:tracking-[0.16em] lg:text-base">
             {eyebrow}
           </p>
-
           <span
             aria-hidden="true"
-            className="h-px w-10 shrink-0 bg-[#092F58]"
+            className="h-px w-4 shrink-0 bg-[#092F58] sm:w-10"
           />
         </div>
 
-        {/* Action button positioned at the top-right */}
         {actionLabel && (
           <a
             href={actionHref}
-            className="absolute right-0 inline-flex shrink-0 items-center justify-center gap-2 font-playfair text-xs font-semibold text-[#092F58] transition-colors hover:text-blue-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
+            className="
+              group absolute right-0 top-1/2 inline-flex
+              -translate-y-1/2 items-center gap-0.5
+              whitespace-nowrap font-playfair text-[7px]
+              font-semibold text-[#092F58]
+              transition-colors duration-300 hover:text-[#5882E8]
+              focus-visible:outline-none focus-visible:ring-2
+              focus-visible:ring-[#5882E8] focus-visible:ring-offset-2
+              sm:gap-1.5 sm:text-xs lg:text-sm
+            "
           >
             {actionLabel}
-
-            <ArrowRight size={18} aria-hidden="true" />
+            <ArrowRight
+              aria-hidden="true"
+              className="h-2.5 w-2.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1 sm:h-4 sm:w-4"
+            />
           </a>
         )}
       </div>
 
-      {/* Centered main heading */}
+      {/* Heading and description */}
       <div className="flex w-full flex-col items-center">
-        <h2 className="font-playfair text-2xl font-bold leading-tight tracking-tight text-[#0b1d43] sm:text-[30px]">
+        <h2 className="font-montserrat text-lg font-bold leading-tight tracking-tight text-[#10234b] sm:text-3xl lg:text-4xl">
           {title}
         </h2>
-
-        {/* Centered description */}
-        <p className="mx-auto mt-1.5 max-w-xl font-inter text-xs leading-relaxed text-slate-500 sm:text-[13px]">
+        <p className="mx-auto mt-1 max-w-2xl font-inter text-[9px] leading-relaxed text-[#256580] sm:mt-3 sm:text-sm lg:text-base">
           {description}
         </p>
       </div>
