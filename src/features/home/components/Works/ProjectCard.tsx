@@ -1,66 +1,59 @@
-import { ArrowUpRight } from "lucide-react";
-import type { Project } from "../../types/works.types";
-import ProjectTags from "./ProjectTags";
+import SectionHeader from "./SectionHeader";
+import { projects } from "../../data/works.data";
 
-interface ProjectCardProps {
-  project: Project;
+interface ProjectCardItemProps {
+  project: any;
 }
 
-export default function ProjectCard({
-  project,
-}: ProjectCardProps) {
+function ProjectCard({ project }: ProjectCardItemProps) {
+  return <div key={project?.id}>{project?.id}</div>;
+}
+
+interface FeaturedWorkProps {
+  showAllProjectsLink?: boolean;
+}
+
+export default function FeaturedWork({
+  showAllProjectsLink = true,
+}: FeaturedWorkProps) {
   return (
-    <article className="group min-w-0 overflow-hidden rounded-lg border border-slate-200/80 bg-white shadow-[0_2px_10px_rgba(15,35,75,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-      <a
-        href={project.href}
-        aria-label={`View ${project.title}`}
-        className="block overflow-hidden bg-slate-100 focus-visible:outline-2 focus-visible:outline-blue-600"
-      >
-        <img
-          src={project.image}
-          alt={project.imageAlt}
-          loading="lazy"
-          className="aspect-[1.65/1] w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+    <section
+      id="featured-work"
+      aria-label="Featured projects"
+      className="
+        w-full overflow-hidden bg-white
+        px-1.5 py-4
+        sm:px-6 sm:py-14
+        md:px-8 md:py-16
+        lg:px-10 lg:py-20
+        xl:px-12
+        2xl:px-16
+      "
+    >
+      <div className="mx-auto w-full max-w-screen-2xl">
+        <SectionHeader
+          eyebrow="Our Selected Creations"
+          title="Where Ideas Take Shape"
+          description="Bringing bold ideas to life through thoughtful design and innovative digital solutions."
+          actionLabel={showAllProjectsLink ? "View All Projects" : undefined}
+          actionHref="/projects"
         />
-      </a>
 
-      <div className="p-2 sm:p-2.5">
-        <div className="mb-2 flex items-start justify-between gap-2">
-          <h3 className="font-playfair text-[12px] font-bold leading-snug text-[#10234a] sm:text-[14px]">
-            {project.title}
-          </h3>
-
-          <a
-            href={project.href}
-            aria-label={`Open ${project.title}`}
-            className="mt-0.5 text-slate-400 transition-colors hover:text-blue-600"
-          >
-            <ArrowUpRight size={14} aria-hidden="true" />
-          </a>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <ProjectTags tags={project.tags} />
-
-          <span className="ml-auto inline-flex shrink-0 items-center gap-1 font-inter text-[9px] font-semibold text-slate-600 sm:text-[10px]">
-            <span
-              role="img"
-              aria-label={`${project.country} flag`}
-              className="text-xs leading-none"
-            >
-              {project.countryCode === "US"
-                ? "🇺🇸"
-                : project.countryCode === "CA"
-                  ? "🇨🇦"
-                  : project.countryCode === "AU"
-                    ? "🇦🇺"
-                    : "🌐"}
-            </span>
-
-            {project.country}
-          </span>
+        {/* Three cards in a row on mobile, tablet, and desktop */}
+        <div
+          className="
+            grid w-full grid-cols-3 items-stretch
+            gap-1
+            sm:gap-5
+            lg:gap-6
+            xl:gap-7
+          "
+        >
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </div>
       </div>
-    </article>
+    </section>
   );
 }

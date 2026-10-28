@@ -4,10 +4,10 @@ export interface Project {
   image: string;
   imageAlt: string;
   tags: string[];
-  country: string;
-  countryCode: string;
+  flag: string;
   href: string;
 }
+
 export interface ProjectCardProps {
   project: Project;
 }
