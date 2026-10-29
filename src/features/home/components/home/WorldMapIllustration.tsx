@@ -1,11 +1,21 @@
 import type { CSSProperties } from "react";
-import FloatingInfoCard from "././InfoCard";
-import {floatingCards, floatingCardIcons,} from "../../data/hero.data";
+import FloatingInfoCard from "./InfoCard";
+import {
+  floatingCards,
+  floatingCardIcons,
+} from "../../data/hero.data";
 
 export default function WorldMapIllustration() {
   return (
     <div
-      className="world-map-illustration relative isolate mx-auto w-full max-w-3xl border-0 py-12 outline-none ring-0 max-[767px]:py-1 max-[420px]:py-0"
+      className={[
+        "world-map-illustration relative isolate mx-auto w-full",
+        "max-w-3xl border-0 py-8 outline-none ring-0",
+        "xl:py-10 2xl:max-w-[850px] 2xl:py-12",
+        "min-[1920px]:max-w-[1000px] min-[1920px]:py-14",
+        "min-[2560px]:max-w-[1150px] min-[2560px]:py-16",
+        "max-[767px]:py-1 max-[420px]:py-0",
+      ].join(" ")}
       aria-label="Global technology services and project experience"
     >
       {/* Ambient glow */}
@@ -15,7 +25,22 @@ export default function WorldMapIllustration() {
       />
 
       {/* Profile image */}
-      <div className="world-map-profile group relative z-10 mx-auto mt-28 w-[76%] overflow-hidden rounded-2xl border-0 bg-white/70 shadow-[0_20px_60px_rgba(15,48,91,0.14)] outline-none ring-0 transition-shadow duration-500 hover:shadow-[0_28px_70px_rgba(37,99,235,0.22)] sm:mt-36 sm:w-[74%] sm:rounded-3xl max-[767px]:mt-3 max-[767px]:w-[88%] max-[420px]:mt-2">
+      <div
+        className={[
+          "world-map-profile group relative z-10 mx-auto",
+          "mt-[clamp(2rem,7vh,5.5rem)] w-[76%]",
+          "overflow-hidden rounded-2xl border-0 bg-white/70",
+          "shadow-[0_20px_60px_rgba(15,48,91,0.14)]",
+          "outline-none ring-0 transition-shadow duration-500",
+          "hover:shadow-[0_28px_70px_rgba(37,99,235,0.22)]",
+          "sm:w-[74%] sm:rounded-3xl",
+          "2xl:mt-[clamp(3rem,8vh,6rem)] 2xl:w-[76%]",
+          "min-[1920px]:mt-[clamp(3rem,8vh,7rem)] min-[1920px]:w-[78%]",
+          "min-[2560px]:w-[80%]",
+          "max-[767px]:mt-3 max-[767px]:w-[88%]",
+          "max-[420px]:mt-2",
+        ].join(" ")}
+      >
         {/* Image highlight */}
         <div
           aria-hidden="true"
@@ -31,7 +56,7 @@ export default function WorldMapIllustration() {
           fetchPriority="high"
         />
 
-        {/* Subtle image shimmer */}
+        {/* Image shimmer */}
         <div
           aria-hidden="true"
           className="world-map-image-shimmer pointer-events-none absolute inset-0 z-10 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent motion-reduce:animate-none"
@@ -58,7 +83,16 @@ export default function WorldMapIllustration() {
                 title={card.title}
                 subtitle={card.subtitle}
                 Icon={Icon}
-                className="!static !z-auto !gap-2 !rounded-xl !border-0 !px-2 !py-2 shadow-[0_8px_24px_rgba(15,48,91,0.12)] transition-shadow duration-300 hover:shadow-[0_14px_32px_rgba(37,99,235,0.22)] sm:!gap-3 sm:!px-3 sm:!py-3"
+                className={[
+                  "!static !z-auto !gap-2 !rounded-xl",
+                  "!border-0 !px-2 !py-2",
+                  "shadow-[0_8px_24px_rgba(15,48,91,0.12)]",
+                  "transition-shadow duration-300",
+                  "hover:shadow-[0_14px_32px_rgba(37,99,235,0.22)]",
+                  "sm:!gap-3 sm:!px-3 sm:!py-3",
+                  "2xl:!gap-3 2xl:!px-4 2xl:!py-3",
+                  "min-[1920px]:!gap-4 min-[1920px]:!px-5 min-[1920px]:!py-4",
+                ].join(" ")}
               />
             </div>
           </div>

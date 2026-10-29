@@ -1,4 +1,3 @@
-
 import type {
   FeatureItemProps,
   FeatureIcon,
@@ -19,8 +18,23 @@ export default function FeatureItem({
   feature,
 }: FeatureItemProps) {
   return (
-    <article className="flex min-w-0 items-start gap-2.5">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+    <article
+      className="
+        flex min-w-0 items-start gap-2.5
+        sm:gap-3
+        lg:gap-3.5
+        2xl:gap-4
+      "
+    >
+      <div
+        className="
+          flex h-8 w-8 shrink-0 items-center justify-center
+          rounded-lg bg-blue-50 text-blue-600
+          sm:h-9 sm:w-9
+          lg:h-10 lg:w-10
+          2xl:h-12 2xl:w-12
+        "
+      >
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -28,7 +42,12 @@ export default function FeatureItem({
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="h-4 w-4"
+          className="
+            h-4 w-4
+            sm:h-[18px] sm:w-[18px]
+            lg:h-5 lg:w-5
+            2xl:h-6 2xl:w-6
+          "
           aria-hidden="true"
         >
           <path d={iconPaths[feature.icon]} />
@@ -36,11 +55,25 @@ export default function FeatureItem({
       </div>
 
       <div className="min-w-0">
-        <h3 className="text-[11px] font-bold leading-4 text-slate-800 sm:text-xs">
+        <h3
+          className="
+            text-[11px] font-bold leading-4 text-slate-800
+            sm:text-xs
+            lg:text-sm
+            2xl:text-base
+          "
+        >
           {feature.title}
         </h3>
 
-        <p className="mt-0.5 text-[10px] leading-[1.5] text-slate-500 sm:text-[11px]">
+        <p
+          className="
+            mt-0.5 text-[10px] leading-[1.5] text-slate-500
+            sm:text-[11px]
+            lg:text-xs
+            2xl:text-sm 2xl:leading-relaxed
+          "
+        >
           {feature.description}
         </p>
       </div>
