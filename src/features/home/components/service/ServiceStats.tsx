@@ -12,6 +12,8 @@ export default function ServiceStats({
         bg-gradient-to-r
         from-[#DFEBFF] via-[#F5F8FF] to-[#DFEBFF]
         sm:grid-cols-4
+        xl:rounded-2xl
+        2xl:rounded-3xl
       "
     >
       {stats.map((stat, index) => {
@@ -32,6 +34,9 @@ export default function ServiceStats({
               motion-safe:animate-service-reveal
               min-[480px]:gap-3 min-[480px]:px-3
               sm:justify-center sm:px-4 sm:py-5
+              xl:gap-4 xl:px-5 xl:py-6
+              2xl:gap-5 2xl:px-7 2xl:py-8
+              min-[1920px]:px-9 min-[1920px]:py-10
               ${
                 index % 2 === 0
                   ? "border-r border-[#D2E2F8] sm:border-r-0"
@@ -59,6 +64,9 @@ export default function ServiceStats({
                 group-hover:shadow-[0_4px_14px_rgba(22,112,245,0.16)]
                 min-[480px]:h-10 min-[480px]:w-10
                 sm:h-11 sm:w-11
+                xl:h-12 xl:w-12
+                2xl:h-14 2xl:w-14
+                min-[1920px]:h-16 min-[1920px]:w-16
               "
             >
               <Icon
@@ -68,6 +76,8 @@ export default function ServiceStats({
                   transition-transform duration-300
                   group-hover:scale-110
                   sm:h-[22px] sm:w-[22px]
+                  xl:h-6 xl:w-6
+                  2xl:h-7 2xl:w-7
                 "
                 strokeWidth={2.4}
               />
@@ -80,6 +90,9 @@ export default function ServiceStats({
                   font-lato text-lg font-bold
                   leading-tight tracking-tight text-[#10234B]
                   min-[480px]:text-xl sm:text-2xl
+                  xl:text-3xl
+                  2xl:text-4xl
+                  min-[1920px]:text-5xl
                 "
               >
                 {stat.value}
@@ -90,6 +103,9 @@ export default function ServiceStats({
                   mt-1 font-inter text-[10px] leading-4
                   text-[#526580]
                   min-[480px]:text-[11px] sm:text-xs
+                  xl:text-sm
+                  2xl:text-base 2xl:leading-6
+                  min-[1920px]:text-lg
                 "
               >
                 {stat.label}

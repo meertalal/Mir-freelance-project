@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Code2, Menu, X } from "lucide-react";
+
 import { navigationLinks } from "../../data/navigation";
 import type { NavbarProps } from "../../types/navigation";
 
@@ -29,7 +30,7 @@ export default function Navbar({
     };
   }, []);
 
-  // Desktop breakpoint: close the dropdown on large screens.
+  // Close mobile navigation when entering desktop screens.
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1280px)");
 
@@ -47,7 +48,7 @@ export default function Navbar({
     };
   }, []);
 
-  // Close the dropdown using Escape.
+  // Close dropdown with Escape.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -62,13 +63,13 @@ export default function Navbar({
     };
   }, []);
 
-  // Close the dropdown when a navigation link is selected.
+  // Close dropdown when a navigation link is selected.
   const handleNavigation = (href: string) => {
     setActiveLink(href);
     setMenuOpen(false);
   };
 
-  // Navigation links for desktop and dropdown menus.
+  // Navigation links for desktop and mobile.
   const renderLinks = (mobile = false) =>
     navigationLinks.map(({ label, href }) => {
       const isActive = activeLink === href;
@@ -81,29 +82,41 @@ export default function Navbar({
           aria-current={isActive ? "location" : undefined}
           className={[
             "whitespace-nowrap font-roboto-condensed",
-            "text-sm font-semibold tracking-wide",
+            "font-semibold tracking-wide",
             "transition-colors duration-300 ease-in-out",
             "focus-visible:outline-2 focus-visible:outline-offset-2",
             "focus-visible:outline-white",
+
             mobile
               ? [
                   "flex min-h-11 w-full items-center rounded-lg px-4",
+                  "text-sm",
                   "transition-[background-color,color,transform]",
                   "duration-300 ease-out",
                   "hover:translate-x-1",
-                  "hover:bg-white/10 hover:text-[#FFFFFF]",
-                  isActive ? "bg-white/10 text-[#FFFFFF]" : "text-white/85",
+                  "hover:bg-white/10 hover:text-white",
+                  isActive
+                    ? "bg-white/10 text-white"
+                    : "text-white/85",
                 ].join(" ")
               : [
-                  "relative flex min-h-10 items-center px-2",
-                  "after:absolute after:bottom-1 after:left-2",
-                  "after:right-2 after:h-0.5 after:rounded-full",
-                  "after:bg-[#FFFFFF]",
+                  "relative flex min-h-10 items-center justify-center",
+                  "px-2 2xl:px-3",
+                  "2xl:text-base",
+                  "min-[1920px]:min-h-12",
+                  "min-[1920px]:px-4",
+                  "min-[1920px]:text-lg",
+                  "min-[2560px]:px-5",
+                  "min-[2560px]:text-xl",
+                  "after:absolute after:bottom-1",
+                  "after:left-2 after:right-2",
+                  "after:h-0.5 after:rounded-full",
+                  "after:bg-white",
                   "after:origin-center after:transition-transform",
                   "after:duration-300 after:ease-out",
-                  "hover:text-[#FFFFFF]",
+                  "hover:text-white",
                   isActive
-                    ? "text-[#FFFFFF] after:scale-x-100"
+                    ? "text-white after:scale-x-100"
                     : "text-white/85 after:scale-x-0 hover:after:scale-x-100",
                 ].join(" "),
           ].join(" ")}
@@ -117,41 +130,68 @@ export default function Navbar({
   const ctaClasses = [
     "group inline-flex min-h-11 items-center justify-center gap-2",
     "rounded-lg bg-[#5882E8] px-4",
-    "font-playfair text-xs font-semibold text-[#000000]",
+    "font-playfair text-xs font-semibold text-black",
     "shadow-sm transition-all duration-300 ease-out",
-    "hover:-translate-y-0.5 hover:bg-[#092f87] hover:shadow-md",
+    "hover:-translate-y-0.5 hover:bg-[#7296f0] hover:shadow-md",
     "active:translate-y-0",
     "focus-visible:outline-2 focus-visible:outline-offset-4",
     "focus-visible:outline-white",
+    "2xl:min-h-12 2xl:gap-3 2xl:px-5 2xl:text-sm",
+    "min-[1920px]:min-h-14 min-[1920px]:gap-3",
+    "min-[1920px]:rounded-xl min-[1920px]:px-7",
+    "min-[1920px]:text-base",
+    "min-[2560px]:min-h-16 min-[2560px]:px-9",
+    "min-[2560px]:text-lg",
   ].join(" ");
 
   return (
     <header
       className={[
-        "sticky top-0 z-1000 w-full",
+        "sticky top-0 z-[1000] w-full",
         "transition-[padding] duration-500 ease-in-out",
-        isScrolled ? "px-2 pt-2 sm:px-4 lg:px-6" : "px-0 pt-0",
+        isScrolled
+          ? [
+              "px-2 pt-2",
+              "sm:px-4 lg:px-6",
+              "2xl:px-8",
+              "min-[1920px]:px-12",
+              "min-[2560px]:px-16",
+            ].join(" ")
+          : "px-0 pt-0",
       ].join(" ")}
     >
       <nav
         aria-label="Main navigation"
         className={[
           "relative mx-auto flex w-full items-center justify-between",
-          "gap-2 sm:gap-3 xl:gap-4",
+          "gap-2 sm:gap-3 xl:gap-4 2xl:gap-6",
+          "min-[1920px]:gap-10",
+          "min-[2560px]:gap-14",
           "border border-white/10 bg-[#092f58]",
           "backdrop-blur-xl",
           "transition-[max-width,min-height,border-radius,box-shadow,padding]",
           "duration-500 ease-in-out",
+
           isScrolled
             ? [
-                "min-h-14 max-w-280 rounded-full",
+                "min-h-14 max-w-[1600px] rounded-full",
                 "px-3 shadow-[0_8px_30px_rgba(15,23,42,0.25)]",
-                "sm:px-5",
+                "sm:px-5 lg:px-6 2xl:px-8",
+                "min-[1920px]:min-h-16 min-[1920px]:max-w-[1900px]",
+                "min-[1920px]:px-10",
+                "min-[2560px]:min-h-[76px]",
+                "min-[2560px]:max-w-[2200px]",
+                "min-[2560px]:px-14",
               ].join(" ")
             : [
                 "min-h-16 max-w-none rounded-none px-3",
-                "sm:min-h-18 sm:px-5",
-                "lg:px-6 xl:min-h-19 xl:px-8",
+                "sm:min-h-[72px] sm:px-5",
+                "lg:px-6 xl:min-h-[76px] xl:px-8",
+                "2xl:min-h-20 2xl:px-12",
+                "min-[1920px]:min-h-[92px]",
+                "min-[1920px]:px-16",
+                "min-[2560px]:min-h-[104px]",
+                "min-[2560px]:px-20",
               ].join(" "),
         ].join(" ")}
       >
@@ -161,8 +201,10 @@ export default function Navbar({
           onClick={() => handleNavigation("#home")}
           aria-label={`${brandName} - ${brandSubtitle}`}
           className={[
-            "group flex min-w-0 shrink items-center gap-2",
-            "sm:gap-2.5",
+            "group flex min-w-0 shrink-0 items-center gap-2",
+            "sm:gap-2.5 2xl:gap-3",
+            "min-[1920px]:gap-4",
+            "min-[2560px]:gap-5",
           ].join(" ")}
         >
           <Code2
@@ -170,7 +212,12 @@ export default function Navbar({
             className={[
               "shrink-0 text-[#5882E8]",
               "transition-transform duration-300 ease-out",
-              isScrolled ? "h-6 w-6" : "h-7 w-7 sm:h-8 sm:w-8",
+              isScrolled
+                ? "h-6 w-6"
+                : "h-7 w-7 sm:h-8 sm:w-8",
+              "2xl:h-9 2xl:w-9",
+              "min-[1920px]:h-10 min-[1920px]:w-10",
+              "min-[2560px]:h-12 min-[2560px]:w-12",
               "group-hover:scale-110",
             ].join(" ")}
             strokeWidth={2.5}
@@ -180,9 +227,13 @@ export default function Navbar({
             <span
               className={[
                 "truncate font-montserrat font-bold",
-                "tracking-tight text-[#FFFFFF]",
+                "tracking-tight text-white",
                 "transition-all duration-300 ease-in-out",
-                isScrolled ? "text-sm" : "text-sm sm:text-base",
+                isScrolled
+                  ? "text-sm 2xl:text-base"
+                  : "text-sm sm:text-base 2xl:text-lg",
+                "min-[1920px]:text-xl",
+                "min-[2560px]:text-2xl",
               ].join(" ")}
             >
               {brandName}
@@ -192,7 +243,11 @@ export default function Navbar({
               className={[
                 "truncate font-inter font-medium text-white/75",
                 "transition-all duration-300 ease-in-out",
-                isScrolled ? "text-[9px]" : "text-[9px] sm:text-[10px]",
+                isScrolled
+                  ? "text-[9px] 2xl:text-[10px]"
+                  : "text-[9px] sm:text-[10px] 2xl:text-xs",
+                "min-[1920px]:text-sm",
+                "min-[2560px]:text-base",
               ].join(" ")}
             >
               {brandSubtitle}
@@ -200,23 +255,36 @@ export default function Navbar({
           </span>
         </a>
 
-        {/* Desktop and laptop navigation: 1280px and wider */}
-        <div className="hidden flex-1 items-center justify-center gap-0.5 xl:flex 2xl:gap-1">
+        {/* Desktop navigation: 1280px and wider */}
+        <div
+          className={[
+            "hidden min-w-0 flex-1 items-center justify-center",
+            "gap-0.5 xl:flex 2xl:gap-1",
+            "min-[1920px]:gap-2",
+            "min-[2560px]:gap-3",
+          ].join(" ")}
+        >
           {renderLinks()}
         </div>
 
         {/* Desktop CTA */}
-        <div className="hidden shrink-0 items-center xl:ml-2 xl:flex">
+        <div className="hidden shrink-0 items-center xl:ml-2 xl:flex 2xl:ml-4 min-[1920px]:ml-6 min-[2560px]:ml-8">
           <a
             href="#contact"
             onClick={() => handleNavigation("#contact")}
             className={ctaClasses}
           >
             <span>{ctaLabel}</span>
+
             <ArrowRight
               aria-hidden="true"
               size={14}
-              className="transition-transform duration-300 group-hover:translate-x-1"
+              className={[
+                "transition-transform duration-300 group-hover:translate-x-1",
+                "2xl:h-4 2xl:w-4",
+                "min-[1920px]:h-5 min-[1920px]:w-5",
+                "min-[2560px]:h-6 min-[2560px]:w-6",
+              ].join(" ")}
             />
           </a>
         </div>
@@ -231,7 +299,7 @@ export default function Navbar({
           className={[
             "inline-flex h-10 w-10 shrink-0 items-center justify-center",
             "rounded-lg border border-white/15 bg-white/5",
-            "text-[#FFFFFF]",
+            "text-white",
             "transition-[background-color,border-color,transform]",
             "duration-300 ease-out",
             "hover:border-white/30 hover:bg-white/10",
@@ -254,7 +322,7 @@ export default function Navbar({
           </span>
         </button>
 
-        {/* Animated dropdown: all navigation links + Let's Talk */}
+        {/* Animated mobile and tablet dropdown */}
         <div
           id="mobile-navigation"
           aria-hidden={!menuOpen}
@@ -274,9 +342,11 @@ export default function Navbar({
               : "invisible -translate-y-2 scale-y-95 opacity-0",
           ].join(" ")}
         >
-          <div className="flex flex-col gap-1">{renderLinks(true)}</div>
+          <div className="flex flex-col gap-1">
+            {renderLinks(true)}
+          </div>
 
-          {/* Let's Talk stays inside the mobile/tablet dropdown */}
+          {/* CTA inside mobile and tablet dropdown */}
           <a
             href="#contact"
             tabIndex={menuOpen ? 0 : -1}
@@ -284,6 +354,7 @@ export default function Navbar({
             className={`${ctaClasses} mt-3 w-full`}
           >
             <span>{ctaLabel}</span>
+
             <ArrowRight
               aria-hidden="true"
               size={14}
