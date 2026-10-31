@@ -78,7 +78,7 @@ export default function ProjectCard({
           {showCaseStudyLink && (
             <Link
               to={project.href}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[#1670F5] hover:text-[#0f5fd4]"
+              className="inline-flex items-center gap-1 font-playfair text-xs font-semibold text-[#092F58] hover:text-[#5882E8]"
             >
               View Case Study
               <ArrowRight size={14} aria-hidden="true" />

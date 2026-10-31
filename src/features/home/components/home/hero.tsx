@@ -29,14 +29,19 @@ export default function HeroSection() {
           "max-w-[1248px] grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]",
           "items-center gap-6 py-10",
           "xl:min-h-[calc(100svh-76px)]",
-          "xl:gap-8 xl:py-[clamp(2rem,5vh,4rem)]",
-          "2xl:w-[calc(100%-5rem)] 2xl:max-w-[1600px]",
-          "2xl:gap-10",
-          "min-[1920px]:w-[calc(100%-8rem)]",
-          "min-[1920px]:max-w-[1840px]",
-          "min-[1920px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]",
-          "min-[1920px]:gap-14",
-          "min-[2560px]:max-w-[2100px] min-[2560px]:gap-20",
+          "xl:max-w-[1360px] xl:gap-8 xl:py-[clamp(2rem,5vh,4rem)]",
+          "2xl:w-[calc(100%-5rem)] 2xl:max-w-[1680px]",
+          "2xl:min-h-[calc(100svh-80px)] 2xl:gap-12",
+          "min-[1920px]:w-[calc(100%-6rem)]",
+          "min-[1920px]:max-w-[2000px]",
+          "min-[1920px]:min-h-[calc(100svh-92px)]",
+          "min-[1920px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]",
+          "min-[1920px]:gap-16",
+          "min-[1920px]:py-[clamp(2.5rem,6vh,5.5rem)]",
+          "min-[2560px]:w-[calc(100%-10rem)]",
+          "min-[2560px]:max-w-[2400px]",
+          "min-[2560px]:min-h-[calc(100svh-104px)]",
+          "min-[2560px]:gap-24",
           "max-[1279px]:min-h-0",
           "max-[767px]:w-[calc(100%-2rem)]",
           "max-[767px]:grid-cols-1 max-[767px]:gap-2 max-[767px]:py-5",
@@ -44,7 +49,7 @@ export default function HeroSection() {
         ].join(" ")}
       >
         {/* LEFT: Content */}
-        <div className="relative z-10 min-w-0 xl:py-4 2xl:py-6">
+        <div className="relative z-10 min-w-0 xl:py-4 2xl:py-6 min-[1920px]:py-8 min-[2560px]:py-10">
           {/* Eyebrow */}
           <div className="mb-5 flex w-full max-w-max items-center gap-3 motion-safe:animate-[heroReveal_700ms_cubic-bezier(0.22,1,0.36,1)_both] 2xl:mb-6 max-[767px]:mb-3 max-[420px]:gap-2">
             <span
@@ -70,11 +75,12 @@ export default function HeroSection() {
               "text-[clamp(2rem,3.2vw,2.9rem)] leading-[1.08]",
               "tracking-[-0.045em] text-[#10234b]",
               "motion-safe:animate-[heroReveal_850ms_cubic-bezier(0.22,1,0.36,1)_120ms_both]",
-              "2xl:max-w-[740px]",
-              "2xl:text-[clamp(3rem,3.1vw,3.8rem)]",
-              "min-[1920px]:max-w-[850px]",
-              "min-[1920px]:text-[clamp(3.5rem,2.8vw,4.5rem)]",
-              "min-[2560px]:text-[4.75rem]",
+              "2xl:max-w-[780px]",
+              "2xl:text-[clamp(3.1rem,3.2vw,4rem)]",
+              "min-[1920px]:max-w-[920px]",
+              "min-[1920px]:text-[clamp(3.8rem,3vw,5rem)]",
+              "min-[2560px]:max-w-[1100px]",
+              "min-[2560px]:text-[5.5rem]",
               "max-[767px]:mb-3",
               "max-[420px]:text-[clamp(1.65rem,8vw,2.15rem)]",
             ].join(" ")}
@@ -94,8 +100,9 @@ export default function HeroSection() {
               "mb-5 max-w-[490px] font-inter text-xs",
               "leading-[1.8] text-slate-700",
               "motion-safe:animate-[heroReveal_800ms_cubic-bezier(0.22,1,0.36,1)_240ms_both]",
-              "2xl:mb-6 2xl:max-w-[600px] 2xl:text-sm",
-              "min-[1920px]:max-w-[690px] min-[1920px]:text-base",
+              "2xl:mb-6 2xl:max-w-[640px] 2xl:text-base",
+              "min-[1920px]:max-w-[760px] min-[1920px]:text-lg min-[1920px]:leading-8",
+              "min-[2560px]:max-w-[880px] min-[2560px]:text-xl min-[2560px]:leading-9",
               "max-[767px]:mb-4 max-[767px]:text-[13px]",
               "max-[420px]:text-[12px] max-[420px]:leading-[1.65]",
             ].join(" ")}
@@ -108,7 +115,7 @@ export default function HeroSection() {
           {/* Buttons */}
           <div className="flex flex-wrap items-center gap-3 motion-safe:animate-[heroReveal_800ms_cubic-bezier(0.22,1,0.36,1)_340ms_both] 2xl:gap-4 max-[420px]:gap-2">
             <a
-              href="#contact"
+              href="/contact"
               className={[
                 "group inline-flex min-h-12 items-center justify-center gap-4",
                 "rounded-xl border border-[#092f58] bg-[#092f58] px-6",
@@ -120,6 +127,8 @@ export default function HeroSection() {
                 "focus-visible:outline-2 focus-visible:outline-offset-4",
                 "focus-visible:outline-[#5882E8] motion-reduce:transition-none",
                 "2xl:min-h-14 2xl:px-8 2xl:text-sm",
+                "min-[1920px]:min-h-16 min-[1920px]:px-10 min-[1920px]:text-base",
+                "min-[2560px]:min-h-[4.25rem] min-[2560px]:px-12 min-[2560px]:text-lg",
                 "max-[420px]:min-h-10 max-[420px]:gap-2",
                 "max-[420px]:rounded-lg max-[420px]:px-3 max-[420px]:text-[10px]",
               ].join(" ")}
@@ -133,7 +142,7 @@ export default function HeroSection() {
             </a>
 
             <a
-              href="#portfolio"
+              href="/portfolio"
               className={[
                 "inline-flex min-h-12 items-center justify-center rounded-xl",
                 "border border-slate-200 bg-white/95 px-6",
@@ -144,6 +153,8 @@ export default function HeroSection() {
                 "focus-visible:outline-2 focus-visible:outline-offset-4",
                 "focus-visible:outline-[#5882E8] motion-reduce:transition-none",
                 "2xl:min-h-14 2xl:px-8 2xl:text-sm",
+                "min-[1920px]:min-h-16 min-[1920px]:px-10 min-[1920px]:text-base",
+                "min-[2560px]:min-h-[4.25rem] min-[2560px]:px-12 min-[2560px]:text-lg",
                 "max-[420px]:min-h-10 max-[420px]:rounded-lg",
                 "max-[420px]:px-3 max-[420px]:text-[10px]",
               ].join(" ")}
@@ -153,7 +164,7 @@ export default function HeroSection() {
           </div>
 
           {/* Trust information */}
-          <div className="hero-trust-grid mt-7 grid grid-cols-3 gap-3 2xl:mt-9 2xl:gap-5 min-[1920px]:gap-7 max-[767px]:mt-5 max-[767px]:gap-2 max-[420px]:gap-1">
+          <div className="hero-trust-grid mt-7 grid grid-cols-3 gap-3 2xl:mt-10 2xl:gap-6 min-[1920px]:mt-12 min-[1920px]:gap-8 min-[2560px]:gap-10 max-[767px]:mt-5 max-[767px]:gap-2 max-[420px]:gap-1">
             {trustItems.map(({ title, description, Icon }, index) => (
               <div
                 key={title}

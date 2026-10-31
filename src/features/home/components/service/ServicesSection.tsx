@@ -141,12 +141,12 @@ export default function ServicesSection({
           <a
             href={allServicesHref}
             className="
-              group mt-3 inline-flex items-center gap-2
+              group mt-3 hidden items-center gap-2
               font-playfair text-xs font-semibold text-[#092F58]
               transition-colors duration-300 hover:text-[#5882E8]
               focus-visible:outline-none focus-visible:ring-2
               focus-visible:ring-[#5882E8] focus-visible:ring-offset-4
-              sm:absolute sm:right-0 sm:top-1 sm:mt-0
+              md:absolute md:right-0 md:top-1 md:mt-0 md:inline-flex
               xl:top-2 xl:text-sm
               2xl:text-base
             "
@@ -167,11 +167,10 @@ export default function ServicesSection({
         {/* Responsive service cards */}
         <div
           className="
-            grid grid-cols-2 items-stretch gap-3
-            min-[480px]:gap-4
-            sm:grid-cols-2 sm:gap-4
-            lg:grid-cols-4 lg:gap-5
-            xl:gap-6
+            grid grid-cols-1 items-stretch gap-3
+            min-[480px]:gap-3.5
+            md:grid-cols-2 md:gap-4
+            xl:grid-cols-4 xl:gap-6
             2xl:gap-7
             min-[1920px]:gap-8
             min-[2560px]:gap-10

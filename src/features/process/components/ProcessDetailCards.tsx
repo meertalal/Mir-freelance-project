@@ -1,11 +1,15 @@
 import { Check } from "lucide-react";
 import { processSteps } from "../../../data/site.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
+import {
+  innerContainerClass,
+  innerSectionClass,
+} from "../../../components/shared/section.styles";
 
 export default function ProcessDetailCards() {
   return (
-    <section className="w-full bg-[#F7FAFF] px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
+    <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
+      <div className={innerContainerClass}>
         <SectionHeading
           title="How We Work at Every Stage"
           description="Each stage has clear activities, deliverables, and checkpoints."
@@ -20,10 +24,10 @@ export default function ProcessDetailCards() {
                 style={{ animationDelay: `${index * 80}ms` }}
                 className="flex h-full flex-col rounded-2xl border border-[#D6E4F7] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg motion-safe:animate-page-reveal"
               >
-                <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1670F5] text-white">
+                <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EAF2FF] text-[#1670F5]">
                   <Icon size={22} aria-hidden="true" />
                 </span>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#1670F5]">
+                <p className="font-playfair text-[10px] font-bold uppercase tracking-wider text-[#092F58]">
                   Step {step.step}
                 </p>
                 <h3 className="mt-1 font-montserrat text-base font-bold text-[#10234B]">

@@ -42,8 +42,8 @@ export default function WhyChooseSection({
     );
 
   return (
-    <section className="w-full bg-slate-50 px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-14 2xl:max-w-[1600px]">
+    <section className="relative isolate w-full overflow-hidden bg-[#F7FAFF] px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
+      <div className="mx-auto grid w-full max-w-[1280px] items-center gap-10 lg:grid-cols-2 lg:gap-14 min-[1440px]:max-w-[1360px]">
         <div>
           <SectionHeading
             eyebrow={eyebrow}

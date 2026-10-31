@@ -22,8 +22,8 @@ export default function FeaturedProjects({
   const items = sharedProjects.slice(0, limit);
 
   return (
-    <section className="w-full bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
+    <section className="relative isolate w-full overflow-hidden bg-white px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
+      <div className="mx-auto w-full max-w-[1280px] min-[1440px]:max-w-[1360px]">
         <SectionHeading
           title={title}
           description={description}
