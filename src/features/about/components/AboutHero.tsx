@@ -1,19 +1,24 @@
 import { aboutHero, aboutTrust } from "../data/about-page.data";
 import LinkButton from "../../../components/ui/LinkButton";
 import TrustRow from "../../../components/shared/TrustRow";
+import PageEyebrow from "../../../components/shared/PageEyebrow";
+import {
+  innerContainerClass,
+  innerSectionClass,
+  pageHeroDescClass,
+  pageHeroTitleClass,
+} from "../../../components/shared/section.styles";
 
 export default function AboutHero() {
   return (
-    <section className="relative isolate overflow-hidden bg-white px-4 py-10 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 2xl:max-w-[1600px]">
+    <section className={`${innerSectionClass} bg-white`}>
+      <div className={`${innerContainerClass} grid items-center gap-10 lg:grid-cols-2`}>
         <div className="motion-safe:animate-page-reveal">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#1670F5] sm:text-xs">
-            {aboutHero.eyebrow}
-          </p>
-          <h1 className="max-w-xl font-georgia text-3xl font-bold leading-[1.15] text-[#10234B] sm:text-4xl lg:text-5xl">
+          <PageEyebrow>{aboutHero.eyebrow}</PageEyebrow>
+          <h1 className={pageHeroTitleClass}>
             {aboutHero.title}
           </h1>
-          <p className="mt-4 max-w-lg font-inter text-sm leading-relaxed text-slate-600 sm:text-base">
+          <p className={pageHeroDescClass}>
             {aboutHero.description}
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
@@ -22,7 +27,7 @@ export default function AboutHero() {
             </LinkButton>
             <a
               href="#our-story"
-              className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 text-xs font-bold uppercase tracking-wide text-[#092f58] transition hover:-translate-y-0.5 hover:border-[#1670F5] hover:bg-[#f0f5ff] sm:min-h-12 sm:px-6 sm:text-sm"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-200 bg-white/95 px-5 font-inter text-xs font-bold uppercase tracking-wide text-[#092f58] transition hover:-translate-y-0.5 hover:border-[#5882E8] sm:min-h-12 sm:px-6 sm:text-sm"
             >
               Our Story
             </a>

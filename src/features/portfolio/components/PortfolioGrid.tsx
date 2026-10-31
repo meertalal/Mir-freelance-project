@@ -18,8 +18,8 @@ export default function PortfolioGrid() {
   }, [active]);
 
   return (
-    <section className="w-full bg-[#F7FAFF] px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
+    <section className="relative isolate w-full overflow-hidden bg-[#F7FAFF] px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
+      <div className="mx-auto w-full max-w-[1280px] min-[1440px]:max-w-[1360px]">
         <SectionHeading
           title="Featured Projects"
           description="Filter by category to explore selected case studies."
@@ -34,8 +34,8 @@ export default function PortfolioGrid() {
               className={[
                 "rounded-full px-4 py-2 text-xs font-semibold transition sm:text-sm",
                 active === filter.id
-                  ? "bg-[#1670F5] text-white shadow-md"
-                  : "border border-slate-200 bg-white text-slate-600 hover:border-[#1670F5] hover:text-[#1670F5]",
+                  ? "bg-[#092f58] text-white shadow-md"
+                  : "border border-slate-200 bg-white font-inter text-slate-600 hover:border-[#5882E8] hover:text-[#092f58]",
               ].join(" ")}
             >
               {filter.label}

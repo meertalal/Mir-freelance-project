@@ -1,16 +1,20 @@
 import { contactWhy } from "../data/contact-page.data";
+import SectionHeader from "../../../components/shared/SectionHeader";
+import {
+  innerContainerClass,
+  innerSectionClass,
+} from "../../../components/shared/section.styles";
 
 export default function ContactWhy() {
   return (
-    <section className="w-full bg-slate-50 px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
-      <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12 2xl:max-w-[1600px]">
+    <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
+      <div className={`${innerContainerClass} grid items-center gap-8 lg:grid-cols-2 lg:gap-12`}>
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#1670F5] sm:text-xs">
-            Why Businesses Choose Us
-          </p>
-          <h2 className="mt-2 font-georgia text-3xl font-bold text-[#10234B] sm:text-4xl">
-            A Partner Focused on Outcomes
-          </h2>
+          <SectionHeader
+            align="left"
+            eyebrow="Why Businesses Choose Us"
+            title="A Partner Focused on Outcomes"
+          />
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {contactWhy.map(({ id, title, description, Icon }) => (
               <div

@@ -1,26 +1,33 @@
 import { servicesHero, servicesTrust } from "../data/services-page.data";
 import LinkButton from "../../../components/ui/LinkButton";
 import TrustRow from "../../../components/shared/TrustRow";
+import PageEyebrow from "../../../components/shared/PageEyebrow";
+import {
+  innerContainerClass,
+  innerSectionClass,
+  pageHeroDescClass,
+  pageHeroTitleClass,
+} from "../../../components/shared/section.styles";
 
 export default function ServicesHero() {
   const { eyebrow, titleBefore, highlightRed, titleMid, highlightBlue, titleAfter, description, image, floatingCards } =
     servicesHero;
 
   return (
-    <section className="relative isolate overflow-hidden bg-white px-4 py-10 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-12 2xl:max-w-[1600px]">
+    <section className={`${innerSectionClass} bg-white`}>
+      <div className={`${innerContainerClass} grid items-center gap-10 lg:grid-cols-2 lg:gap-12`}>
         <div className="motion-safe:animate-page-reveal">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#1670F5] sm:text-xs">
-            {eyebrow}
-          </p>
-          <h1 className="max-w-xl font-georgia text-3xl font-bold leading-[1.15] tracking-tight text-[#10234B] sm:text-4xl lg:text-5xl 2xl:text-6xl">
+          <PageEyebrow>{eyebrow}</PageEyebrow>
+          <h1 className={pageHeroTitleClass}>
             {titleBefore}
             <span className="text-[#E11D48]">{highlightRed}</span>
             {titleMid}
-            <span className="text-[#1670F5]">{highlightBlue}</span>
+            <span className="bg-gradient-to-r from-[#092f58] via-[#2563eb] to-[#5882E8] bg-clip-text text-transparent">
+              {highlightBlue}
+            </span>
             {titleAfter}
           </h1>
-          <p className="mt-4 max-w-lg font-inter text-sm leading-relaxed text-slate-600 sm:text-base">
+          <p className={pageHeroDescClass}>
             {description}
           </p>
           <div className="mt-7 flex flex-wrap gap-3">

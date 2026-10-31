@@ -1,27 +1,21 @@
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { teamMembers } from "../data/about-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
+import {
+  innerContainerClass,
+  innerSectionClass,
+} from "../../../components/shared/section.styles";
 
 export default function TeamSection() {
   return (
-    <section className="w-full bg-slate-50 px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading
-            title="Our Team"
-            description="People who care about craft, clarity, and client outcomes."
-            align="left"
-            className="mb-0"
-          />
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#1670F5] hover:text-[#0f5fd4]"
-          >
-            Join Our Team
-            <ArrowRight size={14} />
-          </Link>
-        </div>
+    <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
+      <div className={innerContainerClass}>
+        <SectionHeading
+          title="Our Team"
+          description="People who care about craft, clarity, and client outcomes."
+          align="left"
+          actionLabel="Join Our Team"
+          actionHref="/contact"
+        />
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {teamMembers.map((member) => (
@@ -45,7 +39,7 @@ export default function TeamSection() {
                         key={social.id}
                         href={social.href}
                         aria-label={social.id}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF2FF] text-[#1670F5] hover:bg-[#1670F5] hover:text-white"
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF2FF] text-[#1670F5] hover:bg-[#092f58] hover:text-white"
                       >
                         <Icon size={14} />
                       </a>

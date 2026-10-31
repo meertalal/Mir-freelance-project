@@ -2,11 +2,15 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { sharedServices } from "../../../data/site.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
+import {
+  innerContainerClass,
+  innerSectionClass,
+} from "../../../components/shared/section.styles";
 
 export default function ServicesGrid() {
   return (
-    <section className="w-full bg-[#EAF2FF] px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
+    <section className={`${innerSectionClass} bg-[#EAF2FF]`}>
+      <div className={innerContainerClass}>
         <SectionHeading
           title="End-to-End Digital Solutions"
           description="From idea to deployment, complete development and AI automation services."
@@ -24,7 +28,7 @@ export default function ServicesGrid() {
                 <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#EAF2FF] text-[#1670F5] transition group-hover:scale-110">
                   <Icon size={22} aria-hidden="true" />
                 </span>
-                <h3 className="font-georgia text-base font-bold text-[#10234B] sm:text-lg">
+                <h3 className="font-montserrat text-base font-bold text-[#10234B] sm:text-lg">
                   {service.title}
                 </h3>
                 <p className="mt-2 flex-1 font-inter text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -32,7 +36,7 @@ export default function ServicesGrid() {
                 </p>
                 <Link
                   to={service.href}
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#092F58] hover:text-[#1670F5] sm:text-sm"
+                  className="mt-4 inline-flex items-center gap-1.5 font-playfair text-xs font-semibold text-[#092F58] transition-colors hover:text-[#5882E8] sm:text-sm"
                 >
                   Learn More
                   <ArrowRight
