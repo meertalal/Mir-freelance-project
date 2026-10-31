@@ -1,5 +1,6 @@
 import { techStack } from "../../data/site.data";
 import SectionHeading from "./SectionHeading";
+import { innerContainerClass, innerSectionClass } from "./section.styles";
 
 type TechStackProps = {
   title?: string;
@@ -13,8 +14,8 @@ export default function TechStack({
   const loop = [...techStack, ...techStack];
 
   return (
-    <section className="w-full overflow-hidden bg-[#F7FAFF] px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
+    <section className={`${innerSectionClass} overflow-hidden bg-[#F7FAFF]`}>
+      <div className={innerContainerClass}>
         <SectionHeading title={title} description={description} />
 
         <div className="relative overflow-hidden">

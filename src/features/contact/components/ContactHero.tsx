@@ -1,10 +1,17 @@
 import { contactHero, contactTrust } from "../data/contact-page.data";
 import TrustRow from "../../../components/shared/TrustRow";
+import PageEyebrow from "../../../components/shared/PageEyebrow";
 import ContactForm from "./ContactForm";
+import {
+  innerContainerClass,
+  innerSectionClass,
+  pageHeroDescClass,
+  pageHeroTitleClass,
+} from "../../../components/shared/section.styles";
 
 export default function ContactHero() {
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-br from-white via-[#F7FAFF] to-[#EAF2FF] px-4 py-10 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
+    <section className={`${innerSectionClass} bg-gradient-to-br from-white via-[#F7FAFF] to-[#EAF2FF]`}>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-40"
@@ -16,15 +23,13 @@ export default function ContactHero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-10 lg:grid-cols-2 2xl:max-w-[1600px]">
+      <div className={`relative z-10 ${innerContainerClass} grid items-start gap-10 lg:grid-cols-2`}>
         <div className="motion-safe:animate-page-reveal">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#1670F5] sm:text-xs">
-            {contactHero.eyebrow}
-          </p>
-          <h1 className="max-w-xl font-georgia text-3xl font-bold leading-[1.15] text-[#10234B] sm:text-4xl lg:text-5xl">
+          <PageEyebrow>{contactHero.eyebrow}</PageEyebrow>
+          <h1 className={pageHeroTitleClass}>
             {contactHero.title}
           </h1>
-          <p className="mt-4 max-w-lg font-inter text-sm leading-relaxed text-slate-600 sm:text-base">
+          <p className={pageHeroDescClass}>
             {contactHero.description}
           </p>
           <TrustRow items={contactTrust} className="mt-7" />
@@ -40,7 +45,7 @@ export default function ContactHero() {
             <div className="absolute -right-2 top-6 rounded-xl bg-white px-3 py-2 text-xs font-bold text-[#10234B] shadow-md motion-safe:animate-float-soft">
               Let's Talk
             </div>
-            <div className="absolute -left-2 bottom-8 max-w-[180px] rounded-xl bg-[#1670F5] px-3 py-2 text-[11px] font-semibold text-white shadow-md">
+            <div className="absolute -left-2 bottom-8 max-w-[180px] rounded-xl bg-[#092f58] px-3 py-2 text-[11px] font-semibold text-white shadow-md">
               Turn Ideas Into Digital Success
             </div>
           </div>

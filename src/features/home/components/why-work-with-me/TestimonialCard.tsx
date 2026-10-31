@@ -1,39 +1,68 @@
-
-import type { TestimonialCardProps } from "../../types/why-work.types";
+import { useState, type TouchEvent } from "react";
+import type { Testimonial, TestimonialCardProps } from "../../types/why-work.types";
 import StarRating from "./StarRating";
 
-export default function TestimonialCard({
-  testimonial,
-  onPrevious,
-  onNext,
-  currentIndex,
-  totalTestimonials,
-  onSelect,
-}: TestimonialCardProps) {
+function authorInitials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+function TestimonialAvatar({
+  src,
+  author,
+}: {
+  src: string;
+  author: string;
+}) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed || !src) {
+    return (
+      <span
+        aria-hidden="true"
+        className="
+          flex h-10 w-10 shrink-0 items-center justify-center
+          rounded-full bg-[#EAF2FF] font-montserrat text-[11px]
+          font-bold text-[#1670F5]
+          sm:h-11 sm:w-11 sm:text-xs
+          lg:h-12 lg:w-12
+          2xl:h-14 2xl:w-14 2xl:text-sm
+        "
+      >
+        {authorInitials(author)}
+      </span>
+    );
+  }
+
   return (
-    <article
+    <img
+      src={src}
+      alt={author}
+      loading="lazy"
+      onError={() => setFailed(true)}
       className="
-        relative flex min-w-0 w-full flex-col justify-between
-        min-h-[225px]
-        rounded-xl border border-slate-100 bg-white
-        p-4
-        shadow-[0_8px_30px_rgba(15,23,42,0.04)]
-        transition-shadow duration-300
-        hover:shadow-[0_14px_40px_rgba(15,23,42,0.08)]
-        sm:min-h-[250px] sm:rounded-2xl sm:p-5
-        lg:min-h-[280px] lg:p-6
-        xl:min-h-[300px] xl:p-7
-        2xl:min-h-[320px] 2xl:p-9
-        min-[2560px]:min-h-[360px]
-        min-[2560px]:p-10
+        h-10 w-10 shrink-0 rounded-full object-cover
+        ring-1 ring-slate-100
+        sm:h-11 sm:w-11
+        lg:h-12 lg:w-12
+        2xl:h-14 2xl:w-14
       "
-    >
-      {/* Testimonial quote */}
+    />
+  );
+}
+
+function Slide({ testimonial }: { testimonial: Testimonial }) {
+  return (
+    <div className="flex w-full shrink-0 flex-col px-4 sm:px-5 lg:px-6 xl:px-7 2xl:px-9">
       <div className="min-w-0">
         <span
           aria-hidden="true"
           className="
-            block h-7 text-4xl font-bold leading-none text-blue-200
+            block h-7 font-georgia text-4xl font-bold leading-none text-blue-200
             sm:h-8 sm:text-5xl
             lg:h-9 lg:text-6xl
             2xl:h-11 2xl:text-7xl
@@ -45,63 +74,25 @@ export default function TestimonialCard({
         <p
           className="
             mt-1 break-words
-            text-xs italic leading-relaxed text-slate-700
+            font-georgia text-xs italic leading-relaxed text-slate-700
             sm:text-[13px]
             lg:text-sm lg:leading-7
             xl:text-base
             2xl:text-lg 2xl:leading-8
-            min-[2560px]:text-xl
           "
         >
           {testimonial.quote}
         </p>
       </div>
 
-      {/* Client information and rating */}
-      <div
-        className="
-          mt-5 flex min-w-0 items-center gap-2.5
-          sm:mt-6 sm:gap-3
-          lg:mt-7 lg:gap-4
-          2xl:mt-9 2xl:gap-5
-        "
-      >
-        <img
-          src={testimonial.avatar}
-          alt={testimonial.author}
-          loading="lazy"
-          className="
-            h-9 w-9 shrink-0 rounded-full object-cover
-            ring-1 ring-slate-100
-            sm:h-10 sm:w-10
-            lg:h-12 lg:w-12
-            2xl:h-14 2xl:w-14
-            min-[2560px]:h-16 min-[2560px]:w-16
-          "
-        />
+      <div className="mt-3 flex min-w-0 items-center gap-3 sm:mt-4 lg:mt-5 2xl:mt-7">
+        <TestimonialAvatar src={testimonial.avatar} author={testimonial.author} />
 
-        <div className="min-w-0 flex-1">
-          <h3
-            className="
-              truncate text-[11px] font-bold text-slate-800
-              sm:text-xs
-              lg:text-sm
-              2xl:text-base
-              min-[2560px]:text-lg
-            "
-          >
+        <div className="min-w-0 flex-1 overflow-hidden">
+          <h3 className="truncate font-montserrat text-[11px] font-bold text-slate-800 sm:text-xs lg:text-sm 2xl:text-base">
             {testimonial.author}
           </h3>
-
-          <p
-            className="
-              mt-0.5 break-words text-[9px] leading-relaxed
-              text-slate-500
-              sm:text-[10px]
-              lg:text-xs
-              2xl:text-sm
-            "
-          >
+          <p className="mt-0.5 truncate font-lato text-[9px] leading-relaxed text-slate-500 sm:text-[10px] lg:text-xs 2xl:text-sm">
             {testimonial.role}, {testimonial.company}
           </p>
         </div>
@@ -110,33 +101,81 @@ export default function TestimonialCard({
           <StarRating rating={testimonial.rating} />
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* Carousel navigation */}
+export default function TestimonialCard({
+  testimonials,
+  onPrevious,
+  onNext,
+  currentIndex,
+  onSelect,
+}: TestimonialCardProps) {
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const total = testimonials.length;
+  const safeIndex = total > 0 ? currentIndex % total : 0;
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    setTouchStartX(event.touches[0]?.clientX ?? null);
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartX == null) return;
+    const delta = (event.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
+    setTouchStartX(null);
+    if (delta > 48) onPrevious();
+    if (delta < -48) onNext();
+  };
+
+  return (
+    <article
+      className="
+        relative flex min-w-0 w-full flex-col
+        overflow-hidden rounded-2xl border border-slate-100 bg-white
+        py-3
+        shadow-[0_8px_30px_rgba(15,23,42,0.04)]
+        sm:rounded-2xl sm:py-4
+        lg:py-5
+        xl:py-7
+        2xl:py-9
+      "
+    >
       <div
-        className="
-          mt-5 flex items-center justify-between
-          border-t border-slate-100 pt-3
-          sm:mt-6 sm:pt-4
-          lg:mt-7
-          2xl:mt-8 2xl:pt-5
-        "
+        className="overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
-        {/* Previous button */}
+        <div
+          className="
+            flex
+            transition-transform duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            motion-reduce:transition-none
+          "
+          style={{ transform: `translateX(-${safeIndex * 100}%)` }}
+        >
+          {testimonials.map((testimonial) => (
+            <Slide key={testimonial.id} testimonial={testimonial} />
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between border-t border-slate-100 px-4 pt-2.5 sm:mt-4 sm:px-5 sm:pt-3 lg:mt-5 lg:px-6 xl:mt-7 2xl:mt-8 2xl:px-9 2xl:pt-5">
         <button
           type="button"
           onClick={onPrevious}
           aria-label="Previous testimonial"
           className="
-            inline-flex h-8 w-8 shrink-0 items-center justify-center
-            rounded-full text-slate-500
-            transition-colors duration-200
-            hover:bg-blue-50 hover:text-blue-600
+            inline-flex h-9 w-9 shrink-0 items-center justify-center
+            rounded-full border border-slate-200 text-slate-500
+            transition duration-200
+            hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600
             active:scale-95
-            focus-visible:outline-2
-            focus-visible:outline-offset-2
+            focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-blue-600
-            sm:h-9 sm:w-9
-            lg:h-10 lg:w-10
+            sm:h-10 sm:w-10
+            lg:h-11 lg:w-11
             2xl:h-12 2xl:w-12
           "
         >
@@ -145,7 +184,7 @@ export default function TestimonialCard({
             fill="none"
             stroke="currentColor"
             strokeWidth="1.8"
-            className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6"
+            className="h-4 w-4 sm:h-5 sm:w-5"
             aria-hidden="true"
           >
             <path
@@ -156,61 +195,45 @@ export default function TestimonialCard({
           </svg>
         </button>
 
-        {/* Testimonial pagination */}
         <div
-          className="
-            flex min-w-0 flex-1 items-center justify-center
-            gap-1.5 px-2
-            sm:gap-2
-            2xl:gap-2.5
-          "
+          className="flex min-w-0 flex-1 items-center justify-center gap-1.5 px-2 sm:gap-2"
           aria-label="Testimonial pagination"
         >
-          {Array.from(
-            { length: totalTestimonials },
-            (_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => onSelect(index)}
-                aria-label={`Go to testimonial ${index + 1}`}
-                aria-current={
-                  currentIndex === index ? "true" : undefined
+          {testimonials.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onSelect(index)}
+              aria-label={`Go to testimonial ${index + 1}`}
+              aria-current={safeIndex === index ? "true" : undefined}
+              className={`
+                h-1.5 shrink-0 rounded-full transition-all duration-300
+                focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-blue-600 sm:h-2
+                ${
+                  safeIndex === index
+                    ? "w-5 bg-blue-500 sm:w-6 2xl:w-8"
+                    : "w-1.5 bg-blue-200 hover:bg-blue-400 sm:w-2"
                 }
-                className={`
-                  h-1.5 shrink-0 rounded-full
-                  transition-all duration-300
-                  focus-visible:outline-2
-                  focus-visible:outline-offset-2
-                  focus-visible:outline-blue-600
-                  sm:h-2
-                  ${
-                    currentIndex === index
-                      ? "w-4 bg-blue-500 sm:w-6 2xl:w-8"
-                      : "w-1.5 bg-blue-200 hover:bg-blue-400 sm:w-2"
-                  }
-                `}
-              />
-            )
-          )}
+              `}
+            />
+          ))}
         </div>
 
-        {/* Next button */}
         <button
           type="button"
           onClick={onNext}
           aria-label="Next testimonial"
           className="
-            inline-flex h-8 w-8 shrink-0 items-center justify-center
-            rounded-full text-slate-500
-            transition-colors duration-200
-            hover:bg-blue-50 hover:text-blue-600
+            inline-flex h-9 w-9 shrink-0 items-center justify-center
+            rounded-full border border-slate-200 text-slate-500
+            transition duration-200
+            hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600
             active:scale-95
-            focus-visible:outline-2
-            focus-visible:outline-offset-2
+            focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-blue-600
-            sm:h-9 sm:w-9
-            lg:h-10 lg:w-10
+            sm:h-10 sm:w-10
+            lg:h-11 lg:w-11
             2xl:h-12 2xl:w-12
           "
         >
@@ -219,7 +242,7 @@ export default function TestimonialCard({
             fill="none"
             stroke="currentColor"
             strokeWidth="1.8"
-            className="h-4 w-4 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6"
+            className="h-4 w-4 sm:h-5 sm:w-5"
             aria-hidden="true"
           >
             <path

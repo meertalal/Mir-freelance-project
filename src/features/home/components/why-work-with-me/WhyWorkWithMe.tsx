@@ -1,7 +1,7 @@
-
 import { useState } from "react";
 import FeatureItem from "./FeatureItem";
 import TestimonialCard from "./TestimonialCard";
+import SectionHeader from "../Works/SectionHeader";
 import {
   workFeatures,
   testimonials,
@@ -34,8 +34,6 @@ export default function WhyWorkWithMe() {
     }
   };
 
-  const activeTestimonial = testimonials[currentIndex];
-
   return (
     <section
       id="why-work-with-me"
@@ -51,7 +49,6 @@ export default function WhyWorkWithMe() {
         min-[2560px]:px-24 min-[2560px]:py-28
       "
     >
-      {/* Optional decorative background glow */}
       <div
         aria-hidden="true"
         className="
@@ -64,98 +61,64 @@ export default function WhyWorkWithMe() {
 
       <div
         className="
-          relative z-10 mx-auto grid w-full
-          max-w-6xl grid-cols-1 items-center
-          gap-8
-          md:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]
-          md:gap-10
-          lg:max-w-7xl lg:gap-14
-          xl:gap-16
-          2xl:max-w-[1680px] 2xl:gap-20
-          min-[2560px]:max-w-[1920px]
-          min-[2560px]:gap-24
+          relative z-10 mx-auto w-full
+          max-w-6xl
+          lg:max-w-7xl
+          2xl:max-w-[1680px]
+          min-[1920px]:max-w-[1840px]
+          min-[2560px]:max-w-[2100px]
         "
       >
-        {/* Left: Introduction and features */}
-        <div className="min-w-0">
-          <p
-            className="
-              text-[10px] font-bold uppercase
-              tracking-[0.16em] text-blue-600
-              sm:text-xs
-              lg:text-sm
-              2xl:text-base
-            "
-          >
-            Why Work With Me
-          </p>
-
-          <h2
-            id="why-work-title"
-            className="
-              mt-2 max-w-2xl
-              text-2xl font-bold leading-tight
-              tracking-tight text-slate-900
-              sm:text-3xl
-              lg:text-4xl
-              xl:text-[42px]
-              2xl:text-5xl 2xl:leading-[1.15]
-              min-[2560px]:text-6xl
-            "
-          >
-            A Reliable Technology Partner
-          </h2>
-
-          <p
-            className="
-              mt-2 max-w-md
-              text-xs leading-relaxed text-slate-600
-              sm:text-sm
-              lg:mt-4 lg:max-w-xl lg:text-base
-              2xl:max-w-2xl 2xl:text-lg 2xl:leading-8
-            "
-          >
-            I focus on long-term partnerships, quality work, and
-            solutions that create real business value.
-          </p>
-
-          {/* Responsive feature grid */}
-          <div
-            className="
-              mt-6 grid grid-cols-2
-              gap-x-4 gap-y-5
-              sm:gap-x-6 sm:gap-y-6
-              lg:mt-8 lg:gap-x-8 lg:gap-y-8
-              2xl:mt-10 2xl:gap-x-10 2xl:gap-y-10
-            "
-          >
-            {workFeatures.map((feature) => (
-              <FeatureItem
-                key={feature.id}
-                feature={feature}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Right: Client testimonial carousel */}
-        {activeTestimonial && (
-          <div
-            className="
-              min-w-0 w-full
-              md:justify-self-stretch
-            "
-          >
-            <TestimonialCard
-              testimonial={activeTestimonial}
-              onPrevious={goToPrevious}
-              onNext={goToNext}
-              currentIndex={currentIndex}
-              totalTestimonials={totalTestimonials}
-              onSelect={goToTestimonial}
+        <div
+          className="
+            grid w-full grid-cols-1 items-start gap-8
+            sm:gap-10
+            xl:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]
+            xl:items-center xl:gap-16
+            2xl:gap-20
+            min-[2560px]:gap-24
+          "
+        >
+          <div className="min-w-0">
+            <SectionHeader
+              align="left"
+              titleId="why-work-title"
+              eyebrow="Why Work With Me"
+              title="A Reliable Technology Partner"
+              description="I focus on long-term partnerships, quality work, and solutions that create real business value."
             />
+
+            <div
+              className="
+                grid grid-cols-1
+                gap-x-4 gap-y-5
+                min-[420px]:grid-cols-2
+                sm:gap-x-8 sm:gap-y-7
+                lg:gap-x-10 lg:gap-y-8
+                2xl:gap-x-12 2xl:gap-y-10
+              "
+            >
+              {workFeatures.map((feature) => (
+                <FeatureItem
+                  key={feature.id}
+                  feature={feature}
+                />
+              ))}
+            </div>
           </div>
-        )}
+
+          {testimonials.length > 0 && (
+            <div className="min-w-0 w-full xl:justify-self-stretch">
+              <TestimonialCard
+                testimonials={testimonials}
+                onPrevious={goToPrevious}
+                onNext={goToNext}
+                currentIndex={currentIndex}
+                onSelect={goToTestimonial}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

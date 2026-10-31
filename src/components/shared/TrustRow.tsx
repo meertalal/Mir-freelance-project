@@ -32,7 +32,7 @@ export default function TrustRow({ items, className = "" }: TrustRowProps) {
             <Icon size={18} aria-hidden="true" />
           </span>
           <div className="min-w-0">
-            <p className="font-roboto-condensed text-xs font-bold text-[#092f58] sm:text-sm">
+            <p className="font-montserrat text-xs font-bold text-[#092f58] sm:text-sm">
               {title}
             </p>
             {description && (

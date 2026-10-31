@@ -11,10 +11,4 @@ export interface Project {
 export interface ProjectCardProps {
   project: Project;
 }
-export interface SectionHeaderProps {
-  eyebrow: string;
-  title: string;
-  description: string;
-  actionLabel?: string;
-  actionHref?: string;
-}
+export type { SectionHeaderProps } from "../../../components/shared/SectionHeader";

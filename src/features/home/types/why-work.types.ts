@@ -30,10 +30,9 @@ export interface StarRatingProps {
 }
 
 export interface TestimonialCardProps {
-  testimonial: Testimonial;
+  testimonials: Testimonial[];
   onPrevious: () => void;
   onNext: () => void;
   currentIndex: number;
-  totalTestimonials: number;
   onSelect: (index: number) => void;
 }

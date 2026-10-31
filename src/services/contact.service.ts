@@ -4,6 +4,7 @@ export type ContactPayload = {
   phone: string;
   company: string;
   projectType: string;
+  budgetRange?: string;
   message: string;
 };
 

@@ -57,7 +57,7 @@ export default function FeatureItem({
       <div className="min-w-0">
         <h3
           className="
-            text-[11px] font-bold leading-4 text-slate-800
+            font-roboto-condensed text-[11px] font-bold leading-4 text-slate-800
             sm:text-xs
             lg:text-sm
             2xl:text-base
@@ -68,7 +68,7 @@ export default function FeatureItem({
 
         <p
           className="
-            mt-0.5 text-[10px] leading-[1.5] text-slate-500
+            mt-0.5 font-inter text-[10px] leading-[1.5] text-slate-500
             sm:text-[11px]
             lg:text-xs
             2xl:text-sm 2xl:leading-relaxed

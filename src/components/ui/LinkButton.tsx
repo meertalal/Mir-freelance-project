@@ -13,9 +13,9 @@ type LinkButtonProps = {
 
 const variants = {
   primary:
-    "border border-[#1670F5] bg-[#1670F5] text-white shadow-[0_8px_20px_rgba(22,112,245,0.22)] hover:bg-[#0f5fd4] hover:border-[#0f5fd4]",
+    "border border-[#092f58] bg-[#092f58] text-white shadow-[0_6px_18px_rgba(9,47,88,0.18)] hover:border-[#5882E8] hover:bg-[#5882E8] hover:shadow-[0_12px_28px_rgba(88,130,232,0.35)]",
   secondary:
-    "border border-slate-200 bg-white text-[#092f58] hover:border-[#1670F5] hover:bg-[#f0f5ff]",
+    "border border-slate-200 bg-white/95 text-[#092f58] hover:border-[#5882E8] hover:bg-white",
   ghost:
     "border border-white/70 bg-white/10 text-white hover:bg-white hover:text-[#092f58]",
 };
@@ -33,7 +33,7 @@ export default function LinkButton({
     "font-inter text-xs font-bold uppercase tracking-wide no-underline",
     "transition-[transform,box-shadow,background-color,border-color,color] duration-300",
     "hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4",
-    "focus-visible:outline-[#1670F5] sm:min-h-12 sm:px-6 sm:text-sm",
+    "focus-visible:outline-[#5882E8] sm:min-h-12 sm:px-6 sm:text-sm",
     variants[variant],
     className,
   ].join(" ");

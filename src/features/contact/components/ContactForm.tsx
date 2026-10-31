@@ -151,7 +151,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="group mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#1670F5] px-5 text-sm font-bold text-white transition hover:bg-[#0f5fd4] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+        className="group mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#092f58] px-5 font-inter text-sm font-bold text-white transition hover:bg-[#0f3d6e] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
       >
         {status === "loading" ? (
           <>

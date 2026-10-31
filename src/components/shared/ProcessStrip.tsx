@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { processSteps } from "../../data/site.data";
 import SectionHeading from "./SectionHeading";
+import { innerContainerClass, innerSectionClass } from "./section.styles";
 
 type ProcessStripProps = {
   title?: string;
@@ -14,39 +15,44 @@ export default function ProcessStrip({
   showHeading = true,
 }: ProcessStripProps) {
   return (
-    <section className="w-full bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
-      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px]">
+    <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
+      <div className={innerContainerClass}>
         {showHeading && (
           <SectionHeading title={title} description={description} />
         )}
 
-        <ol className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5 lg:gap-3">
+        <ol className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
           {processSteps.map((step, index) => {
             const Icon = step.icon;
             return (
               <li
                 key={step.id}
                 style={{ animationDelay: `${index * 90}ms` }}
-                className="relative flex flex-col items-center text-center motion-safe:animate-page-reveal"
+                className="relative flex min-w-0 flex-col motion-safe:animate-page-reveal"
               >
-                <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#1670F5] text-white shadow-[0_10px_24px_rgba(22,112,245,0.28)]">
-                  <Icon size={24} aria-hidden="true" />
-                  <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[#092f58] text-[10px] font-bold">
-                    {step.step}
-                  </span>
-                </div>
-                <h3 className="font-montserrat text-sm font-bold text-[#10234B] sm:text-base">
-                  {step.title}
-                </h3>
-                <p className="mt-1 max-w-[180px] font-inter text-xs leading-relaxed text-slate-600 sm:text-[13px]">
-                  {step.description}
-                </p>
+                <article className="flex h-full flex-col rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_8px_28px_rgba(15,48,91,0.05)]">
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#EAF2FF] text-[#1670F5]">
+                      <Icon size={22} aria-hidden="true" />
+                    </span>
+                    <span className="font-montserrat text-sm font-bold text-slate-300">
+                      {String(step.step).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className="font-montserrat text-sm font-bold text-[#10234B] sm:text-base">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 font-inter text-xs leading-relaxed text-slate-600">
+                    {step.description}
+                  </p>
+                </article>
                 {index < processSteps.length - 1 && (
-                  <ArrowRight
+                  <span
                     aria-hidden="true"
-                    className="absolute -right-2 top-7 hidden text-[#93C5FD] lg:block"
-                    size={18}
-                  />
+                    className="absolute -right-3 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-[#D6E4F7] bg-white text-[#1670F5] shadow-sm lg:flex"
+                  >
+                    <ArrowRight size={14} />
+                  </span>
                 )}
               </li>
             );
