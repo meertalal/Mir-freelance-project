@@ -4,6 +4,13 @@ import type {
   Testimonial,
 } from "../types/why-work.types";
 
+export const whyWorkCopy = {
+  eyebrow: "Why Work With Me",
+  title: "A Reliable Technology Partner",
+  description:
+    "I focus on long-term partnerships, quality work, and solutions that create real business value.",
+} as const;
+
 export const workFeatures: WorkFeature[] = [
   {
     id: "communication",

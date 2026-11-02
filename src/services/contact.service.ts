@@ -6,6 +6,8 @@ export type ContactPayload = {
   projectType: string;
   budgetRange?: string;
   message: string;
+  country?: string;
+  countryPhone?: string;
 };
 
 export type ContactResult = {

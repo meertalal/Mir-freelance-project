@@ -11,8 +11,18 @@ import {
 
 export default function AboutHero() {
   return (
-    <section className={`${innerSectionClass} bg-white`}>
-      <div className={`${innerContainerClass} grid items-center gap-10 lg:grid-cols-2`}>
+    <section className={`${innerSectionClass}`}>
+      {/* Global Background Image */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/image/service-hero/global-network-landmarks.webp')",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className={`${innerContainerClass} relative z-10 grid items-center gap-10 lg:grid-cols-2`}
+      >
         <div className="motion-safe:animate-page-reveal">
           <PageEyebrow>{aboutHero.eyebrow}</PageEyebrow>
           <h1 className={pageHeroTitleClass}>

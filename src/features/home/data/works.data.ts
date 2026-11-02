@@ -1,6 +1,13 @@
 
 import type { Project } from "../types/works.types";
 
+export const featuredWorkCopy = {
+  eyebrow: "Our Selected Creations",
+  title: "Where Ideas Take Shape",
+  description:
+    "Bringing bold ideas to life through thoughtful design and innovative digital solutions.",
+} as const;
+
 export const projects: Project[] = [
   {
     id: "voice-agent",

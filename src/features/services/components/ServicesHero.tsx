@@ -22,7 +22,7 @@ export default function ServicesHero() {
             {titleBefore}
             <span className="text-[#E11D48]">{highlightRed}</span>
             {titleMid}
-            <span className="bg-gradient-to-r from-[#092f58] via-[#2563eb] to-[#5882E8] bg-clip-text text-transparent">
+            <span className="text-[#2563eb]">
               {highlightBlue}
             </span>
             {titleAfter}

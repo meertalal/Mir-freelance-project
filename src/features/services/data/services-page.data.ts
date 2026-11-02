@@ -16,7 +16,7 @@ export const servicesHero = {
   highlightBlue: "Scale",
   titleAfter: " Your Business.",
   description:
-    "End-to-end digital solutions — websites, mobile apps, AI agents, chatbots, SaaS platforms and marketing that help you grow faster.",
+    "Complete digital solutions — websites, mobile apps and marketing that help you grow faster.",
   image: "/image/profile.webp",
   floatingCards: [
     { id: "dev", title: "Development", subtitle: "Web & Mobile" },

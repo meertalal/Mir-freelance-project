@@ -40,8 +40,7 @@ export default function ServiceCard({
         aria-hidden="true"
         className="
           pointer-events-none absolute inset-0 z-0
-          -translate-x-full bg-gradient-to-r
-          from-transparent via-[#EAF2FF]/60 to-transparent
+          -translate-x-full bg-[#EAF2FF]/60
           opacity-0 transition-all duration-700
           group-hover:translate-x-full
           group-hover:opacity-100
@@ -53,7 +52,7 @@ export default function ServiceCard({
           service-icon relative z-10 flex h-11 w-11 shrink-0
           items-center justify-center rounded-xl
           border border-[#D5E5FF]
-          bg-gradient-to-br from-[#EAF2FF] to-[#D9E8FF]
+          bg-[#EAF2FF]
           transition-[transform,background-color,box-shadow]
           duration-500 ease-out
           group-hover:scale-110
