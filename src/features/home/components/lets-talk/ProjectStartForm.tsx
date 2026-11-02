@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { ArrowRight, LoaderCircle, Mail } from "lucide-react";
 import {
   budgetRanges,
+  countries,
   letsTalkCopy,
   letsTalkProjectTypes,
 } from "../../data/lets-talk.data";
@@ -21,6 +22,8 @@ const initialForm: ContactPayload = {
   projectType: "",
   budgetRange: "",
   message: "",
+  country: "",
+  countryPhone: "",
 };
 
 export default function ProjectStartForm() {
@@ -144,6 +147,47 @@ export default function ProjectStartForm() {
             {budgetRanges.map((range) => (
               <option key={range} value={range}>
                 {range}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="block">
+          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+            Country
+          </span>
+          <select
+            name="country"
+            value={form.country}
+            onChange={(event) => updateField("country", event.target.value)}
+            className={fieldClass}
+          >
+            <option value="">Select a country</option>
+            {countries.map((country) => (
+              <option key={country.code} value={country.name}>
+                {`${country.flag} ${country.phoneCode}`}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="block">
+          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+            Country Number
+          </span>
+          <select
+            name="countryPhone"
+            value={form.countryPhone}
+            onChange={(event) => updateField("countryPhone", event.target.value)}
+            className={fieldClass}
+          >
+            <option value="">Select country code</option>
+            {countries.map((country) => (
+              <option
+                key={`${country.code}-${country.phoneCode}`}
+                value={country.phoneCode}
+              >
+                {`${country.flag} ${country.phoneCode}`}
               </option>
             ))}
           </select>

@@ -59,6 +59,12 @@ export default function SocialIcon({ id, className = "h-4 w-4" }: SocialIconProp
           <circle cx="16.4" cy="7.6" r="0.9" fill="currentColor" />
         </svg>
       );
+    case "facebook":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+          <path d="M24 12.1C24 5.4 18.4 0 12 0S0 5.4 0 12.1C0 18.1 4.4 23.2 10.1 24v-8.3H7.2v-3.4h2.9V9.4c0-2.9 1.7-4.5 4.3-4.5 1.2 0 2.4.2 2.4.2v2.9h-1.5c-1.5 0-2 0.9-2 1.8v2.1h3.3l-.5 3.4h-2.8V24C19.6 23.2 24 18.1 24 12.1Z" />
+        </svg>
+      );
     default:
       return null;
   }

@@ -1,6 +1,7 @@
 
 import SectionHeader from "./SectionHeader";
-import { projects } from "../../data/works.data";
+import { featuredWorkCopy, projects } from "../../data/works.data";
+import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import type { ProjectCardProps } from "../../types/works.types";
 
 interface FeaturedWorkProps {
@@ -100,32 +101,19 @@ export default function FeaturedWork({
     <section
       id="featured-work"
       aria-label="Featured projects"
-      className="
-        relative w-full overflow-hidden bg-white
-        px-4 py-10
-        min-[480px]:px-5
-        sm:px-6 sm:py-14
-        lg:px-8 lg:py-16
-        xl:px-12 xl:py-20
+      className={`
+        ${innerSectionClass}
+        bg-white
         2xl:px-16
         min-[1920px]:px-20
         min-[2560px]:px-24
-      "
+      `}
     >
-      <div
-        className="
-          mx-auto w-full
-          max-w-[1280px]
-          min-[1440px]:max-w-[1360px]
-          min-[1600px]:max-w-[1480px]
-          min-[1920px]:max-w-[1640px]
-          min-[2560px]:max-w-[1800px]
-        "
-      >
+      <div className={`relative z-10 ${innerContainerClass}`}>
         <SectionHeader
-          eyebrow="Our Selected Creations"
-          title="Where Ideas Take Shape"
-          description="Bringing bold ideas to life through thoughtful design and innovative digital solutions."
+          eyebrow={featuredWorkCopy.eyebrow}
+          title={featuredWorkCopy.title}
+          description={featuredWorkCopy.description}
           actionLabel={
             showAllProjectsLink ? "View All Projects" : undefined
           }

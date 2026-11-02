@@ -4,6 +4,7 @@ import TestimonialCard from "./TestimonialCard";
 import SectionHeader from "../Works/SectionHeader";
 import {
   workFeatures,
+  whyWorkCopy,
   testimonials,
 } from "../../data/why-work.data";
 
@@ -81,11 +82,12 @@ export default function WhyWorkWithMe() {
         >
           <div className="min-w-0">
             <SectionHeader
-              align="left"
+              align="center"
+              alignLg="left"
               titleId="why-work-title"
-              eyebrow="Why Work With Me"
-              title="A Reliable Technology Partner"
-              description="I focus on long-term partnerships, quality work, and solutions that create real business value."
+              eyebrow={whyWorkCopy.eyebrow}
+              title={whyWorkCopy.title}
+              description={whyWorkCopy.description}
             />
 
             <div

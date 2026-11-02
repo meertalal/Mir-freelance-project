@@ -9,8 +9,7 @@ export default function ServiceStats({
       className="
         service-stats grid grid-cols-2 overflow-hidden
         rounded-xl border border-[#D2E2F8]
-        bg-gradient-to-r
-        from-[#DFEBFF] via-[#F5F8FF] to-[#DFEBFF]
+        bg-[#DFEBFF]
         sm:grid-cols-4
         xl:rounded-2xl
         2xl:rounded-3xl

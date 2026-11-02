@@ -59,7 +59,7 @@ export default function WorldMapIllustration() {
         {/* Image shimmer */}
         <div
           aria-hidden="true"
-          className="world-map-image-shimmer pointer-events-none absolute inset-0 z-10 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent motion-reduce:animate-none"
+          className="world-map-image-shimmer pointer-events-none absolute inset-0 z-10 -translate-x-full bg-white/15 motion-reduce:animate-none"
         />
       </div>
 
