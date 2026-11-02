@@ -46,7 +46,7 @@ export const timeline = [
     id: "2024",
     year: "2024",
     title: "AI & Scale",
-    description: "Added AI agents, chatbots, and advanced cloud delivery to the service stack.",
+    description: "Added automated agents and chatbots, plus advanced cloud delivery, to the service stack.",
   },
   {
     id: "today",

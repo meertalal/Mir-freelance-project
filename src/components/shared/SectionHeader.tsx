@@ -7,6 +7,7 @@ export type SectionHeaderProps = {
   description?: string;
   titleId?: string;
   align?: "left" | "center";
+  alignLg?: "left" | "center";
   actionLabel?: string;
   actionHref?: string;
   className?: string;
@@ -61,11 +62,13 @@ export default function SectionHeader({
   description,
   titleId,
   align = "center",
+  alignLg,
   actionLabel,
   actionHref = "#",
   className = "",
 }: SectionHeaderProps) {
   const isLeft = align === "left";
+  const isLeftLg = (alignLg ?? align) === "left";
 
   return (
     <header
@@ -73,7 +76,9 @@ export default function SectionHeader({
         "flex w-full flex-col",
         isLeft
           ? "mb-6 sm:mb-7 lg:mb-8"
-          : "mx-auto mb-7 sm:mb-10 lg:mb-12 2xl:mb-14",
+          : isLeftLg
+            ? "mx-auto mb-7 sm:mb-10 lg:mb-8"
+            : "mx-auto mb-7 sm:mb-10 lg:mb-12 2xl:mb-14",
         className,
       ].join(" ")}
     >
@@ -81,6 +86,7 @@ export default function SectionHeader({
         className={[
           "relative flex min-h-6 w-full items-center",
           isLeft ? "justify-start" : "justify-center",
+          isLeftLg ? "lg:justify-start" : "lg:justify-center",
         ].join(" ")}
       >
         {eyebrow && (
@@ -88,6 +94,7 @@ export default function SectionHeader({
             className={[
               "flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4",
               isLeft ? "justify-start" : "justify-center",
+              isLeftLg ? "lg:justify-start" : "lg:justify-center",
             ].join(" ")}
           >
             <span
@@ -117,6 +124,7 @@ export default function SectionHeader({
         className={[
           "flex w-full flex-col",
           isLeft ? "items-start text-left" : "items-center text-center",
+          isLeftLg ? "lg:items-start lg:text-left" : "lg:items-center lg:text-center",
         ].join(" ")}
       >
         <h2
@@ -125,6 +133,7 @@ export default function SectionHeader({
             "mt-2 font-montserrat font-bold leading-tight tracking-tight text-[#10234b]",
             "text-2xl min-[480px]:text-3xl sm:text-3xl lg:text-4xl xl:text-[42px]",
             isLeft ? "max-w-2xl" : "max-w-4xl",
+            isLeftLg ? "lg:max-w-2xl" : "lg:max-w-4xl",
           ].join(" ")}
         >
           {title}
@@ -135,9 +144,12 @@ export default function SectionHeader({
             className={[
               "mt-3 w-full px-0 font-inter leading-6 text-[#526987]",
               "text-xs min-[480px]:text-sm lg:mt-4 lg:text-base",
-              isLeft
-                ? "max-w-md lg:max-w-xl"
-                : "mx-auto max-w-2xl px-1",
+              isLeft ? "max-w-md" : "mx-auto max-w-2xl px-1",
+              isLeftLg
+                ? isLeft
+                  ? "lg:max-w-md lg:max-w-xl"
+                  : "lg:max-w-xl lg:mx-0 lg:px-0"
+                : "lg:mx-auto lg:max-w-2xl lg:px-1",
             ].join(" ")}
           >
             {description}

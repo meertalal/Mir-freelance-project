@@ -40,7 +40,7 @@ export default function ContactWhy() {
             className="h-[320px] w-full rounded-[1.35rem] object-cover opacity-90 sm:h-[400px]"
           />
           <blockquote className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/95 p-4 text-sm font-semibold text-[#10234B] shadow-lg backdrop-blur">
-            “Let’s turn your ideas into powerful digital solutions.”
+            “Let’s turn your ideas into real solutions.”
           </blockquote>
         </div>
       </div>

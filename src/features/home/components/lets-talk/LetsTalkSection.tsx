@@ -1,4 +1,5 @@
 import SectionHeader from "../Works/SectionHeader";
+import { innerSectionClass } from "../../../../components/shared/section.styles";
 import { letsTalkCopy } from "../../data/lets-talk.data";
 import LetsTalkSteps from "./LetsTalkSteps";
 import LetsTalkActions from "./LetsTalkActions";
@@ -9,18 +10,13 @@ export default function LetsTalkSection() {
     <section
       id="contact"
       aria-labelledby="lets-talk-title"
-      className="
-        relative isolate w-full overflow-hidden
+      className={`
+        ${innerSectionClass}
         bg-[#F4F8FF]
-        px-4 py-10
-        min-[480px]:px-5
-        sm:px-6 sm:py-14
-        lg:px-8 lg:py-16
-        xl:px-12 xl:py-20
         2xl:px-16
         min-[1920px]:px-20
         min-[2560px]:px-24
-      "
+      `}
     >
       <div
         aria-hidden="true"
@@ -44,7 +40,8 @@ export default function LetsTalkSection() {
       >
         <div className="min-w-0">
           <SectionHeader
-            align="left"
+            align="center"
+            alignLg="left"
             titleId="lets-talk-title"
             eyebrow={letsTalkCopy.eyebrow}
             title={letsTalkCopy.title}

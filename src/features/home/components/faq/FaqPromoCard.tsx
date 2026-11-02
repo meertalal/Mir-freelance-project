@@ -6,7 +6,7 @@ export default function FaqPromoCard() {
     <aside
       className="
         relative overflow-hidden rounded-[1.75rem] border border-[#D6E4F7]
-        bg-gradient-to-br from-[#EAF2FF] via-[#F5F9FF] to-[#DCEBFF]
+        bg-[#EAF2FF]
         px-6 py-10 text-center
         sm:px-8 sm:py-12
         lg:flex lg:min-h-full lg:flex-col lg:items-center lg:justify-center

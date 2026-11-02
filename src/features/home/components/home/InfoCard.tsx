@@ -31,7 +31,7 @@ export default function FloatingInfoCard({
       <div className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-blue-50 text-blue-600 transition-[background-color,transform,color] duration-300 group-hover:scale-105 group-hover:bg-[#092f58] group-hover:text-white sm:h-10 sm:w-10 sm:rounded-xl 2xl:h-11 2xl:w-11 min-[1920px]:h-12 min-[1920px]:w-12 motion-reduce:transition-none">
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+          className="pointer-events-none absolute inset-0 -translate-x-full bg-white/40 transition-transform duration-700 group-hover:translate-x-full"
         />
 
         <Icon

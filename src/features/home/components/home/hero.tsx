@@ -89,7 +89,7 @@ export default function HeroSection() {
             <br />
             for Businesses in
             <br />
-            <span className="bg-gradient-to-r from-[#092f58] via-[#2563eb] to-[#5882E8] bg-clip-text text-transparent">
+            <span className="text-[#2563eb]">
               Worldwide
             </span>
           </h1>
@@ -107,9 +107,9 @@ export default function HeroSection() {
               "max-[420px]:text-[12px] max-[420px]:leading-[1.65]",
             ].join(" ")}
           >
-            We help startups and businesses build modern websites, mobile apps,
-            AI agents, chatbots, SaaS platforms and automation solutions with
-            reliable support and on-time delivery.
+            We help startups and businesses build modern websites, mobile apps
+            and automation solutions — backed by reliable support and on-time
+            delivery.
           </p>
 
           {/* Buttons */}

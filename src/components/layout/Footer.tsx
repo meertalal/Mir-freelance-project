@@ -14,30 +14,40 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#071B33] text-white">
+    <footer className="relative isolate overflow-hidden border-t border-white/10 bg-[#092f58] text-white">
+      <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+
       <div
         className="
-          mx-auto grid max-w-7xl gap-10
-          px-4 py-12
-          sm:px-6 sm:py-14
-          md:grid-cols-2 md:gap-8
-          lg:grid-cols-4 lg:gap-0 lg:px-10 lg:py-16
+          relative mx-auto grid max-w-7xl gap-5
+          px-4 py-8
+          sm:px-6 sm:py-10
+          md:grid-cols-2 md:gap-6
+          lg:grid-cols-4 lg:gap-0 lg:px-10 lg:py-12
           2xl:max-w-[1600px] 2xl:px-14
           min-[2560px]:max-w-[1800px]
         "
       >
-        {/* Brand + socials */}
         <div className="motion-safe:animate-page-reveal lg:pr-8">
           <Link
             to="/"
-            className="inline-block font-montserrat text-xl font-bold tracking-tight text-white no-underline transition hover:text-[#93C5FD] sm:text-2xl"
+            className="
+              flex w-full items-center justify-center gap-3
+              font-montserrat text-xl font-bold tracking-tight text-white
+              no-underline transition hover:text-[#93C5FD]
+              sm:text-2xl
+              lg:w-auto lg:justify-start
+            "
           >
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-xs font-black text-white shadow-[0_10px_25px_rgba(15,48,91,0.2)]">
+              MT
+            </span>
             {footerBrand.name}
           </Link>
-          <p className="mt-4 max-w-xs font-inter text-sm leading-relaxed text-white/75 sm:text-[15px]">
+          <p className="mx-auto mt-4 max-w-xs text-center font-inter text-sm leading-relaxed text-white/75 sm:text-[15px] lg:mx-0 lg:text-left">
             {footerBrand.description}
           </p>
-          <div className="mt-6 flex items-center gap-3">
+          <div className="mt-6 flex items-center justify-center gap-3 lg:justify-start">
             {footerSocialLinks.map((social, index) => (
               <a
                 key={social.id}
@@ -48,7 +58,7 @@ export default function Footer() {
                 style={{ animationDelay: `${index * 80}ms` }}
                 className="
                   inline-flex h-10 w-10 items-center justify-center rounded-full
-                  border border-white/35 text-white/90
+                  border border-white/20 bg-white/5 text-white/90
                   transition duration-300
                   hover:-translate-y-1 hover:border-white hover:bg-white/10 hover:text-white
                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
@@ -61,9 +71,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Quick links */}
         <div className="motion-safe:animate-page-reveal md:border-l md:border-white/15 md:pl-8 lg:px-8">
-          <h3 className="mb-5 font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm">
+          <h3 className="mb-5 text-center font-playfair text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm lg:text-left">
             Quick Links
           </h3>
           <ul className="space-y-3">
@@ -89,9 +98,8 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Contact info */}
         <div className="motion-safe:animate-page-reveal lg:border-l lg:border-white/15 lg:px-8">
-          <h3 className="mb-5 font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm">
+          <h3 className="mb-5 text-center font-playfair text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm lg:text-left">
             Contact Info
           </h3>
           <ul className="space-y-4 font-inter text-sm text-white/80">
@@ -132,9 +140,8 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Countries we serve */}
         <div className="motion-safe:animate-page-reveal md:border-l-0 lg:border-l lg:border-white/15 lg:pl-8">
-          <h3 className="mb-5 font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm">
+          <h3 className="mb-5 text-center font-playfair text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm lg:text-left">
             Countries We Serve
           </h3>
           <div className="grid grid-cols-5 gap-x-2 gap-y-4 sm:gap-x-3 sm:gap-y-5">
@@ -144,18 +151,14 @@ export default function Footer() {
                 style={{ animationDelay: `${index * 50}ms` }}
                 className="motion-safe:animate-page-reveal"
               >
-                <CountryMapBadge
-                  name={country.name}
-                  flag={country.flag}
-                  path={country.path}
-                />
+                <CountryMapBadge name={country.name} image={country.image} />
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="border-t border-white/15">
+      <div className="relative border-t border-white/10 bg-[#0b2f52]">
         <p className="mx-auto max-w-7xl px-4 py-5 text-center font-inter text-xs text-white/70 sm:px-6 sm:text-sm lg:px-10 2xl:max-w-[1600px]">
           © {year} {footerBrand.name}. All Rights Reserved.
         </p>

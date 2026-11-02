@@ -11,7 +11,7 @@ import {
 
 export default function ContactHero() {
   return (
-    <section className={`${innerSectionClass} bg-gradient-to-br from-white via-[#F7FAFF] to-[#EAF2FF]`}>
+    <section className={`${innerSectionClass} bg-white`}>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-40"

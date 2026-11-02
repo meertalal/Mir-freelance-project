@@ -18,9 +18,9 @@ export const brand = {
   name: "Mir Talal",
   subtitle: "Freelance Web Developer",
   tagline:
-    "Helping startups and businesses build modern websites, mobile apps, AI agents, SaaS platforms and automation solutions.",
-  email: "hello@mirtalal.com",
-  phone: "+92 300 0000000",
+    "Helping startups and businesses build modern websites, mobile apps and automation solutions that actually deliver.",
+  email: "mirtalal.baloch@yahoo.com",
+  phone: "+1 438 905 4165",
   location: "Pakistan (Serving Worldwide)",
   hours: "Mon – Sat · 10:00 AM – 7:00 PM (PKT)",
 } as const;
@@ -40,7 +40,6 @@ export const footerQuickLinks = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Process", href: "/process" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
