@@ -1,5 +1,5 @@
-import SectionHeader from "../Works/SectionHeader";
-import { innerSectionClass } from "../../../../components/shared/section.styles";
+import SectionHeader from "../../../../components/shared/SectionHeader";
+import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import { letsTalkCopy } from "../../data/lets-talk.data";
 import LetsTalkSteps from "./LetsTalkSteps";
 import LetsTalkActions from "./LetsTalkActions";
@@ -28,15 +28,12 @@ export default function LetsTalkSection() {
       />
 
       <div
-        className="
-          relative z-10 mx-auto grid w-full
-          max-w-[1280px] grid-cols-1 items-start gap-10
+        className={`
+          ${innerContainerClass}
+          relative z-10 grid grid-cols-1 items-start gap-10
           lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12
-          min-[1440px]:max-w-[1360px]
-          min-[1600px]:max-w-[1480px]
-          min-[1920px]:max-w-[1640px] min-[1920px]:gap-16
-          min-[2560px]:max-w-[1800px]
-        "
+          min-[1920px]:gap-16
+        `}
       >
         <div className="min-w-0">
           <SectionHeader

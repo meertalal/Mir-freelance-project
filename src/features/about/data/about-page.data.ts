@@ -5,9 +5,6 @@ import {
   Target,
   Eye,
   Gem,
-  Link2,
-  Code2,
-  Share2,
 } from "lucide-react";
 
 export const aboutHero = {
@@ -87,63 +84,6 @@ export const missionVisionValues = [
   },
 ];
 
-export const teamMembers = [
-  {
-    id: "alex",
-    name: "Alex Khan",
-    role: "Full-Stack Developer",
-    image: "/image/profile.webp",
-    socials: [
-      { id: "linkedin", Icon: Link2, href: "#" },
-      { id: "github", Icon: Code2, href: "#" },
-      { id: "twitter", Icon: Share2, href: "#" },
-    ],
-  },
-  {
-    id: "sarah",
-    name: "Sarah Ali",
-    role: "UI/UX Designer",
-    image: "/image/profile.webp",
-    socials: [
-      { id: "linkedin", Icon: Link2, href: "#" },
-      { id: "github", Icon: Code2, href: "#" },
-      { id: "twitter", Icon: Share2, href: "#" },
-    ],
-  },
-  {
-    id: "usman",
-    name: "Usman Tariq",
-    role: "AI Engineer",
-    image: "/image/profile.webp",
-    socials: [
-      { id: "linkedin", Icon: Link2, href: "#" },
-      { id: "github", Icon: Code2, href: "#" },
-      { id: "twitter", Icon: Share2, href: "#" },
-    ],
-  },
-  {
-    id: "bilal",
-    name: "Bilal Ahmed",
-    role: "Cloud & DevOps",
-    image: "/image/profile.webp",
-    socials: [
-      { id: "linkedin", Icon: Link2, href: "#" },
-      { id: "github", Icon: Code2, href: "#" },
-      { id: "twitter", Icon: Share2, href: "#" },
-    ],
-  },
-];
-
-export const trustedBy = [
-  "Google",
-  "Microsoft",
-  "Shopify",
-  "Adobe",
-  "AWS",
-  "Stripe",
-  "Meta",
-  "Slack",
-];
 
 export const presenceFlags = [
   { name: "Canada", flag: "/image/flags/canadian-flag.webp" },

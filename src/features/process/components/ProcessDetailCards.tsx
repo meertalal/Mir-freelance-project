@@ -15,7 +15,7 @@ export default function ProcessDetailCards() {
           description="Each stage has clear activities, deliverables, and checkpoints."
         />
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-5">
           {processSteps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -27,7 +27,7 @@ export default function ProcessDetailCards() {
                 <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EAF2FF] text-[#1670F5]">
                   <Icon size={22} aria-hidden="true" />
                 </span>
-                <p className="font-playfair text-[10px] font-bold uppercase tracking-wider text-[#092F58]">
+                <p className="font-playfair text-[11px] font-bold uppercase tracking-wider text-[#092F58]">
                   Step {step.step}
                 </p>
                 <h3 className="mt-1 font-montserrat text-base font-bold text-[#10234B]">

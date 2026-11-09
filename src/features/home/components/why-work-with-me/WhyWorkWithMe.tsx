@@ -1,7 +1,8 @@
 import { useState } from "react";
 import FeatureItem from "./FeatureItem";
 import TestimonialCard from "./TestimonialCard";
-import SectionHeader from "../Works/SectionHeader";
+import SectionHeader from "../../../../components/shared/SectionHeader";
+import { innerContainerClass } from "../../../../components/shared/section.styles";
 import {
   workFeatures,
   whyWorkCopy,
@@ -60,16 +61,7 @@ export default function WhyWorkWithMe() {
         "
       />
 
-      <div
-        className="
-          relative z-10 mx-auto w-full
-          max-w-6xl
-          lg:max-w-7xl
-          2xl:max-w-[1680px]
-          min-[1920px]:max-w-[1840px]
-          min-[2560px]:max-w-[2100px]
-        "
-      >
+      <div className={`${innerContainerClass} relative z-10`}>
         <div
           className="
             grid w-full grid-cols-1 items-start gap-8
@@ -94,7 +86,7 @@ export default function WhyWorkWithMe() {
               className="
                 grid grid-cols-1
                 gap-x-4 gap-y-5
-                min-[420px]:grid-cols-2
+                min-[480px]:grid-cols-2
                 sm:gap-x-8 sm:gap-y-7
                 lg:gap-x-10 lg:gap-y-8
                 2xl:gap-x-12 2xl:gap-y-10

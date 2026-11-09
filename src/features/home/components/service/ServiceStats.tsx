@@ -99,7 +99,7 @@ export default function ServiceStats({
 
               <p
                 className="
-                  mt-1 font-inter text-[10px] leading-4
+                  mt-1 font-inter text-[11px] leading-4
                   text-[#526580]
                   min-[480px]:text-[11px] sm:text-xs
                   xl:text-sm

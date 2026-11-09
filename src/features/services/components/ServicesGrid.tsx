@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { sharedServices } from "../../../data/site.data";
+import { servicesGridCopy } from "../data/services-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import {
   innerContainerClass,
@@ -12,8 +13,9 @@ export default function ServicesGrid() {
     <section className={`${innerSectionClass} bg-[#EAF2FF]`}>
       <div className={innerContainerClass}>
         <SectionHeading
-          title="End-to-End Digital Solutions"
-          description="From idea to deployment, complete development and AI automation services."
+          eyebrow={servicesGridCopy.eyebrow}
+          title={servicesGridCopy.title}
+          description={servicesGridCopy.description}
         />
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
@@ -36,7 +38,8 @@ export default function ServicesGrid() {
                 </p>
                 <Link
                   to={service.href}
-                  className="mt-4 inline-flex items-center gap-1.5 font-playfair text-xs font-semibold text-[#092F58] transition-colors hover:text-[#5882E8] sm:text-sm"
+                  aria-label={`Learn more about ${service.title}`}
+                  className="mt-4 inline-flex min-h-11 items-center gap-1.5 font-playfair text-xs font-semibold text-[#092F58] transition-colors hover:text-[#5882E8] sm:text-sm"
                 >
                   Learn More
                   <ArrowRight

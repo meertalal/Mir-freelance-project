@@ -3,6 +3,7 @@ import { sharedProjects } from "../../../data/site.data";
 import { portfolioFilters } from "../data/portfolio-page.data";
 import ProjectCard from "../../../components/shared/ProjectCard";
 import SectionHeading from "../../../components/shared/SectionHeading";
+import { innerContainerClass } from "../../../components/shared/section.styles";
 
 export default function PortfolioGrid() {
   const [active, setActive] = useState<(typeof portfolioFilters)[number]["id"]>("all");
@@ -19,20 +20,21 @@ export default function PortfolioGrid() {
 
   return (
     <section className="relative isolate w-full overflow-hidden bg-[#F7FAFF] px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
-      <div className="mx-auto w-full max-w-[1280px] min-[1440px]:max-w-[1360px]">
+      <div className={innerContainerClass}>
         <SectionHeading
           title="Featured Projects"
           description="Filter by category to explore selected case studies."
         />
 
-        <div className="mb-8 flex flex-wrap justify-center gap-2">
+        <div className="mb-8 flex flex-wrap justify-center gap-2 sm:gap-2.5">
           {portfolioFilters.map((filter) => (
             <button
               key={filter.id}
               type="button"
               onClick={() => setActive(filter.id)}
+              aria-pressed={active === filter.id}
               className={[
-                "rounded-full px-4 py-2 text-xs font-semibold transition sm:text-sm",
+                "inline-flex min-h-11 items-center rounded-full px-4 text-xs font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5882E8] sm:px-5 sm:text-sm",
                 active === filter.id
                   ? "bg-[#092f58] text-white shadow-md"
                   : "border border-slate-200 bg-white font-inter text-slate-600 hover:border-[#5882E8] hover:text-[#092f58]",

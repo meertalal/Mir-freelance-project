@@ -3,9 +3,10 @@ import TrustRow from "../../../components/shared/TrustRow";
 import PageEyebrow from "../../../components/shared/PageEyebrow";
 import ContactForm from "./ContactForm";
 import {
-  innerContainerClass,
   innerSectionClass,
+  pageHeroCopyClass,
   pageHeroDescClass,
+  pageHeroGridClass,
   pageHeroTitleClass,
 } from "../../../components/shared/section.styles";
 
@@ -23,8 +24,8 @@ export default function ContactHero() {
         }}
       />
 
-      <div className={`relative z-10 ${innerContainerClass} grid items-start gap-10 lg:grid-cols-2`}>
-        <div className="motion-safe:animate-page-reveal">
+      <div className={pageHeroGridClass}>
+        <div className={pageHeroCopyClass}>
           <PageEyebrow>{contactHero.eyebrow}</PageEyebrow>
           <h1 className={pageHeroTitleClass}>
             {contactHero.title}
@@ -34,18 +35,22 @@ export default function ContactHero() {
           </p>
           <TrustRow items={contactTrust} className="mt-7" />
 
-          <div className="relative mt-10 max-w-sm">
+          <div className="relative mt-10 w-full max-w-sm pb-4">
             <div className="overflow-hidden rounded-full border-4 border-white shadow-xl">
               <img
+                loading="lazy"
+                decoding="async"
+                width={384}
+                height={256}
                 src={contactHero.image}
                 alt="Let's talk about your project"
-                className="h-56 w-full object-cover sm:h-64"
+                className="aspect-[3/2] w-full object-cover object-top sm:h-64 sm:aspect-auto"
               />
             </div>
             <div className="absolute -right-2 top-6 rounded-xl bg-white px-3 py-2 text-xs font-bold text-[#10234B] shadow-md motion-safe:animate-float-soft">
               Let's Talk
             </div>
-            <div className="absolute -left-2 bottom-8 max-w-[180px] rounded-xl bg-[#092f58] px-3 py-2 text-[11px] font-semibold text-white shadow-md">
+            <div className="absolute left-2 bottom-8 max-w-[180px] rounded-xl bg-[#092f58] px-3 py-2 text-[11px] font-semibold text-white shadow-md sm:-left-2">
               Turn Ideas Into Digital Success
             </div>
           </div>
