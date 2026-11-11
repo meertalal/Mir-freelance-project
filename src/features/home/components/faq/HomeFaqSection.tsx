@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SectionHeader from "../Works/SectionHeader";
+import SectionHeader from "../../../../components/shared/SectionHeader";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import { homeFaqCopy, homeFaqs } from "../../data/faq.data";
 import FaqAccordionItem from "./FaqAccordionItem";
@@ -16,6 +16,7 @@ export default function HomeFaqSection() {
         ${innerSectionClass}
         bg-[#F7FAFF]
         2xl:px-16
+        min-[1920px]:px-20
         min-[2560px]:px-24
       `}
     >

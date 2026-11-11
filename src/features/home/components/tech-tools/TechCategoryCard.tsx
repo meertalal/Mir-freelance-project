@@ -33,7 +33,7 @@ export default function TechCategoryCard({ category }: TechCategoryCardProps) {
         </div>
       </div>
 
-      <ul className="mt-5 grid grid-cols-2 gap-x-3 gap-y-3">
+      <ul className="mt-5 grid grid-cols-1 gap-x-3 gap-y-2.5 min-[480px]:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
         {category.tools.map((tool) => (
           <li key={tool.id} className="min-w-0">
             <TechToolChip tool={tool} />

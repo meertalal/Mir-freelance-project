@@ -11,6 +11,7 @@ export default function WorldMapIllustration() {
       className={[
         "world-map-illustration relative isolate mx-auto w-full",
         "max-w-3xl border-0 py-8 outline-none ring-0",
+        "max-md:max-w-[calc(100%-1.5rem)] md:max-w-[480px]",
         "xl:py-10 2xl:max-w-[850px] 2xl:py-12",
         "min-[1920px]:max-w-[1000px] min-[1920px]:py-14",
         "min-[2560px]:max-w-[1150px] min-[2560px]:py-16",

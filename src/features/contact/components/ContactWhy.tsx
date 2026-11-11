@@ -35,9 +35,11 @@ export default function ContactWhy() {
 
         <div className="relative overflow-hidden rounded-3xl bg-[#092f58] p-2 shadow-xl">
           <img
+            loading="lazy"
+            decoding="async"
             src="/image/profile.webp"
             alt="Modern workspace"
-            className="h-[320px] w-full rounded-[1.35rem] object-cover opacity-90 sm:h-[400px]"
+            className="aspect-[4/3] w-full rounded-[1.35rem] object-cover opacity-90 sm:h-[400px] sm:aspect-auto"
           />
           <blockquote className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/95 p-4 text-sm font-semibold text-[#10234B] shadow-lg backdrop-blur">
             “Let’s turn your ideas into real solutions.”

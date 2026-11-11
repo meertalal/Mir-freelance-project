@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { ServicesSectionProps } from "../../types/services.types";
 import { services, serviceStats } from "../../data/services.data";
 import ServiceCard from "./ServiceCard";
@@ -55,10 +56,10 @@ export default function ServicesSection({
       <div
         className="
           relative z-10 mx-auto w-full max-w-[1280px]
-          xl:max-w-[1400px]
-          2xl:max-w-[1600px]
-          min-[1920px]:max-w-[1760px]
-          min-[2560px]:max-w-[2000px]
+          xl:max-w-[1360px]
+          min-[1600px]:max-w-[1480px]
+          min-[1920px]:max-w-[1680px]
+          min-[2560px]:max-w-[1920px]
         "
       >
         {/* Section heading */}
@@ -138,14 +139,16 @@ export default function ServicesSection({
             {subtitle}
           </p>
 
-          <a
-            href={allServicesHref}
+          <Link
+            to={allServicesHref}
             className="
-              group mt-3 hidden items-center gap-2
+              group mt-4 inline-flex min-h-11 items-center justify-center gap-2
+              rounded-lg border border-[#092F58]/20 bg-white/70 px-4 py-2
               font-playfair text-xs font-semibold text-[#092F58]
               transition-colors duration-300 hover:text-[#5882E8]
               focus-visible:outline-none focus-visible:ring-2
               focus-visible:ring-[#5882E8] focus-visible:ring-offset-4
+              sm:mt-3 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0
               md:absolute md:right-0 md:top-1 md:mt-0 md:inline-flex
               xl:top-2 xl:text-sm
               2xl:text-base
@@ -161,7 +164,7 @@ export default function ServicesSection({
                 xl:h-5 xl:w-5
               "
             />
-          </a>
+          </Link>
         </header>
 
         {/* Responsive service cards */}
@@ -169,7 +172,8 @@ export default function ServicesSection({
           className="
             grid grid-cols-1 items-stretch gap-3
             min-[480px]:gap-3.5
-            md:grid-cols-2 md:gap-4
+            sm:grid-cols-2 md:gap-4
+            lg:grid-cols-3
             xl:grid-cols-4 xl:gap-6
             2xl:gap-7
             min-[1920px]:gap-8

@@ -1,4 +1,4 @@
-import SectionHeader from "../Works/SectionHeader";
+import SectionHeader from "../../../../components/shared/SectionHeader";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import {
   workingProcessCopy,

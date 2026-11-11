@@ -3,9 +3,11 @@ import LinkButton from "../../../components/ui/LinkButton";
 import TrustRow from "../../../components/shared/TrustRow";
 import PageEyebrow from "../../../components/shared/PageEyebrow";
 import {
-  innerContainerClass,
   innerSectionClass,
+  pageHeroCopyClass,
   pageHeroDescClass,
+  pageHeroGridClass,
+  pageHeroMediaClass,
   pageHeroTitleClass,
 } from "../../../components/shared/section.styles";
 
@@ -20,10 +22,9 @@ export default function AboutHero() {
         }}
         aria-hidden="true"
       />
-      <div
-        className={`${innerContainerClass} relative z-10 grid items-center gap-10 lg:grid-cols-2`}
-      >
-        <div className="motion-safe:animate-page-reveal">
+      <div className={pageHeroGridClass}>
+        {/* The map artwork sits directly behind the copy; it needs a backing until the two-column split moves it aside. */}
+        <div className={pageHeroCopyClass}>
           <PageEyebrow>{aboutHero.eyebrow}</PageEyebrow>
           <h1 className={pageHeroTitleClass}>
             {aboutHero.title}
@@ -45,12 +46,16 @@ export default function AboutHero() {
           <TrustRow items={aboutTrust} className="mt-8" />
         </div>
 
-        <div className="relative mx-auto w-full max-w-md lg:max-w-lg">
+        <div className={`${pageHeroMediaClass} pb-4 lg:pb-0`}>
           <div className="overflow-hidden rounded-[40%_60%_55%_45%/45%_40%_60%_55%] bg-[#EAF2FF] p-2 shadow-xl">
             <img
+              loading="lazy"
+              decoding="async"
+              width={640}
+              height={480}
               src={aboutHero.image}
               alt="Team collaborating on digital products"
-              className="h-[360px] w-full object-cover sm:h-[440px]"
+              className="aspect-[4/3] w-full object-cover sm:h-[440px] sm:aspect-auto"
             />
           </div>
           {aboutHero.stats.map((stat, index) => (

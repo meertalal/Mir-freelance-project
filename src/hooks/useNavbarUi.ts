@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const DESKTOP_NAV_QUERY = "(min-width: 1280px)";
+const DESKTOP_NAV_QUERY = "(min-width: 1024px)";
 const SCROLL_SHRINK_AT = 40;
 
 export default function useNavbarUi() {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState(pathname);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -34,12 +35,15 @@ export default function useNavbarUi() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  // Closing on navigation is derived during render rather than in an effect,
+  // so the panel never flashes open on the newly rendered page.
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    if (menuOpen) setMenuOpen(false);
+  }
 
   const toggleMenu = () => setMenuOpen((open) => !open);
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   return { menuOpen, isScrolled, toggleMenu, closeMenu };
 }

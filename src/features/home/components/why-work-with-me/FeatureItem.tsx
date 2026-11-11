@@ -68,7 +68,7 @@ export default function FeatureItem({
 
         <p
           className="
-            mt-0.5 font-inter text-[10px] leading-[1.5] text-slate-500
+            mt-0.5 font-inter text-[11px] leading-[1.5] text-slate-500
             sm:text-[11px]
             lg:text-xs
             2xl:text-sm 2xl:leading-relaxed

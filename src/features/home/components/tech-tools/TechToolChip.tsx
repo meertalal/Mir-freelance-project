@@ -11,7 +11,7 @@ export default function TechToolChip({ tool }: TechToolChipProps) {
     <span className="inline-flex min-w-0 items-center gap-1.5">
       <span
         aria-hidden="true"
-        className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[9px] font-bold"
+        className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold"
         style={{ backgroundColor: tool.bg, color: tool.color }}
       >
         {tool.name.slice(0, 1)}

@@ -1,10 +1,11 @@
 import { sharedTestimonials } from "../../../data/site.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
+import { innerContainerClass } from "../../../components/shared/section.styles";
 
 export default function TestimonialsGrid() {
   return (
     <section className="relative isolate w-full overflow-hidden bg-[#F7FAFF] px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
-      <div className="mx-auto w-full max-w-[1280px] min-[1440px]:max-w-[1360px]">
+      <div className={innerContainerClass}>
         <SectionHeading
           title="Trusted by Businesses Worldwide."
           description="What clients say about working together."

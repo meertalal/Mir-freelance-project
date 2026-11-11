@@ -1,10 +1,11 @@
-import { presenceFlags, trustedBy } from "../data/about-page.data";
+import { presenceFlags } from "../data/about-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
+import { innerContainerClass } from "../../../components/shared/section.styles";
 
 export default function GlobalPresence() {
   return (
     <section className="relative isolate w-full overflow-hidden bg-white px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
-      <div className="mx-auto w-full max-w-[1280px] min-[1440px]:max-w-[1360px]">
+      <div className={innerContainerClass}>
         <SectionHeading
           title="Global Presence"
           description="Working with clients across continents with a remote-first delivery model."
@@ -29,21 +30,6 @@ export default function GlobalPresence() {
           </div>
         </div>
 
-        <div className="mt-10">
-          <p className="mb-5 text-center text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-            Trusted By
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            {trustedBy.map((brandName) => (
-              <span
-                key={brandName}
-                className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold tracking-wide text-slate-500 grayscale sm:text-sm"
-              >
-                {brandName}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

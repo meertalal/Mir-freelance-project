@@ -1,5 +1,6 @@
 
-import SectionHeader from "./SectionHeader";
+import { Link } from "react-router-dom";
+import SectionHeader from "../../../../components/shared/SectionHeader";
 import { featuredWorkCopy, projects } from "../../data/works.data";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import type { ProjectCardProps } from "../../types/works.types";
@@ -20,16 +21,19 @@ function ProjectCard({ project }: ProjectCardProps) {
       "
     >
       {/* Project image */}
-      <a
-        href={project.href}
+      <Link
+        to={project.href}
         aria-label={`View ${project.title} project`}
         className="block overflow-hidden rounded-xl bg-slate-100"
       >
-        <div className="aspect-[16/9] overflow-hidden">
+        <div className="aspect-[16/10] overflow-hidden">
           <img
             src={project.image}
             alt={project.imageAlt}
+            width={640}
+            height={400}
             loading="lazy"
+            decoding="async"
             className="
               h-full w-full object-cover
               transition-transform duration-500 ease-out
@@ -37,7 +41,7 @@ function ProjectCard({ project }: ProjectCardProps) {
             "
           />
         </div>
-      </a>
+      </Link>
 
       {/* Project details */}
       <div
@@ -56,12 +60,12 @@ function ProjectCard({ project }: ProjectCardProps) {
             sm:text-base xl:text-lg
           "
         >
-          <a
-            href={project.href}
-            className="focus-visible:outline-2 focus-visible:outline-blue-500"
+          <Link
+            to={project.href}
+            className="inline-flex min-h-11 items-center focus-visible:outline-2 focus-visible:outline-blue-500"
           >
             {project.title}
-          </a>
+          </Link>
         </h3>
 
         {/* Technology tags and country flag */}
@@ -72,7 +76,7 @@ function ProjectCard({ project }: ProjectCardProps) {
                 key={tag}
                 className="
                   max-w-full rounded-md bg-[#edf4ff]
-                  px-2 py-1 text-[10px] font-medium
+                  px-2 py-1 text-[11px] font-medium
                   leading-tight text-[#2761bb]
                   sm:text-[11px] xl:text-xs
                 "

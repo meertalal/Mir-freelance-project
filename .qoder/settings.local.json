@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /d/laragon/www/mir-talal && git log --oneline -15 && echo \"---\" && git status --short | head -50)",
+      "Bash(cd /d/laragon/www/mir-talal && git diff -- src/pages/AboutPage.tsx src/features/about/components/GlobalPresence.tsx src/features/about/components/MissionVisionValues.tsx && echo \"=== testimonials/works data heads ===\" && head -30 src/features/home/data/works.data.ts)",
+      "Bash(cd /d/laragon/www/mir-talal && echo \"--- App.css ---\" && head -40 src/App.css && echo \"--- app/global.css head ---\" && head -40 src/app/global.css && echo \"--- grep App.css import ---\" && grep -rn \"App.css\\\\|global.css\" src index.html | head && echo \"--- firebaserc ---\" && cat .firebaserc && echo \"--- github workflows ---\" && ls .github/workflows 2>/dev/null && echo \"--- public ---\" && ls public && ls public/image 2>/dev/null | head)"
+    ]
+  }
+}

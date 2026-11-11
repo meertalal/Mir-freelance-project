@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import WorldMapIllustration from "./WorldMapIllustration";
 import { countries, trustItems } from "../../data/hero.data";
@@ -57,7 +58,7 @@ export default function HeroSection() {
               className="h-px w-8 shrink-0 bg-[#092f58] sm:w-12 2xl:w-16"
             />
 
-            <p className="whitespace-nowrap font-playfair text-[10px] font-semibold uppercase tracking-[0.12em] text-[#092f58] sm:text-xs 2xl:text-sm max-[420px]:text-[8px] max-[420px]:tracking-[0.04em]">
+            <p className="whitespace-nowrap font-playfair text-[11px] font-semibold uppercase tracking-[0.12em] text-[#092f58] sm:text-xs 2xl:text-sm max-[420px]:text-[11px] max-[420px]:tracking-[0.06em]">
               Software Development · AI · Automation
             </p>
 
@@ -114,8 +115,8 @@ export default function HeroSection() {
 
           {/* Buttons */}
           <div className="flex flex-wrap items-center gap-3 motion-safe:animate-[heroReveal_800ms_cubic-bezier(0.22,1,0.36,1)_340ms_both] 2xl:gap-4 max-[420px]:gap-2">
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className={[
                 "group inline-flex min-h-12 items-center justify-center gap-4",
                 "rounded-xl border border-[#092f58] bg-[#092f58] px-6",
@@ -129,8 +130,8 @@ export default function HeroSection() {
                 "2xl:min-h-14 2xl:px-8 2xl:text-sm",
                 "min-[1920px]:min-h-16 min-[1920px]:px-10 min-[1920px]:text-base",
                 "min-[2560px]:min-h-[4.25rem] min-[2560px]:px-12 min-[2560px]:text-lg",
-                "max-[420px]:min-h-10 max-[420px]:gap-2",
-                "max-[420px]:rounded-lg max-[420px]:px-3 max-[420px]:text-[10px]",
+                "max-[420px]:min-h-11 max-[420px]:gap-2",
+                "max-[420px]:rounded-lg max-[420px]:px-3 max-[420px]:text-[11px]",
               ].join(" ")}
             >
               Get a Quote
@@ -139,10 +140,10 @@ export default function HeroSection() {
                 aria-hidden="true"
                 className="transition-transform duration-300 group-hover:translate-x-1.5 motion-reduce:transition-none"
               />
-            </a>
+            </Link>
 
-            <a
-              href="/portfolio"
+            <Link
+              to="/portfolio"
               className={[
                 "inline-flex min-h-12 items-center justify-center rounded-xl",
                 "border border-slate-200 bg-white/95 px-6",
@@ -155,12 +156,12 @@ export default function HeroSection() {
                 "2xl:min-h-14 2xl:px-8 2xl:text-sm",
                 "min-[1920px]:min-h-16 min-[1920px]:px-10 min-[1920px]:text-base",
                 "min-[2560px]:min-h-[4.25rem] min-[2560px]:px-12 min-[2560px]:text-lg",
-                "max-[420px]:min-h-10 max-[420px]:rounded-lg",
-                "max-[420px]:px-3 max-[420px]:text-[10px]",
+                "max-[420px]:min-h-11 max-[420px]:rounded-lg",
+                "max-[420px]:px-3 max-[420px]:text-[11px]",
               ].join(" ")}
             >
               View Our Work
-            </a>
+            </Link>
           </div>
 
           {/* Trust information */}
@@ -180,11 +181,11 @@ export default function HeroSection() {
                 />
 
                 <div className="min-w-0">
-                  <p className="font-roboto-condensed text-[12px] font-bold leading-snug text-[#092f58] sm:text-sm 2xl:text-base max-[420px]:text-[8px]">
+                  <p className="font-roboto-condensed text-xs font-bold leading-snug text-[#092f58] sm:text-sm 2xl:text-base">
                     {title}
                   </p>
 
-                  <p className="mt-1 font-inter text-[10px] leading-relaxed text-slate-600 sm:text-xs 2xl:text-sm max-[420px]:mt-0.5 max-[420px]:text-[7px] max-[420px]:leading-tight">
+                  <p className="mt-1 font-inter text-[11px] leading-relaxed text-slate-500 sm:text-xs 2xl:text-sm">
                     {description}
                   </p>
                 </div>
@@ -194,7 +195,7 @@ export default function HeroSection() {
 
           {/* Country flags */}
           <div
-            className="hero-country-flags mt-7 flex flex-nowrap items-center gap-2 motion-safe:animate-[heroReveal_800ms_cubic-bezier(0.22,1,0.36,1)_650ms_both] 2xl:mt-8 2xl:gap-3 max-[767px]:mt-4"
+            className="hero-country-flags mt-7 flex flex-wrap items-center gap-2 motion-safe:animate-[heroReveal_800ms_cubic-bezier(0.22,1,0.36,1)_650ms_both] 2xl:mt-8 2xl:gap-3 max-[767px]:mt-4"
             aria-label="Countries served"
           >
             {countries.map(({ name, flag }, index) => (
@@ -206,7 +207,7 @@ export default function HeroSection() {
                     "--flag-delay": `${index * 100}ms`,
                   } as CSSProperties
                 }
-                className="hero-country-flag inline-flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-white shadow-[0_2px_8px_rgba(9,47,88,0.18)] ring-1 ring-slate-200 transition-[transform,box-shadow] duration-300 hover:-translate-y-2 hover:scale-110 hover:shadow-[0_8px_18px_rgba(88,130,232,0.28)] motion-reduce:animate-none max-[767px]:h-7 max-[767px]:w-7 max-[420px]:h-5 max-[420px]:w-5 sm:h-10 sm:w-10 2xl:h-11 2xl:w-11"
+                className="hero-country-flag inline-flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-white shadow-[0_2px_8px_rgba(9,47,88,0.18)] ring-1 ring-slate-200 transition-[transform,box-shadow] duration-300 hover:-translate-y-2 hover:scale-110 hover:shadow-[0_8px_18px_rgba(88,130,232,0.28)] motion-reduce:animate-none max-[767px]:h-7 max-[767px]:w-7 max-[420px]:h-6 max-[420px]:w-6 sm:h-10 sm:w-10 2xl:h-11 2xl:w-11"
               >
                 <img
                   src={flag}

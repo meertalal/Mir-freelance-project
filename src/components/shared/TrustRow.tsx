@@ -17,8 +17,8 @@ export default function TrustRow({ items, className = "" }: TrustRowProps) {
       className={[
         "grid gap-3",
         items.length >= 4
-          ? "grid-cols-2 sm:grid-cols-4"
-          : "grid-cols-1 sm:grid-cols-3",
+          ? "grid-cols-1 min-[480px]:grid-cols-2 sm:grid-cols-4"
+          : "grid-cols-1 min-[480px]:grid-cols-2 sm:grid-cols-3",
         className,
       ].join(" ")}
     >

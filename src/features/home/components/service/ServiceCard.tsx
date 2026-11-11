@@ -1,5 +1,6 @@
 import { ArrowRight, ChevronRight } from "lucide-react";
 import type { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 import type { ServiceCardProps } from "../../types/services.types";
 
 export default function ServiceCard({
@@ -28,7 +29,7 @@ export default function ServiceCard({
         hover:border-[#9FC3FF]
         hover:shadow-[0_18px_40px_rgba(37,99,235,0.13)]
         min-[480px]:p-4
-        md:gap-4 md:p-5 md:pr-28
+        sm:gap-4 sm:p-4 md:p-5
         xl:flex-col xl:items-stretch xl:gap-0
         xl:rounded-xl xl:p-6 xl:pr-6
         2xl:rounded-2xl 2xl:p-7
@@ -99,14 +100,13 @@ export default function ServiceCard({
           {service.description}
         </p>
 
-        <a
-          href={service.href}
+        <Link
+          to={service.href}
           aria-label={`Learn more about ${service.title}`}
           className="
-            mt-2 inline-flex w-fit items-center gap-1.5
-            font-poppins text-[11px] font-semibold text-[#1670F5]
+            mt-2 inline-flex min-h-11 w-fit items-center gap-1.5
+            font-poppins text-xs font-semibold text-[#1670F5]
             transition-colors duration-300 hover:text-[#0f5fd4]
-            md:absolute md:right-5 md:top-1/2 md:mt-0 md:-translate-y-1/2
             md:text-[#092F58] md:text-xs
             xl:static xl:mt-auto xl:translate-y-0 xl:text-sm
             2xl:text-base
@@ -125,7 +125,7 @@ export default function ServiceCard({
               2xl:h-4 2xl:w-4
             "
           />
-        </a>
+        </Link>
       </div>
 
       <ChevronRight

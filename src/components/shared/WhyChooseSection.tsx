@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import { sharedTestimonials } from "../../data/site.data";
 import SectionHeading from "./SectionHeading";
+import { innerContainerClass } from "./section.styles";
 
 export type WhyFeature = {
   id: string;
@@ -43,7 +44,7 @@ export default function WhyChooseSection({
 
   return (
     <section className="relative isolate w-full overflow-hidden bg-[#F7FAFF] px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
-      <div className="mx-auto grid w-full max-w-[1280px] items-center gap-10 lg:grid-cols-2 lg:gap-14 min-[1440px]:max-w-[1360px]">
+      <div className={`${innerContainerClass} grid items-center gap-10 lg:grid-cols-2 lg:gap-14`}>
         <div>
           <SectionHeading
             eyebrow={eyebrow}
@@ -100,28 +101,33 @@ export default function WhyChooseSection({
               <button
                 type="button"
                 onClick={goPrev}
-                className="rounded-full px-3 py-2 text-slate-500 hover:bg-blue-50 hover:text-blue-600"
+                className="inline-flex size-11 min-h-11 min-w-11 items-center justify-center rounded-full text-slate-500 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 aria-label="Previous testimonial"
               >
                 ←
               </button>
-              <div className="flex gap-1.5">
+              <div className="flex items-center gap-0.5">
                 {testimonials.map((item, i) => (
                   <button
                     key={item.id}
                     type="button"
                     aria-label={`Go to testimonial ${i + 1}`}
+                    aria-current={i === index ? "true" : undefined}
                     onClick={() => setIndex(i)}
-                    className={`h-2 rounded-full transition-all ${
-                      i === index ? "w-6 bg-blue-500" : "w-2 bg-blue-200"
-                    }`}
-                  />
+                    className="flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  >
+                    <span
+                      className={`block h-2 rounded-full transition-all ${
+                        i === index ? "w-6 bg-blue-500" : "w-2 bg-blue-200"
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
               <button
                 type="button"
                 onClick={goNext}
-                className="rounded-full px-3 py-2 text-slate-500 hover:bg-blue-50 hover:text-blue-600"
+                className="inline-flex size-11 min-h-11 min-w-11 items-center justify-center rounded-full text-slate-500 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 aria-label="Next testimonial"
               >
                 →

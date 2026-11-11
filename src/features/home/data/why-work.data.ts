@@ -46,7 +46,7 @@ export const testimonials: Testimonial[] = [
     author: "Michael Thompson",
     role: "CEO",
     company: "Real Estate Company",
-    avatar: "/images/testimonials/michael-thompson.webp",
+    avatar: "/image/profile.webp",
     rating: 5,
   },
   {
@@ -56,7 +56,7 @@ export const testimonials: Testimonial[] = [
     author: "Sarah Johnson",
     role: "Founder",
     company: "Digital Solutions",
-    avatar: "/images/testimonials/sarah-johnson.webp",
+    avatar: "/image/profile.webp",
     rating: 5,
   },
   {
@@ -66,7 +66,7 @@ export const testimonials: Testimonial[] = [
     author: "David Lee",
     role: "Product Manager",
     company: "Technology Company",
-    avatar: "/images/testimonials/david-lee.webp",
+    avatar: "/image/profile.webp",
     rating: 5,
   },
 ];
