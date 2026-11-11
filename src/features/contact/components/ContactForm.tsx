@@ -45,7 +45,7 @@ export default function ContactForm() {
   };
 
   const fieldClass =
-    "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-800 outline-none transition focus:border-[#1670F5] focus:ring-2 focus:ring-[#1670F5]/20";
+    "w-full min-h-11 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:ring-2 focus:ring-[#1670F5]/20 sm:text-sm";
 
   return (
     <form
@@ -56,7 +56,7 @@ export default function ContactForm() {
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="block sm:col-span-1">
-          <span className="mb-1.5 block text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700 sm:text-xs">
             Full Name *
           </span>
           <input
@@ -71,7 +71,7 @@ export default function ContactForm() {
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700 sm:text-xs">
             Email Address *
           </span>
           <input
@@ -87,7 +87,7 @@ export default function ContactForm() {
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700 sm:text-xs">
             Phone Number
           </span>
           <input
@@ -95,13 +95,15 @@ export default function ContactForm() {
             value={form.phone}
             onChange={(e) => updateField("phone", e.target.value)}
             className={fieldClass}
+            type="tel"
+            inputMode="tel"
             placeholder="+1 000 000 0000"
             autoComplete="tel"
           />
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700 sm:text-xs">
             Company Name
           </span>
           <input
@@ -115,7 +117,7 @@ export default function ContactForm() {
         </label>
 
         <label className="block sm:col-span-2">
-          <span className="mb-1.5 block text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700 sm:text-xs">
             Project Type
           </span>
           <select
@@ -134,7 +136,7 @@ export default function ContactForm() {
         </label>
 
         <label className="block sm:col-span-2">
-          <span className="mb-1.5 block text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block text-sm font-semibold text-slate-700 sm:text-xs">
             Tell us about your project *
           </span>
           <textarea

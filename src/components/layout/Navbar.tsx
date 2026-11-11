@@ -17,7 +17,7 @@ export default function Navbar({
   ctaLabel = navbarCta.label,
   ctaHref = navbarCta.href,
 }: NavbarProps) {
-  const { menuOpen, isScrolled, toggleMenu } = useNavbarUi();
+  const { menuOpen, isScrolled, toggleMenu, closeMenu } = useNavbarUi();
 
   return (
     <header className={navbarShellClassName(isScrolled)}>
@@ -29,17 +29,18 @@ export default function Navbar({
           isScrolled={isScrolled}
         />
 
-        <div className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 xl:flex 2xl:gap-1 min-[1920px]:gap-2 min-[2560px]:gap-3">
+        <div className="hidden min-h-11 min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex 2xl:gap-1 min-[1920px]:gap-2 min-[2560px]:gap-3">
           <NavLinks links={navigationLinks} />
         </div>
 
-        <div className="hidden shrink-0 items-center xl:ml-2 xl:flex 2xl:ml-4 min-[1920px]:ml-6 min-[2560px]:ml-8">
+        <div className="hidden shrink-0 items-center lg:ml-2 lg:flex 2xl:ml-4 min-[1920px]:ml-6 min-[2560px]:ml-8">
           <NavCta label={ctaLabel} href={ctaHref} />
         </div>
 
         <MobileMenu
           open={menuOpen}
           onToggle={toggleMenu}
+          onClose={closeMenu}
           links={navigationLinks}
           ctaLabel={ctaLabel}
           ctaHref={ctaHref}

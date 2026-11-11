@@ -44,7 +44,7 @@ export default function ProjectCard({
           {project.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-md bg-[#edf4ff] px-2 py-1 text-[10px] font-medium text-[#2761bb] sm:text-[11px]"
+              className="rounded-md bg-[#edf4ff] px-2 py-1 text-[11px] font-medium text-[#2761bb] sm:text-[11px]"
             >
               {tag}
             </span>
@@ -52,7 +52,9 @@ export default function ProjectCard({
         </div>
 
         <h3 className="font-montserrat text-sm font-bold text-slate-900 transition-colors group-hover:text-blue-700 sm:text-base lg:text-lg">
-          <Link to={project.href}>{project.title}</Link>
+          <Link to={project.href} className="inline-flex min-h-11 items-center">
+            {project.title}
+          </Link>
         </h3>
 
         {project.description && (
@@ -78,7 +80,7 @@ export default function ProjectCard({
           {showCaseStudyLink && (
             <Link
               to={project.href}
-              className="inline-flex items-center gap-1 font-playfair text-xs font-semibold text-[#092F58] hover:text-[#5882E8]"
+              className="inline-flex min-h-11 items-center gap-1 font-playfair text-xs font-semibold text-[#092F58] hover:text-[#5882E8]"
             >
               View Case Study
               <ArrowRight size={14} aria-hidden="true" />

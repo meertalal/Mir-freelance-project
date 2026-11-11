@@ -241,13 +241,13 @@
     top: 16rem;
   }
 
-  /* Keep all three trust items on one row */
+  /* Trust items: stay 3-up on phones, stack below 380px */
 
   .hero-trust-grid {
     display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     align-items: start;
-    gap: 8px;
+    gap: 10px;
     width: 100%;
   }
 
@@ -257,17 +257,17 @@
   }
 
   .hero-trust-grid > div p {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
-  /* Keep all country flags on one horizontal line */
+  /* Country flags: one row when they fit, wrap on very small phones */
 
   .hero-country-flags {
     display: flex !important;
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
     align-items: center;
-    justify-content: space-between;
-    gap: 5px !important;
+    justify-content: flex-start;
+    gap: 6px !important;
     width: 100%;
     min-width: 0;
   }
@@ -317,6 +317,12 @@
   }
 }
 
+@media screen and (max-width: 379px) {
+  .hero-trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
 /* =========================================================
    SMALL PHONES
    ========================================================= */
@@ -333,10 +339,6 @@
 
   .hero-trust-grid > div {
     gap: 3px;
-  }
-
-  .hero-country-flags {
-    gap: 3px !important;
   }
 
   .hero-country-flag {

@@ -92,7 +92,7 @@ function Slide({ testimonial }: { testimonial: Testimonial }) {
           <h3 className="truncate font-montserrat text-[11px] font-bold text-slate-800 sm:text-xs lg:text-sm 2xl:text-base">
             {testimonial.author}
           </h3>
-          <p className="mt-0.5 truncate font-lato text-[9px] leading-relaxed text-slate-500 sm:text-[10px] lg:text-xs 2xl:text-sm">
+          <p className="mt-0.5 truncate font-lato text-[11px] leading-relaxed text-slate-500 sm:text-[11px] lg:text-xs 2xl:text-sm">
             {testimonial.role}, {testimonial.company}
           </p>
         </div>
@@ -167,15 +167,13 @@ export default function TestimonialCard({
           onClick={onPrevious}
           aria-label="Previous testimonial"
           className="
-            inline-flex h-9 w-9 shrink-0 items-center justify-center
+            inline-flex size-11 shrink-0 items-center justify-center
             rounded-full border border-slate-200 text-slate-500
             transition duration-200
             hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600
             active:scale-95
             focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-blue-600
-            sm:h-10 sm:w-10
-            lg:h-11 lg:w-11
             2xl:h-12 2xl:w-12
           "
         >
@@ -206,17 +204,16 @@ export default function TestimonialCard({
               onClick={() => onSelect(index)}
               aria-label={`Go to testimonial ${index + 1}`}
               aria-current={safeIndex === index ? "true" : undefined}
-              className={`
-                h-1.5 shrink-0 rounded-full transition-all duration-300
-                focus-visible:outline-2 focus-visible:outline-offset-2
-                focus-visible:outline-blue-600 sm:h-2
-                ${
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            >
+              <span
+                className={`block rounded-full transition-all duration-300 ${
                   safeIndex === index
-                    ? "w-5 bg-blue-500 sm:w-6 2xl:w-8"
-                    : "w-1.5 bg-blue-200 hover:bg-blue-400 sm:w-2"
-                }
-              `}
-            />
+                    ? "h-2 w-5 bg-blue-500 sm:w-6 2xl:w-8"
+                    : "h-1.5 w-1.5 bg-blue-200 sm:h-2 sm:w-2"
+                }`}
+              />
+            </button>
           ))}
         </div>
 
@@ -225,15 +222,13 @@ export default function TestimonialCard({
           onClick={onNext}
           aria-label="Next testimonial"
           className="
-            inline-flex h-9 w-9 shrink-0 items-center justify-center
+            inline-flex size-11 shrink-0 items-center justify-center
             rounded-full border border-slate-200 text-slate-500
             transition duration-200
             hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600
             active:scale-95
             focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-blue-600
-            sm:h-10 sm:w-10
-            lg:h-11 lg:w-11
             2xl:h-12 2xl:w-12
           "
         >

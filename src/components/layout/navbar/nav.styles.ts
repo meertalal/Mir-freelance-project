@@ -24,8 +24,8 @@ export function navLinkClassName(isActive: boolean, mobile = false) {
           isActive ? "bg-white/10 text-white" : "text-white/85",
         ].join(" ")
       : [
-          "relative flex min-h-10 items-center justify-center px-2 2xl:px-3",
-          "2xl:text-base min-[1920px]:min-h-12 min-[1920px]:px-4 min-[1920px]:text-lg",
+          "relative flex min-h-10 shrink-0 items-center justify-center px-2 lg:px-2.5 2xl:px-3",
+          "lg:text-sm xl:text-base min-[1920px]:min-h-12 min-[1920px]:px-4 min-[1920px]:text-lg",
           "min-[2560px]:px-5 min-[2560px]:text-xl",
           "after:absolute after:bottom-1 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-white",
           "after:origin-center after:transition-transform after:duration-300 after:ease-out",

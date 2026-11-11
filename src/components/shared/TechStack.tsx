@@ -3,42 +3,45 @@ import SectionHeading from "./SectionHeading";
 import { innerContainerClass, innerSectionClass } from "./section.styles";
 
 type TechStackProps = {
+  eyebrow?: string;
   title?: string;
   description?: string;
 };
 
 export default function TechStack({
-  title = "Technologies We Work With",
-  description = "Modern tools and platforms for scalable, reliable digital products.",
+  eyebrow = "Technologies We Work With",
+  title = "Modern Technologies for Better Solutions",
+  description = "We use industry-leading technologies to deliver high-performance, scalable, and secure solutions.",
 }: TechStackProps) {
-  const loop = [...techStack, ...techStack];
-
   return (
-    <section className={`${innerSectionClass} overflow-hidden bg-[#F7FAFF]`}>
+    <section className={`${innerSectionClass} bg-white`}>
       <div className={innerContainerClass}>
-        <SectionHeading title={title} description={description} />
+        <SectionHeading
+          eyebrow={eyebrow}
+          title={title}
+          description={description}
+        />
 
-        <div className="relative overflow-hidden">
-          <div className="flex w-max gap-4 motion-safe:animate-marquee sm:gap-6">
-            {loop.map((tech, index) => (
-              <div
-                key={`${tech.id}-${index}`}
-                className="flex h-24 w-24 shrink-0 flex-col items-center justify-center gap-2 rounded-full border border-[#D6E4F7] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:h-28 sm:w-28"
+        <ul className="grid grid-cols-3 gap-3 min-[480px]:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-12 xl:gap-3">
+          {techStack.map((tech, index) => (
+            <li
+              key={tech.id}
+              style={{ animationDelay: `${index * 50}ms` }}
+              className="flex flex-col items-center gap-2 rounded-2xl border border-[#D6E4F7] bg-[#F7FAFF] px-2 py-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-[#BCE0F5] hover:bg-white hover:shadow-md motion-safe:animate-page-reveal"
+            >
+              <span
+                className="flex h-11 w-11 items-center justify-center rounded-full text-xs font-bold text-white ring-4 ring-white"
+                style={{ backgroundColor: tech.color }}
+                aria-hidden="true"
               >
-                <span
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-xs font-bold text-white sm:h-11 sm:w-11 sm:text-sm"
-                  style={{ backgroundColor: tech.color }}
-                  aria-hidden="true"
-                >
-                  {tech.name.slice(0, 2).toUpperCase()}
-                </span>
-                <span className="font-inter text-[10px] font-semibold text-slate-700 sm:text-xs">
-                  {tech.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+                {tech.name.slice(0, 2).toUpperCase()}
+              </span>
+              <span className="font-inter text-[11px] font-semibold leading-tight text-slate-700 sm:text-xs">
+                {tech.name}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

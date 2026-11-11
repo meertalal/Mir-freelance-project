@@ -1,8 +1,10 @@
 import { sharedProjects } from "../../data/site.data";
 import ProjectCard from "./ProjectCard";
 import SectionHeading from "./SectionHeading";
+import { innerContainerClass } from "./section.styles";
 
 type FeaturedProjectsProps = {
+  eyebrow?: string;
   title?: string;
   description?: string;
   limit?: number;
@@ -12,6 +14,7 @@ type FeaturedProjectsProps = {
 };
 
 export default function FeaturedProjects({
+  eyebrow = "Featured Service Projects",
   title = "Real Projects. Real Results.",
   description = "Selected work delivered for clients across web, mobile, AI and SaaS.",
   limit = 3,
@@ -23,8 +26,9 @@ export default function FeaturedProjects({
 
   return (
     <section className="relative isolate w-full overflow-hidden bg-white px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
-      <div className="mx-auto w-full max-w-[1280px] min-[1440px]:max-w-[1360px]">
+      <div className={innerContainerClass}>
         <SectionHeading
+          eyebrow={eyebrow}
           title={title}
           description={description}
           actionLabel={actionLabel}

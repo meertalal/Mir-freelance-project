@@ -9,12 +9,13 @@ export default function FloatingInfoCard({
   return (
     <div
       className={[
-        "group relative flex w-max max-w-[155px] items-center gap-2",
+        "group relative flex w-max max-w-[140px] items-center gap-2",
         "rounded-xl border-0 bg-white/95 px-2 py-2",
         "outline-none ring-0 backdrop-blur-md",
         "transition-[box-shadow,background-color] duration-300",
         "hover:bg-white hover:shadow-[0_14px_35px_rgba(37,99,235,0.20)]",
-        "sm:max-w-none sm:gap-3 sm:px-3 sm:py-3",
+        "sm:max-w-[190px] sm:gap-3 sm:px-3 sm:py-3",
+        "lg:max-w-none",
         "2xl:gap-3 2xl:px-4 2xl:py-3",
         "min-[1920px]:gap-4 min-[1920px]:px-5 min-[1920px]:py-4",
         "motion-reduce:transition-none",
@@ -44,11 +45,11 @@ export default function FloatingInfoCard({
 
       {/* Text */}
       <div className="min-w-0">
-        <p className="whitespace-nowrap text-[11px] font-bold text-[#102f59] transition-colors duration-300 group-hover:text-blue-700 sm:text-sm 2xl:text-base min-[1920px]:text-lg">
+        <p className="text-[11px] font-bold leading-tight text-[#102f59] transition-colors duration-300 group-hover:text-blue-700 sm:text-sm 2xl:text-base min-[1920px]:text-lg">
           {title}
         </p>
 
-        <p className="whitespace-nowrap text-[9px] text-slate-500 sm:text-xs 2xl:text-sm min-[1920px]:text-base">
+        <p className="text-[11px] leading-tight text-slate-500 sm:text-xs 2xl:text-sm min-[1920px]:text-base">
           {subtitle}
         </p>
       </div>

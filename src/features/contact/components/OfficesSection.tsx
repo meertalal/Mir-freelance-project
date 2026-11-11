@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { contactActions, offices } from "../data/contact-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
+import { innerContainerClass } from "../../../components/shared/section.styles";
 
 export default function OfficesSection() {
   return (
     <section className="relative isolate w-full overflow-hidden bg-white px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
-      <div className="mx-auto w-full max-w-[1280px] min-[1440px]:max-w-[1360px]">
+      <div className={innerContainerClass}>
         <SectionHeading
           title="Connect With Us Worldwide"
           description="Remote-first collaboration with reliable coverage across key regions."
@@ -33,13 +34,23 @@ export default function OfficesSection() {
                   <MapPin size={14} className="mt-0.5 shrink-0 text-[#1670F5]" />
                   {office.address}
                 </li>
-                <li className="flex gap-2">
-                  <Phone size={14} className="mt-0.5 shrink-0 text-[#1670F5]" />
-                  <a href={`tel:${office.phone.replace(/\s/g, "")}`}>{office.phone}</a>
+                <li className="flex items-center gap-2">
+                  <Phone size={14} className="shrink-0 text-[#1670F5]" />
+                  <a
+                    href={`tel:${office.phone.replace(/\s/g, "")}`}
+                    className="inline-flex min-h-11 items-center"
+                  >
+                    {office.phone}
+                  </a>
                 </li>
-                <li className="flex gap-2">
-                  <Mail size={14} className="mt-0.5 shrink-0 text-[#1670F5]" />
-                  <a href={`mailto:${office.email}`}>{office.email}</a>
+                <li className="flex items-center gap-2">
+                  <Mail size={14} className="shrink-0 text-[#1670F5]" />
+                  <a
+                    href={`mailto:${office.email}`}
+                    className="inline-flex min-h-11 items-center break-all"
+                  >
+                    {office.email}
+                  </a>
                 </li>
               </ul>
             </article>
@@ -50,7 +61,7 @@ export default function OfficesSection() {
           {contactActions.map((action) => {
             const Icon = action.Icon;
             const className =
-              "flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-3 text-xs font-semibold text-[#092f58] transition hover:border-[#1670F5] hover:text-[#1670F5] sm:text-sm";
+              "flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-3 text-center text-xs font-semibold text-[#092f58] transition hover:border-[#1670F5] hover:text-[#1670F5] sm:text-sm";
 
             if (action.href.startsWith("mailto:") || action.href.startsWith("#")) {
               return (

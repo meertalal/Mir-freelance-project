@@ -12,7 +12,7 @@ export default function ProjectTags({ tags }: ProjectTagsProps) {
           key={tag}
           className="
             max-w-full rounded-md bg-[#edf4ff]
-            px-2 py-1 font-inter text-[10px]
+            px-2 py-1 font-inter text-[11px]
             font-medium leading-tight text-[#2761bb]
             sm:text-[11px]
             lg:px-2.5 lg:py-1.5 lg:text-xs

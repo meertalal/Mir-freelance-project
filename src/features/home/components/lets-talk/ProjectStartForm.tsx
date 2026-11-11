@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { ArrowRight, LoaderCircle, Mail } from "lucide-react";
+import CountrySearchSelect from "./CountrySearchSelect";
 import {
   budgetRanges,
   countries,
@@ -12,7 +13,7 @@ import {
 } from "../../../../services/contact.service";
 
 const fieldClass =
-  "w-full rounded-xl border border-slate-200 bg-[#F7FAFF] px-3.5 py-3 text-sm text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20";
+  "w-full min-h-11 rounded-xl border border-slate-200 bg-[#F7FAFF] px-3.5 py-3 text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 sm:text-sm";
 
 const initialForm: ContactPayload = {
   fullName: "",
@@ -39,6 +40,14 @@ export default function ProjectStartForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const phoneDigits = form.phone.replace(/\D/g, "");
+    if (form.phone.trim() !== "" && (phoneDigits.length < 7 || phoneDigits.length > 15)) {
+      setStatus("error");
+      setFeedback("Please enter a valid phone number.");
+      return;
+    }
+
     setStatus("loading");
     setFeedback("");
 
@@ -83,7 +92,7 @@ export default function ProjectStartForm() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
             Your Name *
           </span>
           <input
@@ -98,7 +107,7 @@ export default function ProjectStartForm() {
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
             Email Address *
           </span>
           <input
@@ -114,7 +123,7 @@ export default function ProjectStartForm() {
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
             Project Type *
           </span>
           <select
@@ -134,7 +143,7 @@ export default function ProjectStartForm() {
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
             Budget Range
           </span>
           <select
@@ -152,49 +161,59 @@ export default function ProjectStartForm() {
           </select>
         </label>
 
-        <label className="block">
-          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+        <div>
+          <label
+            htmlFor="start-form-country"
+            className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs"
+          >
             Country
-          </span>
-          <select
-            name="country"
-            value={form.country}
-            onChange={(event) => updateField("country", event.target.value)}
-            className={fieldClass}
-          >
-            <option value="">Select a country</option>
-            {countries.map((country) => (
-              <option key={country.code} value={country.name}>
-                {`${country.flag} ${country.phoneCode}`}
-              </option>
-            ))}
-          </select>
-        </label>
+          </label>
+          <CountrySearchSelect
+            id="start-form-country"
+            value={form.country ?? ""}
+            onChange={(countryName) => updateField("country", countryName)}
+            countries={countries}
+          />
+        </div>
 
-        <label className="block">
-          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+        <fieldset className="min-w-0">
+          <legend className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
             Country Number
-          </span>
-          <select
-            name="countryPhone"
-            value={form.countryPhone}
-            onChange={(event) => updateField("countryPhone", event.target.value)}
-            className={fieldClass}
-          >
-            <option value="">Select country code</option>
-            {countries.map((country) => (
-              <option
-                key={`${country.code}-${country.phoneCode}`}
-                value={country.phoneCode}
-              >
-                {`${country.flag} ${country.phoneCode}`}
-              </option>
-            ))}
-          </select>
-        </label>
+          </legend>
+          <div className="flex min-w-0 flex-col gap-2 min-[480px]:flex-row">
+            <select
+              name="countryPhone"
+              aria-label="Country code"
+              value={form.countryPhone}
+              onChange={(event) => updateField("countryPhone", event.target.value)}
+              className={`${fieldClass} min-w-0 min-[480px]:w-[42%]`}
+            >
+              <option value="">Select country code</option>
+              {countries.map((country) => (
+                <option
+                  key={`${country.code}-${country.phoneCode}`}
+                  value={country.phoneCode}
+                >
+                  {`${country.flag} ${country.phoneCode}`}
+                </option>
+              ))}
+            </select>
+            <input
+              type="tel"
+              inputMode="tel"
+              name="phone"
+              aria-label="Phone number"
+              value={form.phone}
+              onChange={(event) => updateField("phone", event.target.value)}
+              className={`${fieldClass} min-w-0 min-[480px]:flex-1`}
+              placeholder="Enter your number"
+              autoComplete="tel"
+            />
+          </div>
+        </fieldset>
 
         <label className="block sm:col-span-2">
-          <span className="mb-1.5 block font-inter text-xs font-semibold text-slate-700">
+          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
             Project Details *
           </span>
           <textarea

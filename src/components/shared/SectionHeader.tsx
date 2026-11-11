@@ -14,7 +14,7 @@ export type SectionHeaderProps = {
 };
 
 const actionClass = `
-  group inline-flex items-center justify-center gap-1.5
+  group inline-flex min-h-11 items-center justify-center gap-1.5
   font-playfair text-xs font-semibold text-[#092F58]
   transition-colors duration-300 hover:text-[#5882E8]
   focus-visible:outline-none focus-visible:ring-2
@@ -101,7 +101,7 @@ export default function SectionHeader({
               aria-hidden="true"
               className="h-px w-5 shrink-0 bg-[#092F58] sm:w-8 lg:w-10"
             />
-            <p className="whitespace-nowrap font-playfair font-bold uppercase tracking-[0.10em] text-[#092F58] text-[10px] sm:text-xs sm:tracking-[0.14em] lg:text-sm">
+            <p className="whitespace-nowrap font-playfair font-bold uppercase tracking-[0.10em] text-[#092F58] text-[11px] sm:text-xs sm:tracking-[0.14em] lg:text-sm">
               {eyebrow}
             </p>
             <span

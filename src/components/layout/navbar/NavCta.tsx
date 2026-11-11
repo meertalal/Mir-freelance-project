@@ -7,6 +7,7 @@ type NavCtaProps = {
   href: string;
   fullWidth?: boolean;
   tabIndex?: number;
+  onClick?: () => void;
 };
 
 export default function NavCta({
@@ -14,11 +15,13 @@ export default function NavCta({
   href,
   fullWidth = false,
   tabIndex,
+  onClick,
 }: NavCtaProps) {
   return (
     <Link
       to={href}
       tabIndex={tabIndex}
+      onClick={onClick}
       className={fullWidth ? `${navCtaClassName} mt-3 w-full` : navCtaClassName}
     >
       <span>{label}</span>

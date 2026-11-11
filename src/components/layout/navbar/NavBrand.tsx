@@ -18,7 +18,7 @@ export default function NavBrand({
     <Link
       to={href}
       aria-label={`${name} - ${subtitle}`}
-      className="group flex min-w-0 shrink-0 items-center gap-2 sm:gap-2.5 2xl:gap-3 min-[1920px]:gap-4 min-[2560px]:gap-5"
+      className="group flex min-h-11 min-w-0 shrink items-center gap-2 sm:gap-2.5 2xl:gap-3 min-[1920px]:gap-4 min-[2560px]:gap-5"
     >
       <Code2
         aria-hidden="true"
@@ -42,7 +42,7 @@ export default function NavBrand({
         <span
           className={[
             "truncate font-inter font-medium text-white/75 transition-all duration-300",
-            isScrolled ? "text-[9px] 2xl:text-[10px]" : "text-[9px] sm:text-[10px] 2xl:text-xs",
+            isScrolled ? "text-[11px] 2xl:text-xs" : "text-[11px] sm:text-xs",
             "min-[1920px]:text-sm min-[2560px]:text-base",
           ].join(" ")}
         >

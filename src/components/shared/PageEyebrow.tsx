@@ -1,12 +1,15 @@
 type PageEyebrowProps = {
   children: string;
+  className?: string;
 };
 
-export default function PageEyebrow({ children }: PageEyebrowProps) {
+export default function PageEyebrow({ children, className = "" }: PageEyebrowProps) {
   return (
     <div className="mb-4 flex w-full max-w-max items-center gap-3 sm:mb-5">
       <span aria-hidden="true" className="h-px w-8 shrink-0 bg-[#092f58] sm:w-12" />
-      <p className="whitespace-nowrap font-playfair text-[10px] font-semibold uppercase tracking-[0.12em] text-[#092f58] sm:text-xs">
+      <p
+        className={`font-playfair text-[11px] font-semibold uppercase tracking-[0.12em] text-[#092f58] sm:text-xs ${className}`}
+      >
         {children}
       </p>
       <span

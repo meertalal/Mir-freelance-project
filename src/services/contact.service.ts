@@ -62,7 +62,7 @@ export async function submitContactForm(
     body: JSON.stringify(body),
   });
 
-  let data: { message?: string; error?: string; success?: boolean } = {};
+  let data: { message?: string; error?: string; success?: boolean };
   try {
     data = await response.json();
   } catch {
