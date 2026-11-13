@@ -1,35 +1,50 @@
 import { presenceFlags } from "../data/about-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
-import { innerContainerClass } from "../../../components/shared/section.styles";
+import {
+  innerContainerClass,
+  innerSectionClass,
+} from "../../../components/shared/section.styles";
 
 export default function GlobalPresence() {
   return (
-    <section className="relative isolate w-full overflow-hidden bg-white px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
-      <div className={innerContainerClass}>
+    <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <img
+          src="/image/background-image/global-purple-map-callouts.webp"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover object-[72%_center]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/65 to-[#F7FAFF]" />
+      </div>
+
+      <div className={`${innerContainerClass} relative`}>
         <SectionHeading
           title="Global Presence"
           description="Working with clients across continents with a remote-first delivery model."
         />
 
-        <div className="relative overflow-hidden rounded-3xl border border-[#D6E4F7] bg-[#F7FAFF] p-6 sm:p-10">
-          <img
-            src="/image/home-hero/global-connections-world-map.webp"
-            alt="World map showing global client presence"
-            className="mx-auto max-h-[320px] w-full object-contain opacity-80"
-          />
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-white/80 bg-white/75 p-4 shadow-[0_12px_36px_rgba(15,48,91,0.06)] backdrop-blur-sm sm:p-6">
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
             {presenceFlags.map((item) => (
-              <span
+              <li
                 key={item.name}
-                className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-3 py-1.5 shadow-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-[#D6E4F7] bg-white px-3 py-2 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#5882E8]"
               >
-                <img src={item.flag} alt="" className="h-5 w-5 rounded-full object-cover" />
-                <span className="text-xs font-semibold text-slate-700">{item.name}</span>
-              </span>
+                <img
+                  src={item.flag}
+                  alt=""
+                  loading="lazy"
+                  className="h-5 w-5 shrink-0 rounded-full object-cover"
+                />
+                <span className="truncate font-inter text-xs font-semibold text-slate-700">
+                  {item.name}
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-
       </div>
     </section>
   );

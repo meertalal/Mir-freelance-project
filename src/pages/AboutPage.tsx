@@ -11,7 +11,10 @@ export default function AboutPage() {
       <AboutStory />
       <MissionVisionValues />
       <GlobalPresence />
-      <CtaBanner />
+      <CtaBanner
+        centered
+        backgroundImage="/image/background-image/global-connections-world-map.webp"
+      />
     </>
   );
 }

@@ -1,29 +1,47 @@
-import {
-  ShieldCheck,
-  Globe2,
-  HeartHandshake,
-  Target,
-  Eye,
-  Gem,
-} from "lucide-react";
+import { Users, Rocket, TrendingUp } from "lucide-react";
 
 export const aboutHero = {
-  eyebrow: "About Us",
-  title: "Building Digital Solutions for a Smarter Tomorrow.",
+  badge: "About Us",
+  titleBefore: "Building ",
+  titleHighlight: "Digital Solutions",
+  titleAfter: " for a Smarter Tomorrow.",
   description:
     "I help startups and businesses design, build, and scale modern digital products with a global mindset and a client-first approach.",
   image: "/image/profile.webp",
-  stats: [
-    { title: "5+ Years", subtitle: "Experience" },
-    { title: "100+", subtitle: "Projects Delivered" },
-    { title: "Passionate", subtitle: "Team Focus" },
-  ],
+  experience: { value: "5+ Years", label: "Experience" },
 };
 
-export const aboutTrust = [
-  { title: "Reliable & Trusted", Icon: ShieldCheck },
-  { title: "Global Mindset", Icon: Globe2 },
-  { title: "Client-Focused", Icon: HeartHandshake },
+export const aboutHeroServices = [
+  "Web Development",
+  "Mobile Apps",
+  "AI & Automation",
+  "UI/UX Design",
+  "SaaS Products",
+  "Cloud & DevOps",
+] as const;
+
+export const purposePillars = [
+  {
+    id: "people-first",
+    title: "People First",
+    description:
+      "We design around real people — clear collaboration, user-focused thinking, and long-term success.",
+    Icon: Users,
+  },
+  {
+    id: "impact-driven",
+    title: "Impact Driven",
+    description:
+      "We measure success by the value our work creates — better experiences, smoother operations, and measurable growth.",
+    Icon: Rocket,
+  },
+  {
+    id: "future-ready",
+    title: "Future Ready",
+    description:
+      "We embrace modern technology and build scalable, future-proof solutions that keep your business ahead of change.",
+    Icon: TrendingUp,
+  },
 ];
 
 export const timeline = [
@@ -53,43 +71,15 @@ export const timeline = [
   },
 ];
 
-export const missionVisionValues = [
-  {
-    id: "mission",
-    title: "Mission",
-    description:
-      "Deliver reliable digital products that help businesses grow with clarity and speed.",
-    Icon: Target,
-    checklist: null as string[] | null,
-  },
-  {
-    id: "vision",
-    title: "Vision",
-    description:
-      "Become a trusted global partner for modern web, AI, and automation solutions.",
-    Icon: Eye,
-    checklist: null as string[] | null,
-  },
-  {
-    id: "values",
-    title: "Values",
-    description: "Principles that guide every engagement.",
-    Icon: Gem,
-    checklist: [
-      "Client success first",
-      "Quality and innovation",
-      "Transparent communication",
-      "Long-term partnership",
-    ],
-  },
-];
-
-
 export const presenceFlags = [
-  { name: "Canada", flag: "/image/flags/canadian-flag.webp" },
   { name: "USA", flag: "/image/flags/usa-flag.webp" },
+  { name: "Canada", flag: "/image/flags/canadian-flag.webp" },
   { name: "UK", flag: "/image/flags/uk-flag.webp" },
+  { name: "Australia", flag: "/image/flags/australian-flag.webp" },
   { name: "UAE", flag: "/image/flags/uae-flag.webp" },
   { name: "Oman", flag: "/image/flags/omani-flag.webp" },
-  { name: "Australia", flag: "/image/flags/australian-flag.webp" },
+  { name: "Bahrain", flag: "/image/flags/bahrain-flag.webp" },
+  { name: "Switzerland", flag: "/image/flags/switzerland-flag.webp" },
+  { name: "Turkey", flag: "/image/flags/turkish-flag.webp" },
+  { name: "Germany", flag: "/image/flags/german-flag.webp" },
 ];

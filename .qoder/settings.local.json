@@ -3,7 +3,17 @@
     "allow": [
       "Bash(cd /d/laragon/www/mir-talal && git log --oneline -15 && echo \"---\" && git status --short | head -50)",
       "Bash(cd /d/laragon/www/mir-talal && git diff -- src/pages/AboutPage.tsx src/features/about/components/GlobalPresence.tsx src/features/about/components/MissionVisionValues.tsx && echo \"=== testimonials/works data heads ===\" && head -30 src/features/home/data/works.data.ts)",
-      "Bash(cd /d/laragon/www/mir-talal && echo \"--- App.css ---\" && head -40 src/App.css && echo \"--- app/global.css head ---\" && head -40 src/app/global.css && echo \"--- grep App.css import ---\" && grep -rn \"App.css\\\\|global.css\" src index.html | head && echo \"--- firebaserc ---\" && cat .firebaserc && echo \"--- github workflows ---\" && ls .github/workflows 2>/dev/null && echo \"--- public ---\" && ls public && ls public/image 2>/dev/null | head)"
+      "Bash(cd /d/laragon/www/mir-talal && echo \"--- App.css ---\" && head -40 src/App.css && echo \"--- app/global.css head ---\" && head -40 src/app/global.css && echo \"--- grep App.css import ---\" && grep -rn \"App.css\\\\|global.css\" src index.html | head && echo \"--- firebaserc ---\" && cat .firebaserc && echo \"--- github workflows ---\" && ls .github/workflows 2>/dev/null && echo \"--- public ---\" && ls public && ls public/image 2>/dev/null | head)",
+      "Bash(git stash show --stat stash@{0} | head -40; echo '---'; sed -n 1,120p src/components/shared/SectionHeading.tsx; echo '---'; sed -n 1,60p src/components/shared/section.styles.ts)",
+      "Bash(npm run lint 2>&1 | tail -30 && npm run build 2>&1 | tail -20)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/about; echo; ls \"C:/Users/user/AppData/Local/Temp/gp-shots\" 2>/dev/null | head)",
+      "Bash(curl -s http://127.0.0.1:9222/json/version | head -3; echo; sed -n 1,80p \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about2.mjs\" 2>/dev/null)",
+      "Bash(npm run lint 2>&1 | tail -10 && npm run build 2>&1 | tail -8 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")",
+      "Bash(npm run lint 2>&1 | tail -6 && npm run build 2>&1 | tail -6 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")",
+      "Bash(npm run lint 2>&1 | tail -8 && npm run build 2>&1 | tail -8)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --hide-scrollbars --remote-debugging-port=9222 --user-data-dir=\"C:/Users/user/AppData/Local/Temp/gp-shots/cdp-profile7\" about:blank)",
+      "Bash(npm run lint 2>&1 | tail -8 && npm run build 2>&1 | tail -8 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")",
+      "Bash(npm run lint 2>&1 | tail -5 && npm run build 2>&1 | tail -5 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")"
     ]
   }
 }
