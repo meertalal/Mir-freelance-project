@@ -3,7 +3,36 @@
     "allow": [
       "Bash(cd /d/laragon/www/mir-talal && git log --oneline -15 && echo \"---\" && git status --short | head -50)",
       "Bash(cd /d/laragon/www/mir-talal && git diff -- src/pages/AboutPage.tsx src/features/about/components/GlobalPresence.tsx src/features/about/components/MissionVisionValues.tsx && echo \"=== testimonials/works data heads ===\" && head -30 src/features/home/data/works.data.ts)",
-      "Bash(cd /d/laragon/www/mir-talal && echo \"--- App.css ---\" && head -40 src/App.css && echo \"--- app/global.css head ---\" && head -40 src/app/global.css && echo \"--- grep App.css import ---\" && grep -rn \"App.css\\\\|global.css\" src index.html | head && echo \"--- firebaserc ---\" && cat .firebaserc && echo \"--- github workflows ---\" && ls .github/workflows 2>/dev/null && echo \"--- public ---\" && ls public && ls public/image 2>/dev/null | head)"
+      "Bash(cd /d/laragon/www/mir-talal && echo \"--- App.css ---\" && head -40 src/App.css && echo \"--- app/global.css head ---\" && head -40 src/app/global.css && echo \"--- grep App.css import ---\" && grep -rn \"App.css\\\\|global.css\" src index.html | head && echo \"--- firebaserc ---\" && cat .firebaserc && echo \"--- github workflows ---\" && ls .github/workflows 2>/dev/null && echo \"--- public ---\" && ls public && ls public/image 2>/dev/null | head)",
+      "Bash(git stash show --stat stash@{0} | head -40; echo '---'; sed -n 1,120p src/components/shared/SectionHeading.tsx; echo '---'; sed -n 1,60p src/components/shared/section.styles.ts)",
+      "Bash(npm run lint 2>&1 | tail -30 && npm run build 2>&1 | tail -20)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/about; echo; ls \"C:/Users/user/AppData/Local/Temp/gp-shots\" 2>/dev/null | head)",
+      "Bash(curl -s http://127.0.0.1:9222/json/version | head -3; echo; sed -n 1,80p \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about2.mjs\" 2>/dev/null)",
+      "Bash(npm run lint 2>&1 | tail -10 && npm run build 2>&1 | tail -8 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")",
+      "Bash(npm run lint 2>&1 | tail -6 && npm run build 2>&1 | tail -6 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")",
+      "Bash(npm run lint 2>&1 | tail -8 && npm run build 2>&1 | tail -8)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --hide-scrollbars --remote-debugging-port=9222 --user-data-dir=\"C:/Users/user/AppData/Local/Temp/gp-shots/cdp-profile7\" about:blank)",
+      "Bash(npm run lint 2>&1 | tail -8 && npm run build 2>&1 | tail -8 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")",
+      "Bash(npm run lint 2>&1 | tail -5 && npm run build 2>&1 | tail -5 && node \"C:/Users/user/AppData/Local/Temp/gp-shots/shot-about3.mjs\")",
+      "Bash(sleep 3; cat \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\qoder-cli\\\\E--laragon-www-Mir-freelance-project\\\\2c142e1e-6441-4dea-9a45-f93b7cce80b7\\\\tasks\\\\b7gdphoze.output\" 2>/dev/null)",
+      "Read(//c/Users/user/AppData/Local/Temp/qoder-cli/E--laragon-www-Mir-freelance-project/2c142e1e-6441-4dea-9a45-f93b7cce80b7/tasks/**)",
+      "Bash(ls src && echo --- && ls src/styles 2>/dev/null; ls src/*.css 2>/dev/null; echo ---; ls src/components/shared)",
+      "Bash(ls src/hooks; echo ---; grep -rn \"Reveal\" src --include=*.tsx -l)",
+      "Bash(npm run build 2>&1 | tail -8)",
+      "Bash(npm run:*)",
+      "Bash(sleep 3; for w in 768 1024 1920; do node \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\shot.mjs\" http://localhost:5180/about \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\about-$w.png\" $w; sleep 2; done)",
+      "Bash(cat \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\qoder-cli\\\\E--laragon-www-Mir-freelance-project\\\\2c142e1e-6441-4dea-9a45-f93b7cce80b7\\\\tasks\\\\b5e9cas2q.output\" 2>/dev/null | tail -10)",
+      "Bash(node:*)",
+      "Bash(npm run lint 2>&1 | tail -12)",
+      "Bash(npm run lint 2>&1 | head -60)",
+      "Bash(npm run lint 2>&1 | tail -20 && npm run build 2>&1 | tail -4)",
+      "Bash(node \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\shot.mjs\" http://localhost:5180/about \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\about-390-v2.png\" 390 && sleep 2 && node \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\shot.mjs\" http://localhost:5180/about \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\about-768-v2.png\" 768)",
+      "Bash(netstat -ano | grep ':5180' | grep -i listen | head -3)",
+      "Bash",
+      "Bash(cp C:/Users/user/AppData/Local/Temp/AboutHero.recovered.tsx src/features/about/components/AboutHero.tsx && git show HEAD:src/features/contact/components/ContactWhy.tsx > src/features/contact/components/ContactWhy.tsx && git show HEAD:src/features/contact/components/OfficesSection.tsx > src/features/contact/components/OfficesSection.tsx && git show HEAD:src/features/contact/components/FaqSection.tsx > src/features/contact/components/FaqSection.tsx && git status --porcelain -- src/features/contact src/features/about/components/AboutHero.tsx)",
+      "Bash(git show HEAD:src/features/about/components/AboutHero.tsx > C:/Users/user/AppData/Local/Temp/AboutHero.head.tsx && wc -l C:/Users/user/AppData/Local/Temp/AboutHero.head.tsx)",
+      "Bash(cd E:/laragon/www/Mir-freelance-project && rm -rf vibe_images && npm run build 2>&1 | tail -12)",
+      "Bash(cd E:/laragon/www/Mir-freelance-project && npx --yes sharp-cli -i vibe_images/client-michael-thompson_1794613744249_009ecb0d.png -o public/image/clients/clientMichaelThompson.webp -f webp -q 82 resize 512 && npx --yes sharp-cli -i vibe_images/client-sarah-johnson_1794613760214_99c401a3.png -o public/image/clients/clientSarahJohnson.webp -f webp -q 82 resize 512 && npx --yes sharp-cli -i vibe_images/client-david-lee_1794613777315_fd8dbe6d.png -o public/image/clients/clientDavidLee.webp -f webp -q 82 resize 512 && npx --yes sharp-cli -i vibe_images/client-james-wilson_1794613794899_2fec0541.png -o public/image/clients/clientJamesWilson.webp -f webp -q 82 resize 512 && rm -rf vibe_images && ls -la public/image/clients)"
     ]
   }
 }

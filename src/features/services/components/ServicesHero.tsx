@@ -1,123 +1,125 @@
-import { servicesHero, servicesTrust } from "../data/services-page.data";
+import { Globe2, Sparkles } from "lucide-react";
+import { servicesHero } from "../data/services-page.data";
 import LinkButton from "../../../components/ui/LinkButton";
-import TrustRow from "../../../components/shared/TrustRow";
-import PageEyebrow from "../../../components/shared/PageEyebrow";
 import {
   innerSectionClass,
-  pageHeroCopyClass,
-  pageHeroDescClass,
   pageHeroGridClass,
-  pageHeroMediaClass,
-  pageHeroTitleClass,
 } from "../../../components/shared/section.styles";
 
 export default function ServicesHero() {
   const {
-    eyebrow,
-    label,
+    badge,
     titleBefore,
-    highlightRed,
-    titleMid,
-    highlightBlue,
+    titleAccent,
     titleAfter,
     description,
     image,
-    floatingCards,
+    imageAlt,
+    primaryCta,
+    secondaryCta,
+    availability,
   } = servicesHero;
 
   return (
-    <section className={`${innerSectionClass} bg-white`}>
+    <section
+      aria-labelledby="services-hero-title"
+      className={`${innerSectionClass} bg-[#072444]`}
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 -top-40 h-[30rem] w-[30rem] rounded-full bg-[#1670F5]/20 blur-[120px]" />
+        <div className="absolute -bottom-48 right-0 h-[34rem] w-[34rem] rounded-full bg-[#5882E8]/20 blur-[140px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,#93C5FD_1px,transparent_1px)] bg-[size:22px_22px] opacity-[0.07]" />
+      </div>
+
       <div className={pageHeroGridClass}>
-        <div className={pageHeroCopyClass}>
-          <PageEyebrow>{eyebrow}</PageEyebrow>
-          <p className="mb-2 font-playfair text-xs font-semibold uppercase tracking-[0.2em] text-[#5882E8] sm:text-sm">
-            {label}
-          </p>
-          <h1 className={pageHeroTitleClass}>
+        <div className="motion-safe:animate-page-reveal">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 backdrop-blur-sm">
+            <Sparkles
+              size={14}
+              aria-hidden="true"
+              className="text-[#93C5FD]"
+            />
+            <span className="font-playfair text-[11px] font-semibold uppercase tracking-[0.16em] text-[#BFD6F5] sm:text-xs">
+              {badge}
+            </span>
+          </span>
+
+          <h1
+            id="services-hero-title"
+            className="mt-5 max-w-[640px] font-montserrat text-[2rem] font-bold leading-[1.08] tracking-tight text-white min-[480px]:text-4xl sm:text-[2.75rem] lg:text-5xl xl:text-[3.5rem] 2xl:text-[3.75rem]"
+          >
             {titleBefore}
-            <span className="text-[#E11D48]">{highlightRed}</span>
-            {titleMid}
-            <span className="text-[#2563eb]">{highlightBlue}</span>
+            <span className="text-[#8FC0FF]">{titleAccent}</span>
             {titleAfter}
           </h1>
-          <p className={pageHeroDescClass}>{description}</p>
-          <div className="mt-7 flex flex-wrap gap-3 max-[420px]:gap-2">
-            <LinkButton to="/contact" showArrow>
-              Get a Free Quote
+
+          <p className="mt-5 max-w-xl font-inter text-sm leading-relaxed text-[#C7D7EE] sm:text-base lg:text-[17px]">
+            {description}
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3 min-[480px]:flex-row min-[480px]:flex-wrap">
+            <LinkButton
+              to={primaryCta.href}
+              variant="secondary"
+              showArrow
+              external
+            >
+              {primaryCta.label}
             </LinkButton>
-            <LinkButton to="/contact" variant="secondary">
-              Schedule a Call
+            <LinkButton to={secondaryCta.href} variant="ghost">
+              {secondaryCta.label}
             </LinkButton>
           </div>
-          <TrustRow items={servicesTrust} className="mt-8" />
+
+          <p className="mt-7 flex items-center gap-2 font-inter text-xs text-[#9FB6D6] sm:text-sm">
+            <Globe2
+              size={16}
+              aria-hidden="true"
+              className="shrink-0 text-[#93C5FD]"
+            />
+            {availability}
+          </p>
         </div>
 
-        <div className={pageHeroMediaClass}>
-          <div className="relative mx-auto aspect-square w-full max-w-[520px]">
-            <div
-              aria-hidden="true"
-              className="absolute inset-[6%] rounded-full bg-gradient-to-br from-[#EAF2FF] via-[#DCE9FF] to-[#C9DEFF]"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 rounded-full border border-dashed border-[#BCE0F5]"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-[16%] rounded-full border border-[#D6E4F7]"
-            />
+        <div className="relative mx-auto w-full max-w-[540px] motion-safe:animate-page-reveal lg:max-w-none">
+          <div
+            aria-hidden="true"
+            className="absolute -right-6 -top-6 h-24 w-24 rounded-full border border-white/10 motion-safe:animate-float-soft sm:h-32 sm:w-32"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-8 -left-6 h-28 w-28 rounded-full border border-dashed border-[#93C5FD]/30 sm:h-36 sm:w-36"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute -inset-4 rounded-[2.5rem] bg-[#1670F5]/20 blur-2xl"
+          />
 
-            <div className="absolute inset-[13%] overflow-hidden rounded-full bg-white p-2 shadow-[0_24px_60px_rgba(22,112,245,0.18)]">
-              <img
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                width={640}
-                height={640}
-                src={image}
-                alt="Mir Talal, freelance web and AI developer"
-                className="h-full w-full rounded-full object-cover object-[62%_30%]"
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-[#0b2f56] shadow-[0_30px_70px_rgba(0,0,0,0.4)] sm:rounded-[2rem]">
+            <img
+              src={image}
+              alt={imageAlt}
+              width={1024}
+              height={768}
+              decoding="async"
+              className="aspect-[4/3] h-full w-full object-cover object-[center_20%]"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#072444]/70 via-[#072444]/10 to-transparent"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#072444]/50 via-transparent to-transparent"
+            />
+            <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 font-inter text-[11px] font-semibold text-white backdrop-blur-md motion-safe:animate-float-soft sm:bottom-5 sm:left-5 sm:text-xs">
+              <Globe2
+                size={14}
+                aria-hidden="true"
+                className="text-[#93C5FD]"
               />
-            </div>
-
-            <span
-              aria-hidden="true"
-              className="absolute left-1/2 top-[2%] inline-flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border border-[#D6E4F7] bg-white text-[#1670F5] shadow-md sm:h-12 sm:w-12"
-            >
-              <span className="font-montserrat text-[10px] font-black tracking-tight">
-                AI
-              </span>
+              Client First Delivery
             </span>
-            <span
-              aria-hidden="true"
-              className="absolute bottom-[8%] right-[6%] inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#D6E4F7] bg-white text-[#E11D48] shadow-md sm:h-11 sm:w-11"
-            >
-              <span className="font-montserrat text-[10px] font-black tracking-tight">
-                UX
-              </span>
-            </span>
-
-            {floatingCards.map((card, index) => (
-              <div
-                key={card.id}
-                style={{ animationDelay: `${index * 200}ms` }}
-                className={[
-                  "absolute rounded-2xl border border-white/70 bg-white/95 px-3 py-2 shadow-[0_12px_30px_rgba(15,48,91,0.14)] backdrop-blur motion-safe:animate-float-soft sm:px-4 sm:py-2.5",
-                  index === 0 && "left-0 top-[16%]",
-                  index === 1 && "right-0 top-[42%]",
-                  index === 2 && "bottom-[6%] left-[8%]",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-              >
-                <p className="font-montserrat text-[11px] font-bold text-[#10234B] sm:text-sm">
-                  {card.title}
-                </p>
-                <p className="font-inter text-[10px] text-slate-500 sm:text-xs">
-                  {card.subtitle}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </div>

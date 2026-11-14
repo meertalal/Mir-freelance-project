@@ -1,7 +1,4 @@
 import {
-  ShieldCheck,
-  Users,
-  Clock3,
   MessageSquare,
   Rocket,
   Cpu,
@@ -9,44 +6,23 @@ import {
 } from "lucide-react";
 
 export const servicesHero = {
-  eyebrow: "Services · Digital Solutions",
-  label: "Our Services",
-  titleBefore: "Build, ",
-  highlightRed: "Automate",
-  titleMid: " & ",
-  highlightBlue: "Scale",
-  titleAfter: " Your Business.",
+  badge: "Services & Digital Solutions",
+  titleBefore: "Next Generation ",
+  titleAccent: "Digital Solutions",
+  titleAfter: " for Growing Businesses",
   description:
-    "Complete digital solutions — websites, mobile apps and marketing that help you grow faster.",
-  image: "/image/profile.webp",
-  floatingCards: [
-    { id: "dev", title: "Development", subtitle: "Web & Mobile" },
-    { id: "ai", title: "AI Automation", subtitle: "Agents & Bots" },
-    { id: "marketing", title: "Digital Marketing", subtitle: "Growth Ready" },
-  ],
-};
-
-export const servicesTrust = [
-  {
-    title: "Reliable & Trusted",
-    description: "Genuine process",
-    Icon: ShieldCheck,
-  },
-  {
-    title: "Expert Team",
-    description: "Idea to deployment",
-    Icon: Users,
-  },
-  {
-    title: "On-time Delivery",
-    description: "Clear milestones",
-    Icon: Clock3,
-  },
-];
+    "Complete digital solutions: websites, mobile apps and marketing that help you grow faster.",
+  image: "/image/services/servicesHeroTeamProfessionals.webp",
+  imageAlt:
+    "Two digital professionals collaborating with a laptop in a modern office",
+  primaryCta: { label: "Explore Our Services", href: "#services" },
+  secondaryCta: { label: "Get a Free Quote", href: "/contact" },
+  availability: "Serving clients worldwide with remote collaboration.",
+} as const;
 
 export const servicesGridCopy = {
   eyebrow: "Our Services",
-  title: "End-to-End Digital Solutions",
+  title: "End to End Digital Solutions",
   description:
     "Everything you need to build, launch, and grow your business in the digital world.",
 } as const;
@@ -62,29 +38,83 @@ export const servicesTechCopy = {
   eyebrow: "Technologies We Work With",
   title: "Modern Technologies for Better Solutions",
   description:
-    "We use industry-leading technologies to deliver high-performance, scalable, and secure solutions.",
+    "We use proven tools to deliver fast, scalable and secure solutions for every project.",
 } as const;
 
-export const servicesProjectsCopy = {
-  eyebrow: "Featured Service Projects",
-  title: "Real Projects. Real Results.",
-  description:
-    "A selection of projects delivered for clients using our core services.",
-} as const;
+export const servicesTechStack = [
+  {
+    id: "react",
+    name: "React",
+    category: "Frontend",
+    description: "Interactive interfaces built with reusable, testable components.",
+    logo: "/image/technologies/react.webp",
+  },
+  {
+    id: "nodejs",
+    name: "Node.js",
+    category: "Backend",
+    description: "Fast APIs and live services powered by JavaScript.",
+    logo: "/image/technologies/nodejs.webp",
+  },
+  {
+    id: "php",
+    name: "PHP",
+    category: "Backend",
+    description: "Dependable server side logic for custom web platforms.",
+    logo: "/image/technologies/php.webp",
+  },
+  {
+    id: "mysql",
+    name: "MySQL",
+    category: "Database",
+    description: "Organized relational data with fast, reliable queries.",
+    logo: "/image/technologies/mysql.webp",
+  },
+  {
+    id: "android",
+    name: "Android",
+    category: "Mobile",
+    description: "Native Android apps tuned for speed and stability.",
+    logo: "/image/technologies/android.webp",
+  },
+  {
+    id: "docker",
+    name: "Docker",
+    category: "DevOps",
+    description: "Consistent environments from development to production.",
+    logo: "/image/technologies/docker.webp",
+  },
+  {
+    id: "aws",
+    name: "AWS",
+    category: "Cloud",
+    description: "Secure cloud hosting that grows with your business.",
+    logo: "/image/technologies/aws.webp",
+  },
+  {
+    id: "cicd",
+    name: "CI/CD",
+    category: "DevOps",
+    description: "Automated builds and deployments for faster releases.",
+    logo: "/image/technologies/cicd.webp",
+  },
+] as const;
 
-export const servicesCtaCopy = {
-  eyebrow: "Ready to Start?",
-  title: "Let's Build Something Amazing Together",
+export const servicesFeedbackCopy = {
+  eyebrow: "Client Feedback",
+  title: "Tell Me About Your Experience",
   description:
-    "Share your idea and let's map the right digital solution for your business — anywhere in the world.",
-  supportNote: "Clients across the USA, Canada, UK, UAE, Australia & beyond.",
+    "Worked with me on a project? Share a few words about the process, the result and how it felt to work together.",
+  formTitle: "Share Your Feedback",
+  formSubtitle:
+    "Your feedback helps me improve and helps future clients know what to expect.",
 } as const;
 
 export const servicesWhyCopy = {
   eyebrow: "Why Choose Us",
   title: "A Reliable Technology Partner",
   description:
-    "A client-first approach, modern engineering, and dependable delivery on every project.",
+    "A client focused approach, modern engineering, and dependable delivery on every project.",
 } as const;
 
 export const servicesWhyFeatures = [
@@ -96,7 +126,7 @@ export const servicesWhyFeatures = [
   },
   {
     id: "delivery",
-    title: "On-Time Delivery",
+    title: "On Time Delivery",
     description: "Committed to timelines and milestones.",
     Icon: Rocket,
   },
@@ -109,7 +139,7 @@ export const servicesWhyFeatures = [
   {
     id: "support",
     title: "Ongoing Support",
-    description: "Post-launch support and maintenance.",
+    description: "Support and maintenance after launch.",
     Icon: Headset,
   },
 ];

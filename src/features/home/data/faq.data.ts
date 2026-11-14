@@ -14,7 +14,7 @@ export const homeFaqCopy = {
     "Find quick answers to common questions about my services, process, and collaboration.",
   promoTitle: "Still Have a Question?",
   promoDescription:
-    "Can't find what you're looking for? Feel free to get in touch — I'm happy to help.",
+    "Can't find what you're looking for? Feel free to get in touch. I'm happy to help.",
   ctaLabel: "Let's Talk",
   ctaHref: "#contact",
 } as const;
@@ -38,7 +38,7 @@ export const homeFaqs: HomeFaqItem[] = [
     id: "international",
     question: "Do you work with international clients?",
     answer:
-      "Yes. I regularly collaborate with clients in the USA, Canada, UK, UAE, Australia, Oman and more — fully remote, with clear communication across time zones.",
+      "Yes. I regularly collaborate with clients in the USA, Canada, UK, UAE, Australia, Oman and more, fully remote, with clear communication across time zones.",
     Icon: Globe2,
   },
   {

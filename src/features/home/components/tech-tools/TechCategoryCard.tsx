@@ -1,10 +1,8 @@
-import type { techToolCategories } from "../../data/tech-tools.data";
+import type { TechToolCategory } from "../../data/tech-tools.data";
 import TechToolChip from "./TechToolChip";
 
-type Category = (typeof techToolCategories)[number];
-
 type TechCategoryCardProps = {
-  category: Category;
+  category: TechToolCategory;
 };
 
 export default function TechCategoryCard({ category }: TechCategoryCardProps) {

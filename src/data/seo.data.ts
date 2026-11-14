@@ -46,7 +46,7 @@ export const routeSeo: Record<string, RouteSeo> = {
   "/process": {
     title: "Our Development Process | Mir Talal",
     description:
-      "A transparent five-step process — discovery, planning, development, launch and ongoing support — for turning ideas into reliable digital products.",
+      "A transparent five-step process covering discovery, planning, development, launch and ongoing support for turning ideas into reliable digital products.",
     path: "/process",
   },
   "/contact": {

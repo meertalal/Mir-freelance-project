@@ -8,6 +8,7 @@ export type ContactPayload = {
   message: string;
   country?: string;
   countryPhone?: string;
+  subject?: string;
 };
 
 export type ContactResult = {
@@ -45,7 +46,8 @@ export async function submitContactForm(
   const body: Record<string, string> = {
     ...payload,
     name: payload.fullName,
-    subject: `New project inquiry from ${payload.fullName}`,
+    subject:
+      payload.subject || `New project inquiry from ${payload.fullName}`,
   };
 
   if (web3formsKey && endpoint.includes("web3forms")) {
