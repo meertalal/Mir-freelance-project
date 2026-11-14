@@ -16,8 +16,7 @@ export default function TestimonialsGrid() {
               key={item.id}
               className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-6"
             >
-              <span className="text-4xl font-bold leading-none text-blue-200">“</span>
-              <p className="mt-2 font-inter text-sm italic leading-relaxed text-slate-700">
+              <p className="font-inter text-sm italic leading-relaxed text-slate-700">
                 {item.quote}
               </p>
               <div className="mt-5 flex items-center gap-3 border-t border-slate-100 pt-4">

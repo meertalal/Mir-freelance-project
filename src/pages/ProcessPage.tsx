@@ -24,7 +24,10 @@ export default function ProcessPage() {
         testimonialIds={["james-wilson", "michael-thompson", "sarah-johnson"]}
       />
       <FeaturedProjects />
-      <CtaBanner />
+      <CtaBanner
+        showCountryPanel={false}
+        backgroundImage="/image/background-image/around-the-world-landmarks-by-the-water.webp"
+      />
     </>
   );
 }

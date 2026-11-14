@@ -1,7 +1,7 @@
-import { Award, Star } from "lucide-react";
+import { Award, Quote, Star } from "lucide-react";
 import LinkButton from "../../../components/ui/LinkButton";
 import SocialIcon from "../../../components/layout/footer/SocialIcon";
-import { aboutHero, aboutHeroServices } from "../data/about-page.data";
+import { aboutHero, aboutHeroServices, heroServiceIcons } from "../data/about-page.data";
 import { brand, sharedTestimonials } from "../../../data/site.data";
 import { footerSocialLinks } from "../../../data/footer.data";
 import {
@@ -24,9 +24,9 @@ export default function AboutHero() {
         <img
           src="/image/background-image/global-network-wave-background.webp"
           alt=""
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full object-cover object-center animate-slow-zoom"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/55 to-white/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/15 to-white/60" />
       </div>
 
       <div className={`${innerContainerClass} relative`}>
@@ -76,7 +76,7 @@ export default function AboutHero() {
                 />
               </div>
             </div>
-            <div className="absolute -right-2 top-6 z-20 motion-safe:animate-float-soft sm:-right-8">
+            <div className="absolute -right-2 top-6 z-20 animate-float-soft sm:-right-8">
               <div className="flex h-28 w-28 rotate-6 flex-col items-center justify-center rounded-full border border-[#D6E4F7] bg-white text-center shadow-[0_16px_36px_rgba(15,48,91,0.2)]">
                 <Award size={22} aria-hidden="true" className="text-[#1670F5]" />
                 <p className="mt-1 font-montserrat text-sm font-black text-[#10234B]">
@@ -102,7 +102,7 @@ export default function AboutHero() {
           </div>
 
           <div className="mt-10 grid w-full max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2 lg:contents">
-            <div className={`${floatCardClass} relative z-20 lg:absolute lg:left-4 lg:top-[24%] lg:w-44 xl:left-10`}>
+            <div className={`${floatCardClass} relative z-20 self-start lg:absolute lg:left-4 lg:top-[24%] lg:w-44 xl:left-10`}>
               <p className="font-playfair text-[11px] font-semibold uppercase tracking-[0.14em] text-[#092F58]">
                 Follow Me On
               </p>
@@ -140,22 +140,22 @@ export default function AboutHero() {
               <p className="mt-2 font-playfair text-[11px] font-semibold uppercase tracking-[0.14em] text-[#092F58]">
                 Client Reviews
               </p>
-              <p className="mt-1 line-clamp-3 font-inter text-xs leading-relaxed text-slate-600">
+              <p className="mt-1 font-inter text-xs leading-relaxed text-slate-600">
                 {review.quote}
               </p>
               <p className="mt-1.5 font-inter text-[11px] font-semibold text-slate-500">
-                {review.author} · {review.role}
+                {review.author}, {review.role}
               </p>
             </div>
 
             <div className={`${floatCardClass} relative z-20 lg:absolute lg:right-0 lg:top-[24%] lg:w-56 xl:w-64`}>
               <span
                 aria-hidden="true"
-                className="absolute -top-4 right-2 font-montserrat text-5xl font-black leading-none text-[#BFD6F5] lg:-top-6 lg:right-0"
+                className="absolute -top-1 right-2 text-[#BFD6F5] lg:-top-3 lg:right-0"
               >
-                “
+                <Quote size={36} strokeWidth={0} fill="currentColor" />
               </span>
-              <p className="font-inter text-sm italic leading-relaxed text-slate-600">
+              <p className="relative font-inter text-sm italic leading-relaxed text-slate-600">
                 {brand.tagline}
               </p>
             </div>
@@ -181,22 +181,25 @@ export default function AboutHero() {
         </div>
       </div>
 
-      <div
-        className={`${stripPaddingClass} relative bg-[#092f58]`}
-      >
+      <div className={`${stripPaddingClass} relative bg-[#092f58]`}>
         <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6">
-          {aboutHeroServices.map((service, index) => (
-            <li key={service} className="flex items-center gap-x-4 text-white/85 sm:gap-x-6">
-              {index > 0 && (
-                <span aria-hidden="true" className="hidden text-[10px] text-[#93C5FD] sm:inline">
-                  ✦
+          {aboutHeroServices.map((service) => {
+            const Icon = heroServiceIcons[service];
+
+            return (
+              <li key={service} className="flex items-center gap-x-4 text-white/85 sm:gap-x-6">
+                <span className="inline-flex items-center gap-1.5 whitespace-nowrap font-playfair text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-xs">
+                  <Icon
+                    size={13}
+                    strokeWidth={1.9}
+                    aria-hidden="true"
+                    className="text-[#93C5FD]"
+                  />
+                  {service}
                 </span>
-              )}
-              <span className="whitespace-nowrap font-playfair text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-xs">
-                {service}
-              </span>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

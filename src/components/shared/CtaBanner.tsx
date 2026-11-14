@@ -1,5 +1,7 @@
+import { Plane } from "lucide-react";
 import LinkButton from "../ui/LinkButton";
 import PageEyebrow from "./PageEyebrow";
+import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import { countries } from "../../features/home/data/hero.data";
 import { innerContainerClass, innerSectionClass } from "./section.styles";
@@ -10,6 +12,7 @@ type CtaBannerProps = {
   description?: string;
   supportNote?: string;
   centered?: boolean;
+  showCountryPanel?: boolean;
   backgroundImage?: string;
 };
 
@@ -67,9 +70,10 @@ function CountryPanel({ supportNote }: { supportNote: string }) {
 export default function CtaBanner({
   eyebrow = "Ready to Start?",
   title = "Let's Build Something Amazing Together",
-  description = "From idea to global success — websites, apps, AI and automation built for real business impact.",
+  description = "From idea to global success: websites, apps, AI and automation built for real business impact.",
   supportNote = "Clients across multiple countries and time zones.",
   centered = false,
+  showCountryPanel = true,
   backgroundImage,
 }: CtaBannerProps) {
   return (
@@ -81,9 +85,45 @@ export default function CtaBanner({
             alt=""
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover object-[65%_center]"
+            className="h-full w-full object-cover object-right animate-slow-zoom"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/92 via-white/85 to-[#F4F8FF]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/90 via-55% to-white/15 lg:hidden" />
+          <div className="absolute inset-0 hidden bg-gradient-to-r from-white/95 via-white/40 to-transparent lg:block" />
+
+          <div className="absolute right-0 top-[85%] h-[11%] w-[52%] lg:left-[42%] lg:right-auto lg:top-0 lg:h-[30%] lg:w-[36%]">
+            <svg
+              viewBox="0 0 600 300"
+              preserveAspectRatio="none"
+              fill="none"
+              className="absolute inset-0 h-full w-full"
+            >
+              <path
+                d="M 60 250 C 220 205 350 145 560 75"
+                stroke="#FFFFFF"
+                strokeOpacity="0.7"
+                strokeWidth="6"
+                strokeDasharray="4 10"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path
+                d="M 60 250 C 220 205 350 145 560 75"
+                stroke="#3D6EA8"
+                strokeOpacity="0.45"
+                strokeWidth="2.5"
+                strokeDasharray="4 10"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+            <span className="absolute left-[6%] top-[83%] -translate-x-1/2 -translate-y-1/2 text-[#2C5C94] [filter:drop-shadow(0_1px_3px_rgba(255,255,255,0.9))] animate-plane-fly">
+              <Plane
+                strokeWidth={1.7}
+                aria-hidden="true"
+                className="h-7 w-7 lg:h-10 lg:w-10"
+              />
+            </span>
+          </div>
         </div>
       ) : (
         <>
@@ -108,7 +148,7 @@ export default function CtaBanner({
         ].join(" ")}
       >
         {centered ? (
-          <div className="motion-safe:animate-page-reveal">
+          <Reveal>
             <SectionHeading eyebrow={eyebrow} title={title} description={description} />
             <div className="flex flex-wrap items-center justify-center gap-3 max-[420px]:gap-2">
               <LinkButton to="/contact" showArrow>
@@ -118,15 +158,15 @@ export default function CtaBanner({
                 Schedule a Call
               </LinkButton>
             </div>
-          </div>
+          </Reveal>
         ) : (
           <>
-            <div className="motion-safe:animate-page-reveal">
+            <Reveal>
               <PageEyebrow>{eyebrow}</PageEyebrow>
-              <h2 className="max-w-xl font-montserrat text-2xl font-bold leading-tight tracking-tight text-[#10234b] min-[480px]:text-3xl lg:text-4xl xl:text-[42px]">
+              <h2 className="max-w-xl font-montserrat text-2xl font-bold leading-tight tracking-tight text-[#10234b] min-[480px]:text-3xl lg:text-4xl xl:text-[42px] min-[1920px]:text-5xl">
                 {title}
               </h2>
-              <p className="mt-4 max-w-lg font-inter text-xs leading-relaxed text-[#526987] min-[480px]:text-sm lg:text-base">
+              <p className="mt-4 max-w-lg font-inter text-xs leading-relaxed text-[#526987] min-[480px]:text-sm lg:text-base xl:text-lg">
                 {description}
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-3 max-[420px]:gap-2">
@@ -137,17 +177,25 @@ export default function CtaBanner({
                   Schedule a Call
                 </LinkButton>
               </div>
-            </div>
+            </Reveal>
 
-            <div
-              aria-hidden="true"
-              className="relative mx-auto w-full max-w-md motion-safe:animate-page-reveal lg:max-w-none"
-            >
-              <CountryPanel supportNote={supportNote} />
-            </div>
+            {showCountryPanel && (
+              <Reveal delay={150}>
+                <div
+                  aria-hidden="true"
+                  className="relative mx-auto w-full max-w-md lg:max-w-none"
+                >
+                  <CountryPanel supportNote={supportNote} />
+                </div>
+              </Reveal>
+            )}
           </>
         )}
       </div>
+
+      {backgroundImage && (
+        <div aria-hidden="true" className="h-16 w-full sm:h-20 lg:hidden" />
+      )}
     </section>
   );
 }

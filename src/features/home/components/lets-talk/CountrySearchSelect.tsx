@@ -8,6 +8,8 @@ type CountrySearchSelectProps = {
   onChange: (countryName: string) => void;
   countries: CountryOption[];
   placeholder?: string;
+  showDialCode?: boolean;
+  panelClassName?: string;
 };
 
 export default function CountrySearchSelect({
@@ -16,6 +18,8 @@ export default function CountrySearchSelect({
   onChange,
   countries,
   placeholder = "Select a country",
+  showDialCode = false,
+  panelClassName = "",
 }: CountrySearchSelectProps) {
   const [open, setOpen] = useState(false);
   const [dropUp, setDropUp] = useState(false);
@@ -84,10 +88,12 @@ export default function CountrySearchSelect({
       return countries;
     }
 
-    return countries.filter((country) =>
-      country.name.toLowerCase().includes(normalizedQuery),
+    return countries.filter(
+      (country) =>
+        country.name.toLowerCase().includes(normalizedQuery) ||
+        (showDialCode && country.phoneCode.includes(normalizedQuery)),
     );
-  }, [countries, query]);
+  }, [countries, query, showDialCode]);
 
   const handleSelect = (countryName: string) => {
     onChange(countryName);
@@ -101,7 +107,14 @@ export default function CountrySearchSelect({
         id={id}
         type="button"
         onClick={openList}
-        className="flex min-h-11 w-full items-center justify-between gap-2 rounded-xl border border-slate-200 bg-[#F7FAFF] px-3.5 py-3 text-left text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 focus:shadow-[0_0_0_1px_#1670F5] sm:text-sm"
+        title={
+          showDialCode && selectedCountry
+            ? `${selectedCountry.name} (${selectedCountry.phoneCode})`
+            : undefined
+        }
+        className={`flex min-h-11 w-full items-center justify-between rounded-xl border border-slate-200 bg-[#F7FAFF] py-3 text-left text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 focus:shadow-[0_0_0_1px_#1670F5] sm:text-sm ${
+          showDialCode ? "gap-1.5 px-2.5" : "gap-2 px-3.5"
+        }`}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
@@ -110,7 +123,11 @@ export default function CountrySearchSelect({
             {selectedCountry?.flag}
           </span>
           <span className="truncate">
-            {selectedCountry?.name ?? placeholder}
+            {selectedCountry
+              ? showDialCode
+                ? selectedCountry.phoneCode
+                : selectedCountry.name
+              : placeholder}
           </span>
         </span>
         <ChevronDown size={16} aria-hidden="true" className="shrink-0 text-slate-500" />
@@ -120,7 +137,7 @@ export default function CountrySearchSelect({
         <div
           className={`absolute z-20 w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,48,91,0.08)] ${
             dropUp ? "bottom-full mb-2" : "top-full mt-2"
-          }`}
+          } ${panelClassName}`}
         >
           <div className="border-b border-slate-200 p-2">
             <div className="relative">
@@ -134,7 +151,7 @@ export default function CountrySearchSelect({
                 type="text"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search country..."
+                placeholder={showDialCode ? "Search country or code..." : "Search country..."}
                 aria-label="Search country"
                 className="w-full min-h-11 rounded-lg border border-slate-200 bg-[#F7FAFF] py-2 pl-9 pr-3 text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 focus:shadow-[0_0_0_1px_#1670F5] sm:text-sm"
               />
@@ -161,6 +178,11 @@ export default function CountrySearchSelect({
                       {country.flag}
                     </span>
                     <span className="truncate">{country.name}</span>
+                    {showDialCode ? (
+                      <span className="ml-auto shrink-0 text-xs font-semibold text-slate-400">
+                        {country.phoneCode}
+                      </span>
+                    ) : null}
                   </button>
                 </li>
               ))

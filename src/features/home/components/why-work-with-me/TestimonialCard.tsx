@@ -59,21 +59,9 @@ function Slide({ testimonial }: { testimonial: Testimonial }) {
   return (
     <div className="flex w-full shrink-0 flex-col px-4 sm:px-5 lg:px-6 xl:px-7 2xl:px-9">
       <div className="min-w-0">
-        <span
-          aria-hidden="true"
-          className="
-            block h-7 font-georgia text-4xl font-bold leading-none text-blue-200
-            sm:h-8 sm:text-5xl
-            lg:h-9 lg:text-6xl
-            2xl:h-11 2xl:text-7xl
-          "
-        >
-          “
-        </span>
-
         <p
           className="
-            mt-1 break-words
+            break-words
             font-georgia text-xs italic leading-relaxed text-slate-700
             sm:text-[13px]
             lg:text-sm lg:leading-7

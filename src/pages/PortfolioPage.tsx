@@ -16,7 +16,10 @@ export default function PortfolioPage() {
         description="The same clear process behind every featured case study."
       />
       <TestimonialsGrid />
-      <CtaBanner />
+      <CtaBanner
+        showCountryPanel={false}
+        backgroundImage="/image/background-image/around-the-world-landmarks-by-the-water.webp"
+      />
     </>
   );
 }

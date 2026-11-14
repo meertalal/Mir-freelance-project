@@ -2,6 +2,7 @@ import { portfolioHero, portfolioTrust } from "../data/portfolio-page.data";
 import LinkButton from "../../../components/ui/LinkButton";
 import TrustRow from "../../../components/shared/TrustRow";
 import PageEyebrow from "../../../components/shared/PageEyebrow";
+import SocialFollowRow from "../../../components/shared/SocialFollowRow";
 import {
   innerSectionClass,
   pageHeroCopyClass,
@@ -32,6 +33,7 @@ export default function PortfolioHero() {
             </LinkButton>
           </div>
           <TrustRow items={portfolioTrust} className="mt-8" />
+          <SocialFollowRow />
         </div>
 
         <div className={pageHeroMediaClass}>
@@ -50,7 +52,7 @@ export default function PortfolioHero() {
             <div
               key={stat.title}
               className={[
-                "absolute rounded-2xl bg-white px-4 py-3 shadow-lg motion-safe:animate-float-soft",
+                "absolute rounded-2xl bg-white px-4 py-3 shadow-lg animate-float-soft",
                 index === 0 ? "left-2 top-6" : "bottom-6 right-2",
               ].join(" ")}
             >
