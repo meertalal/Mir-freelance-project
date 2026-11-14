@@ -11,6 +11,9 @@ import SocialIcon from "./footer/SocialIcon";
 import CountryMapBadge from "./footer/CountryMapBadge";
 import { contentRailClass } from "../shared/section.styles";
 
+const columnTitleClass =
+  "mb-3 text-left font-playfair text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -20,15 +23,16 @@ export default function Footer() {
 
       <div
         className={`
-          relative grid gap-x-6 gap-y-6
-          px-4 pb-5 pt-5
-          sm:px-6 sm:pb-6 sm:pt-6
-          lg:grid-cols-4 lg:gap-x-0 lg:gap-y-0 lg:px-10 lg:pb-7 lg:pt-7
+          relative grid gap-x-6 gap-y-8
+          px-4 pb-8 pt-6
+          sm:grid-cols-2 sm:gap-x-8 sm:px-6 sm:pb-10 sm:pt-8
+          lg:px-10 lg:pb-8 lg:pt-8
+          xl:grid-cols-[0.85fr_0.8fr_1.05fr_1.3fr] xl:gap-x-0 xl:gap-y-0
           2xl:px-14
           ${contentRailClass}
         `}
       >
-        <div className="motion-safe:animate-page-reveal border-b border-white/10 pb-5 lg:border-0 lg:pb-0 lg:pr-8">
+        <div className="motion-safe:animate-page-reveal border-b border-white/10 pb-6 sm:col-span-2 sm:pb-8 xl:col-span-1 xl:border-0 xl:pb-0 xl:pr-6 2xl:pr-8 min-[1920px]:pr-12">
           <Link
             to="/"
             className="
@@ -44,7 +48,7 @@ export default function Footer() {
             </span>
             {footerBrand.name}
           </Link>
-          <p className="mx-auto mt-2 max-w-xs text-center font-inter text-sm leading-relaxed text-white/75 lg:mx-0 lg:text-left">
+          <p className="mx-auto mt-2 max-w-sm text-center font-inter text-sm leading-relaxed text-white/75 lg:mx-0 lg:text-left">
             {footerBrand.description}
           </p>
           <div className="mt-3 flex items-center justify-center gap-2.5 lg:justify-start">
@@ -71,17 +75,15 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="motion-safe:animate-page-reveal lg:border-l lg:border-white/15 lg:px-8">
-          <h3 className="mb-2 text-center font-playfair text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm lg:text-left">
-            Quick Links
-          </h3>
-          <ul className="grid grid-cols-2 gap-x-4 sm:grid-cols-3 lg:grid-cols-1 lg:gap-x-0">
+        <div className="motion-safe:animate-page-reveal xl:border-l xl:border-white/15 xl:px-6 2xl:px-8 min-[1920px]:px-12">
+          <h3 className={columnTitleClass}>Quick Links</h3>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 xl:grid-cols-1 xl:gap-x-0">
             {footerQuickLinks.map((link) => (
               <li key={`${link.label}-${link.href}`}>
                 <Link
                   to={link.href}
                   className="
-                    group flex min-h-9 items-center justify-between gap-3
+                    group flex min-h-9 items-center gap-1.5
                     font-inter text-sm text-white/80
                     transition duration-300 hover:text-white
                   "
@@ -98,15 +100,13 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="motion-safe:animate-page-reveal lg:border-l lg:border-white/15 lg:px-8">
-          <h3 className="mb-2 text-center font-playfair text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm lg:text-left">
-            Contact Info
-          </h3>
+        <div className="motion-safe:animate-page-reveal xl:border-l xl:border-white/15 xl:px-6 2xl:px-8 min-[1920px]:px-12">
+          <h3 className={columnTitleClass}>Contact Info</h3>
           <ul className="space-y-1 font-inter text-sm text-white/80">
             <li>
               <a
                 href={`mailto:${brand.email}`}
-                className="group flex min-h-9 min-w-0 items-center gap-3 break-all transition hover:text-white"
+                className="group flex min-h-9 min-w-0 items-center gap-3 break-words transition hover:text-white"
               >
                 <Mail
                   size={16}
@@ -129,22 +129,20 @@ export default function Footer() {
                 <span>{brand.phone}</span>
               </a>
             </li>
-            <li className="flex min-h-9 items-center gap-3">
+            <li className="flex items-start gap-3 pt-1.5">
               <MapPin
                 size={16}
                 strokeWidth={1.6}
-                className="shrink-0 text-white/70"
+                className="mt-0.5 shrink-0 text-white/70"
               />
-              <span>Pakistan · Serving USA, Canada & more</span>
+              <span>Serving clients worldwide, remotely</span>
             </li>
           </ul>
         </div>
 
-        <div className="motion-safe:animate-page-reveal lg:border-l lg:border-white/15 lg:pl-8">
-          <h3 className="mb-2 text-center font-playfair text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm lg:text-left">
-            Countries We Serve
-          </h3>
-          <div className="grid grid-cols-6 gap-x-1.5 gap-y-2 sm:grid-cols-8 lg:grid-cols-5">
+        <div className="motion-safe:animate-page-reveal sm:col-span-2 xl:col-span-1 xl:border-l xl:border-white/15 xl:pl-6 2xl:pl-8 min-[1920px]:pl-12">
+          <h3 className={columnTitleClass}>Countries We Serve</h3>
+          <div className="grid grid-cols-5 gap-x-2 gap-y-3 sm:grid-cols-10 sm:gap-x-1 xl:grid-cols-5">
             {footerCountries.map((country, index) => (
               <div
                 key={country.id}
@@ -155,6 +153,9 @@ export default function Footer() {
               </div>
             ))}
           </div>
+          <p className="mt-3 font-inter text-xs leading-relaxed text-white/60">
+            These are some of the main markets. Services are delivered anywhere in the world.
+          </p>
         </div>
       </div>
 

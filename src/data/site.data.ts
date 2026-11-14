@@ -21,8 +21,8 @@ export const brand = {
     "Helping startups and businesses build modern websites, mobile apps and automation solutions that actually deliver.",
   email: "mirtalal.baloch@yahoo.com",
   phone: "+1 438 905 4165",
-  location: "Pakistan (Serving Worldwide)",
-  hours: "Mon – Sat · 10:00 AM – 7:00 PM (PKT)",
+  location: "Serving Clients Worldwide",
+  hours: "Mon to Sat, 10:00 AM to 7:00 PM",
 } as const;
 
 export const socialLinks = [
@@ -149,6 +149,8 @@ export const sharedServices = [
     description: "Modern, responsive websites using latest technologies.",
     icon: Code2,
     href: "/services",
+    image: "/image/services/serviceWebDevelopment.webp",
+    imageAlt: "Laptop displaying code in a modern workspace",
   },
   {
     id: "mobile-app-development",
@@ -156,6 +158,8 @@ export const sharedServices = [
     description: "iOS & Android apps tailored to your business needs.",
     icon: Smartphone,
     href: "/services",
+    image: "/image/services/serviceMobileAppDevelopment.webp",
+    imageAlt: "Smartphone displaying a mobile app beside design sketches",
   },
   {
     id: "ai-agents-automation",
@@ -163,6 +167,8 @@ export const sharedServices = [
     description: "AI voice agents, chatbots and workflow automation.",
     icon: Bot,
     href: "/services",
+    image: "/image/services/serviceAiAgentsAutomation.webp",
+    imageAlt: "Glowing AI neural network orb above a laptop",
   },
   {
     id: "chatbot-development",
@@ -170,20 +176,26 @@ export const sharedServices = [
     description: "Smart chatbots for websites, WhatsApp and business platforms.",
     icon: MessageSquareMore,
     href: "/services",
+    image: "/image/services/serviceChatbotDevelopment.webp",
+    imageAlt: "Smartphone showing a chatbot conversation on a desk",
   },
   {
     id: "saas-development",
     title: "SaaS & Product Development",
-    description: "Scalable SaaS products with multi-tenant architecture.",
+    description: "Scalable SaaS products built for multiple tenants.",
     icon: Database,
     href: "/services",
+    image: "/image/services/serviceSaasProductDevelopment.webp",
+    imageAlt: "Laptop displaying a SaaS analytics dashboard",
   },
   {
     id: "ui-ux-design",
     title: "UI/UX Design",
-    description: "Clean, modern and conversion-focused designs.",
+    description: "Clean, modern designs built to convert.",
     icon: Palette,
     href: "/services",
+    image: "/image/services/serviceUiUxDesign.webp",
+    imageAlt: "Designer wireframes, tablet mockup and blue color swatches",
   },
   {
     id: "cloud-devops",
@@ -191,6 +203,8 @@ export const sharedServices = [
     description: "Deployment, server setup, CI/CD and maintenance.",
     icon: Cloud,
     href: "/services",
+    image: "/image/services/serviceCloudDevops.webp",
+    imageAlt: "Server room with blue-lit racks and cabling",
   },
   {
     id: "digital-marketing",
@@ -198,6 +212,8 @@ export const sharedServices = [
     description: "SEO, content strategy and social media marketing.",
     icon: ChartNoAxesCombined,
     href: "/services",
+    image: "/image/services/serviceDigitalMarketing.webp",
+    imageAlt: "Laptop with marketing analytics charts beside a planning notebook",
   },
 ] as const;
 
@@ -290,7 +306,7 @@ export const sharedTestimonials = [
     author: "Michael Thompson",
     role: "CEO",
     company: "Real Estate Company",
-    avatar: "/image/profile.webp",
+    avatar: "/image/clients/clientMichaelThompson.webp",
     rating: 5,
   },
   {
@@ -300,7 +316,7 @@ export const sharedTestimonials = [
     author: "Sarah Johnson",
     role: "Founder",
     company: "Digital Solutions",
-    avatar: "/image/profile.webp",
+    avatar: "/image/clients/clientSarahJohnson.webp",
     rating: 5,
   },
   {
@@ -310,7 +326,7 @@ export const sharedTestimonials = [
     author: "David Lee",
     role: "Product Manager",
     company: "Technology Company",
-    avatar: "/image/profile.webp",
+    avatar: "/image/clients/clientDavidLee.webp",
     rating: 5,
   },
   {
@@ -320,7 +336,7 @@ export const sharedTestimonials = [
     author: "James Wilson",
     role: "CEO",
     company: "Growth Labs",
-    avatar: "/image/profile.webp",
+    avatar: "/image/clients/clientJamesWilson.webp",
     rating: 5,
   },
 ] as const;

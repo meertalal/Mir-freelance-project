@@ -1,50 +1,23 @@
 import ServicesHero from "../features/services/components/ServicesHero";
 import ServicesGrid from "../features/services/components/ServicesGrid";
-import ProcessStrip from "../components/shared/ProcessStrip";
-import TechStack from "../components/shared/TechStack";
-import WhyChooseSection from "../components/shared/WhyChooseSection";
-import FeaturedProjects from "../components/shared/FeaturedProjects";
+import ServicesProcess from "../features/services/components/ServicesProcess";
+import ServicesTechStack from "../features/services/components/ServicesTechStack";
+import ServicesWhyChoose from "../features/services/components/ServicesWhyChoose";
+import ServicesFeedback from "../features/services/components/ServicesFeedback";
 import CtaBanner from "../components/shared/CtaBanner";
-import {
-  servicesCtaCopy,
-  servicesProcessCopy,
-  servicesProjectsCopy,
-  servicesTechCopy,
-  servicesWhyCopy,
-  servicesWhyFeatures,
-} from "../features/services/data/services-page.data";
 
 export default function ServicesPage() {
   return (
     <>
       <ServicesHero />
       <ServicesGrid />
-      <ProcessStrip
-        eyebrow={servicesProcessCopy.eyebrow}
-        title={servicesProcessCopy.title}
-        description={servicesProcessCopy.description}
-      />
-      <TechStack
-        eyebrow={servicesTechCopy.eyebrow}
-        title={servicesTechCopy.title}
-        description={servicesTechCopy.description}
-      />
-      <WhyChooseSection
-        eyebrow={servicesWhyCopy.eyebrow}
-        title={servicesWhyCopy.title}
-        description={servicesWhyCopy.description}
-        features={servicesWhyFeatures}
-      />
-      <FeaturedProjects
-        eyebrow={servicesProjectsCopy.eyebrow}
-        title={servicesProjectsCopy.title}
-        description={servicesProjectsCopy.description}
-      />
+      <ServicesProcess />
+      <ServicesTechStack />
+      <ServicesWhyChoose />
+      <ServicesFeedback />
       <CtaBanner
-        eyebrow={servicesCtaCopy.eyebrow}
-        title={servicesCtaCopy.title}
-        description={servicesCtaCopy.description}
-        supportNote={servicesCtaCopy.supportNote}
+        showCountryPanel={false}
+        backgroundImage="/image/background-image/around-the-world-landmarks-by-the-water.webp"
       />
     </>
   );

@@ -13,7 +13,7 @@ export const processHero = {
   eyebrow: "Our Process",
   title: "From Idea to Successful Digital Product",
   description:
-    "A transparent, collaborative process that turns your vision into a polished product — with clear milestones and ongoing support.",
+    "A transparent, collaborative process that turns your vision into a polished product, with clear milestones and ongoing support.",
   image: "/image/profile.webp",
 };
 

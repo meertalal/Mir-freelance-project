@@ -11,7 +11,10 @@ export default function ContactPage() {
       <OfficesSection />
       <ContactWhy />
       <FaqSection />
-      <CtaBanner />
+      <CtaBanner
+        showCountryPanel={false}
+        backgroundImage="/image/background-image/around-the-world-landmarks-by-the-water.webp"
+      />
     </>
   );
 }

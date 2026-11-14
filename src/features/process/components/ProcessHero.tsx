@@ -51,7 +51,7 @@ export default function ProcessHero() {
             <div
               key={step.id}
               className={[
-                "absolute rounded-xl border border-white/70 bg-white/95 px-2.5 py-1.5 text-[11px] font-bold text-[#10234B] shadow-md motion-safe:animate-float-soft sm:px-3 sm:py-2 sm:text-xs",
+                "absolute rounded-xl border border-white/70 bg-white/95 px-2.5 py-1.5 text-[11px] font-bold text-[#10234B] shadow-md animate-float-soft sm:px-3 sm:py-2 sm:text-xs",
                 index === 0 && "left-2 top-6",
                 index === 1 && "right-2 top-16",
                 index === 2 && "left-4 top-1/2",

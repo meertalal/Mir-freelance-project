@@ -31,6 +31,58 @@
   }
 }
 
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+@keyframes planeFly {
+  0% {
+    left: 6%;
+    top: 83%;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(37deg) scale(0.9);
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  25% {
+    left: 29%;
+    top: 71%;
+    transform: translate(-50%, -50%) rotate(32deg) scale(0.95);
+  }
+
+  50% {
+    left: 48.5%;
+    top: 57%;
+    transform: translate(-50%, -50%) rotate(29deg) scale(1);
+  }
+
+  75% {
+    left: 69%;
+    top: 42%;
+    transform: translate(-50%, -50%) rotate(32deg) scale(1);
+  }
+
+  92% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 93.3%;
+    top: 25%;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(36deg) scale(0.92);
+  }
+}
+
 .animate-page-reveal {
   animation: pageReveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -43,10 +95,20 @@
   animation: marquee 28s linear infinite;
 }
 
+.animate-slow-zoom {
+  animation: slowZoom 26s ease-in-out infinite alternate;
+}
+
+.animate-plane-fly {
+  animation: planeFly 9s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-page-reveal,
   .animate-float-soft,
-  .animate-marquee {
+  .animate-marquee,
+  .animate-slow-zoom,
+  .animate-plane-fly {
     animation: none !important;
   }
 }

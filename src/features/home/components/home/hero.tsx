@@ -59,7 +59,7 @@ export default function HeroSection() {
             />
 
             <p className="whitespace-nowrap font-playfair text-[11px] font-semibold uppercase tracking-[0.12em] text-[#092f58] sm:text-xs 2xl:text-sm max-[420px]:text-[11px] max-[420px]:tracking-[0.06em]">
-              Software Development · AI · Automation
+              Software Development, AI and Automation
             </p>
 
             <span
@@ -109,7 +109,7 @@ export default function HeroSection() {
             ].join(" ")}
           >
             We help startups and businesses build modern websites, mobile apps
-            and automation solutions — backed by reliable support and on-time
+            and automation solutions, backed by reliable support and on-time
             delivery.
           </p>
 

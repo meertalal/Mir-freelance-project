@@ -11,7 +11,10 @@ export default function AboutPage() {
       <AboutStory />
       <MissionVisionValues />
       <GlobalPresence />
-      <CtaBanner />
+      <CtaBanner
+        showCountryPanel={false}
+        backgroundImage="/image/background-image/around-the-world-landmarks-by-the-water.webp"
+      />
     </>
   );
 }

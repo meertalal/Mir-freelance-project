@@ -27,8 +27,17 @@ const initialForm: ContactPayload = {
   countryPhone: "",
 };
 
-export default function ProjectStartForm() {
+type ProjectStartFormProps = {
+  title?: string;
+  subtitle?: string;
+};
+
+export default function ProjectStartForm({
+  title = letsTalkCopy.formTitle,
+  subtitle = letsTalkCopy.formSubtitle,
+}: ProjectStartFormProps) {
   const [form, setForm] = useState<ContactPayload>(initialForm);
+  const [phoneCountry, setPhoneCountry] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle",
   );
@@ -56,6 +65,7 @@ export default function ProjectStartForm() {
       setStatus("success");
       setFeedback(result.message);
       setForm(initialForm);
+      setPhoneCountry("");
     } catch (error) {
       setStatus("error");
       setFeedback(
@@ -82,10 +92,10 @@ export default function ProjectStartForm() {
         </span>
         <div>
           <h3 className="font-montserrat text-xl font-bold text-[#10234B] sm:text-2xl">
-            {letsTalkCopy.formTitle}
+            {title}
           </h3>
           <p className="mt-1 font-inter text-sm text-slate-500">
-            {letsTalkCopy.formSubtitle}
+            {subtitle}
           </p>
         </div>
       </div>
@@ -178,26 +188,26 @@ export default function ProjectStartForm() {
 
         <fieldset className="min-w-0">
           <legend className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
-            Country Number
+            Phone Number
           </legend>
           <div className="flex min-w-0 flex-col gap-2 min-[480px]:flex-row">
-            <select
-              name="countryPhone"
-              aria-label="Country code"
-              value={form.countryPhone}
-              onChange={(event) => updateField("countryPhone", event.target.value)}
-              className={`${fieldClass} min-w-0 min-[480px]:w-[42%]`}
-            >
-              <option value="">Select country code</option>
-              {countries.map((country) => (
-                <option
-                  key={`${country.code}-${country.phoneCode}`}
-                  value={country.phoneCode}
-                >
-                  {`${country.flag} ${country.phoneCode}`}
-                </option>
-              ))}
-            </select>
+            <div className="min-w-0 min-[480px]:w-[40%]">
+              <CountrySearchSelect
+                id="start-form-phone-country"
+                value={phoneCountry}
+                onChange={(countryName) => {
+                  setPhoneCountry(countryName);
+                  const match = countries.find(
+                    (country) => country.name === countryName,
+                  );
+                  updateField("countryPhone", match?.phoneCode ?? "");
+                }}
+                countries={countries}
+                placeholder="Code"
+                showDialCode
+                panelClassName="min-[480px]:min-w-[17.5rem]"
+              />
+            </div>
             <input
               type="tel"
               inputMode="tel"
@@ -206,7 +216,7 @@ export default function ProjectStartForm() {
               value={form.phone}
               onChange={(event) => updateField("phone", event.target.value)}
               className={`${fieldClass} min-w-0 min-[480px]:flex-1`}
-              placeholder="Enter your number"
+              placeholder="Phone number"
               autoComplete="tel"
             />
           </div>
