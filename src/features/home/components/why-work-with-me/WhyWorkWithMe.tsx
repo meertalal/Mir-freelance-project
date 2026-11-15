@@ -1,117 +1,51 @@
-import { useState } from "react";
 import FeatureItem from "./FeatureItem";
-import TestimonialCard from "./TestimonialCard";
 import SectionHeader from "../../../../components/shared/SectionHeader";
+import Reveal from "../../../../components/shared/Reveal";
 import { innerContainerClass } from "../../../../components/shared/section.styles";
-import {
-  workFeatures,
-  whyWorkCopy,
-  testimonials,
-} from "../../data/why-work.data";
+import { workFeatures, whyWorkCopy } from "../../data/why-work.data";
 
 export default function WhyWorkWithMe() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const totalTestimonials = testimonials.length;
-
-  const goToPrevious = () => {
-    setCurrentIndex((current) =>
-      totalTestimonials > 0
-        ? (current - 1 + totalTestimonials) % totalTestimonials
-        : 0
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((current) =>
-      totalTestimonials > 0
-        ? (current + 1) % totalTestimonials
-        : 0
-    );
-  };
-
-  const goToTestimonial = (index: number) => {
-    if (index >= 0 && index < totalTestimonials) {
-      setCurrentIndex(index);
-    }
-  };
-
   return (
     <section
       id="why-work-with-me"
       aria-labelledby="why-work-title"
       className="
         relative isolate w-full overflow-hidden
-        bg-slate-50
-        px-4 py-10
-        sm:px-6 sm:py-14
-        lg:px-10 lg:py-16
-        xl:px-12 xl:py-20
-        2xl:px-16 2xl:py-24
-        min-[2560px]:px-24 min-[2560px]:py-28
+        bg-gradient-to-b from-white via-[#F7FAFF] to-white
+        px-4 py-12
+        sm:px-6 sm:py-16
+        lg:px-10 lg:py-20
+        xl:px-12 xl:py-24
+        2xl:px-16 2xl:py-28
+        min-[2560px]:px-24 min-[2560px]:py-32
       "
     >
       <div
         aria-hidden="true"
-        className="
-          pointer-events-none absolute -right-24 top-10
-          h-64 w-64 rounded-full bg-blue-100/60 blur-3xl
-          lg:h-80 lg:w-80
-          2xl:h-96 2xl:w-96
-        "
+        className="pointer-events-none absolute -left-24 top-16 h-64 w-64 rounded-full bg-[#EAF2FF] blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 top-1/3 h-72 w-72 rounded-full bg-blue-100/60 blur-3xl"
       />
 
       <div className={`${innerContainerClass} relative z-10`}>
-        <div
-          className="
-            grid w-full grid-cols-1 items-start gap-8
-            sm:gap-10
-            xl:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]
-            xl:items-center xl:gap-16
-            2xl:gap-20
-            min-[2560px]:gap-24
-          "
-        >
-          <div className="min-w-0">
-            <SectionHeader
-              align="center"
-              alignLg="left"
-              titleId="why-work-title"
-              eyebrow={whyWorkCopy.eyebrow}
-              title={whyWorkCopy.title}
-              description={whyWorkCopy.description}
-            />
+        <Reveal className="[&>header]:mb-0">
+          <SectionHeader
+            titleId="why-work-title"
+            eyebrow={whyWorkCopy.eyebrow}
+            title={whyWorkCopy.title}
+            description={whyWorkCopy.description}
+            className="mx-auto max-w-3xl"
+          />
+        </Reveal>
 
-            <div
-              className="
-                grid grid-cols-1
-                gap-x-4 gap-y-5
-                min-[480px]:grid-cols-2
-                sm:gap-x-8 sm:gap-y-7
-                lg:gap-x-10 lg:gap-y-8
-                2xl:gap-x-12 2xl:gap-y-10
-              "
-            >
-              {workFeatures.map((feature) => (
-                <FeatureItem
-                  key={feature.id}
-                  feature={feature}
-                />
-              ))}
-            </div>
-          </div>
-
-          {testimonials.length > 0 && (
-            <div className="min-w-0 w-full xl:justify-self-stretch">
-              <TestimonialCard
-                testimonials={testimonials}
-                onPrevious={goToPrevious}
-                onNext={goToNext}
-                currentIndex={currentIndex}
-                onSelect={goToTestimonial}
-              />
-            </div>
-          )}
+        <div className="mt-8 grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 sm:mt-10 sm:gap-5 lg:mt-12 lg:grid-cols-4 lg:gap-5 2xl:gap-6">
+          {workFeatures.map((feature, index) => (
+            <Reveal key={feature.id} delay={index * 80} className="h-full">
+              <FeatureItem feature={feature} />
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

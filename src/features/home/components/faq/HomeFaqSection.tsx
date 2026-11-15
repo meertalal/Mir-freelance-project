@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SectionHeader from "../../../../components/shared/SectionHeader";
+import Reveal from "../../../../components/shared/Reveal";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import { homeFaqCopy, homeFaqs } from "../../data/faq.data";
 import FaqAccordionItem from "./FaqAccordionItem";
@@ -21,14 +22,17 @@ export default function HomeFaqSection() {
       `}
     >
       <div className={`relative z-10 ${innerContainerClass}`}>
-        <SectionHeader
-          titleId="home-faq-title"
-          eyebrow={homeFaqCopy.eyebrow}
-          title={homeFaqCopy.title}
-          description={homeFaqCopy.description}
-        />
+        <Reveal className="[&>header]:mb-0">
+          <SectionHeader
+            titleId="home-faq-title"
+            eyebrow={homeFaqCopy.eyebrow}
+            title={homeFaqCopy.title}
+            description={homeFaqCopy.description}
+          />
+        </Reveal>
 
-        <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-8 xl:gap-10">
+        <Reveal delay={100}>
+        <div className="mt-7 grid grid-cols-1 items-stretch gap-6 sm:mt-10 lg:mt-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-8 xl:gap-10">
           <FaqPromoCard />
 
           <div className="flex min-w-0 flex-col gap-3">
@@ -44,6 +48,7 @@ export default function HomeFaqSection() {
             ))}
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

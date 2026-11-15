@@ -14,6 +14,10 @@ import {
   Wallet,
   Cpu,
   ShieldCheck,
+  Code2,
+  Smartphone,
+  Boxes,
+  Bot,
 } from "lucide-react";
 
 export const contactHero = {
@@ -174,3 +178,79 @@ export const faqs = [
     Icon: ShieldCheck,
   },
 ];
+
+export const contactNextStepsCopy = {
+  eyebrow: "After You Submit",
+  title: "What Happens Next",
+  description:
+    "A simple, predictable path from your first message to a clear proposal.",
+  footnote: "Prefer to talk it through first?",
+  link: { label: "Book a Discovery Call", href: "#book-a-call" },
+};
+
+export const contactNextSteps = [
+  {
+    id: "review",
+    title: "I Review Your Brief",
+    description:
+      "Within one business day, I read through your goals, requirements and timeline.",
+  },
+  {
+    id: "discuss",
+    title: "We Talk It Through",
+    description:
+      "A short call to answer questions, clarify scope and make sure we're aligned.",
+  },
+  {
+    id: "proposal",
+    title: "You Get a Clear Proposal",
+    description:
+      "Scope, milestones, timeline and a fixed quote — with no obligation.",
+  },
+] as const;
+
+export const contactTestimonialsCopy = {
+  eyebrow: "Client Feedback",
+  title: "Trusted Before the First Call",
+  description:
+    "A few words from the clients behind recent projects.",
+};
+
+export const contactServicesCopy = {
+  eyebrow: "Explore Services",
+  title: "Not Sure Where to Start?",
+  description:
+    "Start with the service closest to your goal — each page covers scope, process and what you get.",
+  action: { label: "View All Services", href: "/services" },
+};
+
+export const contactServiceLinks = [
+  {
+    id: "web",
+    title: "Web Development",
+    description: "Websites, platforms and web apps built to perform.",
+    href: "/services/web-development",
+    Icon: Code2,
+  },
+  {
+    id: "mobile",
+    title: "Mobile Apps",
+    description: "iOS and Android apps from concept to store launch.",
+    href: "/services/mobile-app-development",
+    Icon: Smartphone,
+  },
+  {
+    id: "ai",
+    title: "AI & Automation",
+    description: "Voice agents, chatbots and workflow automation.",
+    href: "/services/ai-agents-automation",
+    Icon: Bot,
+  },
+  {
+    id: "saas",
+    title: "SaaS & Product",
+    description: "Multi-tenant products designed to scale.",
+    href: "/services/saas-development",
+    Icon: Boxes,
+  },
+] as const;

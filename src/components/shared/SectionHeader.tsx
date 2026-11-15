@@ -112,11 +112,13 @@ export default function SectionHeader({
         )}
 
         {actionLabel && (
-          <HeaderAction
-            href={actionHref}
-            label={actionLabel}
-            className={`${actionClass} absolute right-0 top-1/2 hidden -translate-y-1/2 sm:inline-flex`}
-          />
+          <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 sm:block">
+            <HeaderAction
+              href={actionHref}
+              label={actionLabel}
+              className={actionClass}
+            />
+          </div>
         )}
       </div>
 
@@ -157,11 +159,13 @@ export default function SectionHeader({
         )}
 
         {actionLabel && (
-          <HeaderAction
-            href={actionHref}
-            label={actionLabel}
-            className={`${actionClass} mt-3 sm:hidden`}
-          />
+          <div className="mt-3 sm:hidden">
+            <HeaderAction
+              href={actionHref}
+              label={actionLabel}
+              className={actionClass}
+            />
+          </div>
         )}
       </div>
     </header>

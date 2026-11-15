@@ -1,137 +1,59 @@
-import { ArrowRight, ChevronRight } from "lucide-react";
-import type { CSSProperties } from "react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ServiceCardProps } from "../../types/services.types";
 
 export default function ServiceCard({
   service,
-  index = 0,
 }: ServiceCardProps) {
   const Icon = service.icon;
 
   return (
-    <article
-      style={
-        {
-          "--service-delay": `${index * 100}ms`,
-        } as CSSProperties
-      }
+    <Link
+      to={service.href}
+      aria-label={`View ${service.title}`}
       className="
-        service-card group relative flex h-full min-w-0
-        flex-row items-center gap-3
-        overflow-hidden rounded-2xl border border-[#D6E4F7] bg-white
-        p-3
-        shadow-[0_5px_22px_rgba(23,61,112,0.055)]
+        group flex h-full items-start gap-3.5
+        rounded-2xl border border-[#DCE8F8] bg-white p-4
+        shadow-[0_4px_18px_rgba(15,48,91,0.04)]
         transition-[transform,box-shadow,border-color]
-        duration-500 ease-out
-        motion-safe:animate-service-reveal
+        duration-300 ease-out
         hover:-translate-y-1
-        hover:border-[#9FC3FF]
-        hover:shadow-[0_18px_40px_rgba(37,99,235,0.13)]
-        min-[480px]:p-4
-        sm:gap-4 sm:p-4 md:p-5
-        xl:flex-col xl:items-stretch xl:gap-0
-        xl:rounded-xl xl:p-6 xl:pr-6
-        2xl:rounded-2xl 2xl:p-7
-        min-[1920px]:p-8
-        min-[2560px]:p-9
+        hover:border-[#B7D3F7]
+        hover:shadow-[0_16px_36px_rgba(37,99,235,0.12)]
+        focus-visible:outline-none focus-visible:ring-2
+        focus-visible:ring-[#5882E8] focus-visible:ring-offset-2
+        sm:items-center sm:gap-4 sm:p-5
+        xl:p-5
       "
     >
       <span
-        aria-hidden="true"
         className="
-          pointer-events-none absolute inset-0 z-0
-          -translate-x-full bg-[#EAF2FF]/60
-          opacity-0 transition-all duration-700
-          group-hover:translate-x-full
-          group-hover:opacity-100
-        "
-      />
-
-      <div
-        className="
-          service-icon relative z-10 flex h-11 w-11 shrink-0
-          items-center justify-center rounded-xl
-          border border-[#D5E5FF]
-          bg-[#EAF2FF]
-          transition-[transform,background-color,box-shadow]
-          duration-500 ease-out
-          group-hover:scale-110
-          group-hover:shadow-[0_5px_16px_rgba(22,112,245,0.16)]
-          min-[480px]:h-12 min-[480px]:w-12
-          md:h-14 md:w-14
-          xl:mb-4 xl:h-12 xl:w-12
-          2xl:mb-4 2xl:h-14 2xl:w-14
+          inline-flex h-12 w-12 shrink-0 items-center justify-center
+          rounded-xl bg-gradient-to-br from-[#EAF2FF] to-[#D8E8FF]
+          text-[#1670F5] ring-1 ring-[#D6E4F7]
+          transition-colors duration-300
+          group-hover:from-[#1670F5] group-hover:to-[#0F5FD4]
+          group-hover:text-white group-hover:ring-[#1670F5]
+          xl:h-13 xl:w-13
         "
       >
-        <Icon
-          aria-hidden="true"
-          className="h-5 w-5 text-[#1670F5] sm:h-6 sm:w-6 2xl:h-6 2xl:w-6"
-          strokeWidth={2.4}
-        />
-      </div>
+        <Icon size={22} strokeWidth={1.9} aria-hidden="true" />
+      </span>
 
-      <div className="relative z-10 min-w-0 flex-1 xl:flex xl:h-full xl:flex-col">
-        <h3
-          className="
-            font-georgia text-sm font-bold
-            leading-snug tracking-tight text-[#10234B]
-            transition-colors duration-300
-            group-hover:text-[#174A91]
-            md:text-base
-            xl:mb-2 xl:text-lg
-            2xl:mb-3 2xl:text-xl
-            min-[2560px]:text-2xl
-          "
-        >
+      <span className="min-w-0 flex-1">
+        <h3 className="font-montserrat text-[15px] font-bold leading-snug text-[#10234B] transition-colors duration-300 group-hover:text-[#174A91] sm:text-base">
           {service.title}
         </h3>
-
-        <p
-          className="
-            mt-1 font-inter text-[11px] leading-[1.55]
-            text-[#526580]
-            md:text-xs
-            xl:mb-4 xl:text-sm
-            2xl:mb-5 2xl:text-base 2xl:leading-7
-            min-[2560px]:text-lg min-[2560px]:leading-8
-          "
-        >
+        <p className="mt-1 font-inter text-xs leading-relaxed text-[#526580] sm:text-[13px]">
           {service.description}
         </p>
+      </span>
 
-        <Link
-          to={service.href}
-          aria-label={`Learn more about ${service.title}`}
-          className="
-            mt-2 inline-flex min-h-11 w-fit items-center gap-1.5
-            font-poppins text-xs font-semibold text-[#1670F5]
-            transition-colors duration-300 hover:text-[#0f5fd4]
-            md:text-[#092F58] md:text-xs
-            xl:static xl:mt-auto xl:translate-y-0 xl:text-sm
-            2xl:text-base
-            focus-visible:outline-none focus-visible:ring-2
-            focus-visible:ring-[#5882E8] focus-visible:ring-offset-2
-          "
-        >
-          Learn More
-
-          <ArrowRight
-            aria-hidden="true"
-            className="
-              h-3.5 w-3.5 shrink-0
-              transition-transform duration-300 ease-out
-              group-hover:translate-x-1
-              2xl:h-4 2xl:w-4
-            "
-          />
-        </Link>
-      </div>
-
-      <ChevronRight
+      <ArrowRight
         aria-hidden="true"
-        className="relative z-10 h-5 w-5 shrink-0 text-slate-300 md:hidden"
+        size={16}
+        className="mt-1 h-4 w-4 shrink-0 text-[#9CB4D4] transition-[transform,color] duration-300 group-hover:translate-x-1 group-hover:text-[#1670F5] sm:mt-0"
       />
-    </article>
+    </Link>
   );
 }

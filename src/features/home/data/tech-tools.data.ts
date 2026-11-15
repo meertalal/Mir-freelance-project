@@ -45,9 +45,9 @@ export const techToolCategories: TechToolCategory[] = [
         bg: "#E8F9FE",
         image: "/image/technologies/react.webp",
       },
-      { id: "next", name: "Next.js", color: "#111111", bg: "#F3F4F6" },
-      { id: "vue", name: "Vue.js", color: "#42B883", bg: "#E8F8F1" },
-      { id: "tailwind", name: "Tailwind", color: "#38BDF8", bg: "#E8F6FE" },
+      { id: "next", name: "Next.js", color: "#111111", bg: "#F3F4F6", image: "/image/technologies/nextjs.webp" },
+      { id: "vue", name: "Vue.js", color: "#42B883", bg: "#E8F8F1", image: "/image/technologies/vue.webp" },
+      { id: "tailwind", name: "Tailwind", color: "#38BDF8", bg: "#E8F6FE", image: "/image/technologies/tailwindcss.webp" },
     ],
   },
   {
@@ -57,7 +57,7 @@ export const techToolCategories: TechToolCategory[] = [
       "Powerful and secure server-side development for scalable applications.",
     Icon: Server,
     tools: [
-      { id: "laravel", name: "Laravel", color: "#FF2D20", bg: "#FEECEC" },
+      { id: "laravel", name: "Laravel", color: "#FF2D20", bg: "#FEECEC", image: "/image/technologies/laravel.webp" },
       {
         id: "node",
         name: "Node.js",
@@ -72,7 +72,7 @@ export const techToolCategories: TechToolCategory[] = [
         bg: "#EEEFF6",
         image: "/image/technologies/php.webp",
       },
-      { id: "django", name: "Django", color: "#092E20", bg: "#E8F3EC" },
+      { id: "django", name: "Django", color: "#092E20", bg: "#E8F3EC", image: "/image/technologies/django.webp" },
     ],
   },
   {
@@ -82,8 +82,8 @@ export const techToolCategories: TechToolCategory[] = [
       "Cross-platform mobile apps with great performance and native experience.",
     Icon: Smartphone,
     tools: [
-      { id: "flutter", name: "Flutter", color: "#02569B", bg: "#E6F1F8" },
-      { id: "react-native", name: "React Native", color: "#61DAFB", bg: "#E8F9FE" },
+      { id: "flutter", name: "Flutter", color: "#02569B", bg: "#E6F1F8", image: "/image/technologies/flutter.webp" },
+      { id: "react-native", name: "React Native", color: "#61DAFB", bg: "#E8F9FE", image: "/image/technologies/reactnative.webp" },
       {
         id: "android",
         name: "Android",
@@ -91,7 +91,7 @@ export const techToolCategories: TechToolCategory[] = [
         bg: "#E9FBF1",
         image: "/image/technologies/android.webp",
       },
-      { id: "ios", name: "iOS", color: "#111111", bg: "#F3F4F6" },
+      { id: "ios", name: "iOS", color: "#111111", bg: "#F3F4F6", image: "/image/technologies/ios.webp" },
     ],
   },
   {
@@ -106,10 +106,10 @@ export const techToolCategories: TechToolCategory[] = [
         name: "MySQL",
         color: "#00758F",
         bg: "#E6F3F6",
-        image: "/image/technologies/mysql.webp",
+        image: "/image/technologies/mysql.svg",
       },
-      { id: "postgres", name: "PostgreSQL", color: "#336791", bg: "#EAF0F5" },
-      { id: "mongo", name: "MongoDB", color: "#47A248", bg: "#EBF6EC" },
+      { id: "postgres", name: "PostgreSQL", color: "#336791", bg: "#EAF0F5", image: "/image/technologies/postgresql.webp" },
+      { id: "mongo", name: "MongoDB", color: "#47A248", bg: "#EBF6EC", image: "/image/technologies/mongodb.webp" },
       {
         id: "redis",
         name: "Redis",
@@ -163,10 +163,10 @@ export const techToolCategories: TechToolCategory[] = [
       "Productivity and collaboration tools for efficient development and project delivery.",
     Icon: Wrench,
     tools: [
-      { id: "figma", name: "Figma", color: "#F24E1E", bg: "#FEEEE9" },
-      { id: "git", name: "Git", color: "#F05032", bg: "#FEECEA" },
-      { id: "jira", name: "Jira", color: "#0052CC", bg: "#E6EEF9" },
-      { id: "slack", name: "Slack", color: "#4A154B", bg: "#F3E8F4" },
+      { id: "figma", name: "Figma", color: "#F24E1E", bg: "#FEEEE9", image: "/image/technologies/figma.svg" },
+      { id: "git", name: "Git", color: "#F05032", bg: "#FEECEA", image: "/image/technologies/git.svg" },
+      { id: "jira", name: "Jira", color: "#0052CC", bg: "#E6EEF9", image: "/image/technologies/jira.svg" },
+      { id: "slack", name: "Slack", color: "#4A154B", bg: "#F3E8F4", image: "/image/technologies/slack.svg" },
     ],
   },
 ];

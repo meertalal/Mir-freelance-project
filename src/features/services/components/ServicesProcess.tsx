@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clock3 } from "lucide-react";
 import { processSteps } from "../../../data/site.data";
 import { servicesProcessCopy } from "../data/services-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
@@ -53,6 +53,10 @@ export default function ServicesProcess() {
                     <p className="mt-1.5 font-inter text-xs leading-relaxed text-slate-600">
                       {step.description}
                     </p>
+                  <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-[#EAF2FF] px-2.5 py-1 font-inter text-[10px] font-semibold text-[#3B6EA8]">
+                    <Clock3 size={11} aria-hidden="true" />
+                    {step.duration}
+                  </span>
                   </article>
                 </Reveal>
 

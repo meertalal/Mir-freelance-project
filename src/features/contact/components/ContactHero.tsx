@@ -1,4 +1,4 @@
-import { Globe2, Mail, Phone } from "lucide-react";
+import { Globe2, Mail, MessageCircle } from "lucide-react";
 import { contactHero, contactTrust } from "../data/contact-page.data";
 import { brand } from "../../../data/site.data";
 import PageEyebrow from "../../../components/shared/PageEyebrow";
@@ -57,15 +57,17 @@ export default function ContactHero() {
                 </a>
 
                 <a
-                  href={`tel:${brand.phone.replace(/\s+/g, "")}`}
+                  href={brand.whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
                   className={contactLinkClass}
                 >
                   <span className={contactIconClass}>
-                    <Phone size={17} strokeWidth={1.9} aria-hidden="true" />
+                    <MessageCircle size={17} strokeWidth={1.9} aria-hidden="true" />
                   </span>
                   <span className="min-w-0">
                     <span className="block font-playfair text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                      Phone
+                      WhatsApp
                     </span>
                     <span className="mt-0.5 block font-inter text-sm font-semibold text-[#10234B] transition group-hover:text-[#1670F5]">
                       {brand.phone}

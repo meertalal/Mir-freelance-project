@@ -23,6 +23,7 @@ export const workingProcessSteps = [
     title: "Discovery & Planning",
     description:
       "Understand your goals, requirements and business needs to define the right solution.",
+    duration: "2-3 days",
     Icon: MessageSquare,
   },
   {
@@ -31,6 +32,7 @@ export const workingProcessSteps = [
     title: "Design & Strategy",
     description:
       "Turn ideas into clean, modern and user-friendly designs with a clear development plan.",
+    duration: "3-5 days",
     Icon: PenLine,
   },
   {
@@ -39,6 +41,7 @@ export const workingProcessSteps = [
     title: "Development & Testing",
     description:
       "Build a scalable, secure and high-performing solution with continuous testing and feedback.",
+    duration: "2-4 weeks",
     Icon: Code2,
   },
   {
@@ -47,6 +50,7 @@ export const workingProcessSteps = [
     title: "Deployment & Support",
     description:
       "Launch your project smoothly and provide ongoing support, updates and maintenance.",
+    duration: "Ongoing",
     Icon: Rocket,
   },
 ] as const;

@@ -1,4 +1,5 @@
 import SectionHeader from "../../../../components/shared/SectionHeader";
+import Reveal from "../../../../components/shared/Reveal";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import { letsTalkCopy } from "../../data/lets-talk.data";
 import LetsTalkSteps from "./LetsTalkSteps";
@@ -35,7 +36,7 @@ export default function LetsTalkSection() {
           min-[1920px]:gap-16
         `}
       >
-        <div className="min-w-0">
+        <Reveal className="min-w-0">
           <SectionHeader
             align="center"
             alignLg="left"
@@ -46,9 +47,11 @@ export default function LetsTalkSection() {
           />
           <LetsTalkSteps />
           <LetsTalkActions />
-        </div>
+        </Reveal>
 
-        <ProjectStartForm />
+        <Reveal delay={140}>
+          <ProjectStartForm />
+        </Reveal>
       </div>
     </section>
   );

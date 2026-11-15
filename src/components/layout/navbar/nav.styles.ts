@@ -40,6 +40,7 @@ export function navLinkClassName(isActive: boolean, mobile = false) {
 export function navbarShellClassName(isScrolled: boolean) {
   return [
     "sticky top-0 z-[1000] w-full",
+    "h-16 sm:h-[72px] xl:h-[76px] 2xl:h-20 min-[1920px]:h-[92px] min-[2560px]:h-[104px]",
     "transition-[padding] duration-500 ease-in-out",
     isScrolled
       ? "px-2 pt-2 sm:px-4 lg:px-6 2xl:px-8 min-[1920px]:px-12 min-[2560px]:px-16"
@@ -49,7 +50,7 @@ export function navbarShellClassName(isScrolled: boolean) {
 
 export function navbarBarClassName(isScrolled: boolean) {
   return [
-    "relative mx-auto flex w-full items-center justify-between",
+    "relative mx-auto flex h-full w-full items-center justify-between",
     "gap-2 sm:gap-3 xl:gap-4 2xl:gap-6 min-[1920px]:gap-10 min-[2560px]:gap-14",
     "border border-white/10 bg-[#092f58] backdrop-blur-xl",
     "transition-[max-width,min-height,border-radius,box-shadow,padding] duration-500 ease-in-out",
