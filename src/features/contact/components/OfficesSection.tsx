@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Clock3, Globe2, MessageSquare } from "lucide-react";
-import { contactActions, remoteRegions } from "../data/contact-page.data";
+import { contactActions } from "../data/contact-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import Reveal from "../../../components/shared/Reveal";
-import { brand } from "../../../data/site.data";
+import { useSiteSettings } from "../../site-settings/useSiteSettings";
 import { innerContainerClass } from "../../../components/shared/section.styles";
+import { useCountryMarkets } from "../../countries/useCountryMarkets";
 
 const actionClass =
   "group flex min-h-14 items-center gap-3 rounded-xl border border-[#E6EEF9] bg-white px-3.5 py-3 transition duration-300 hover:-translate-y-0.5 hover:border-[#BFD6F5] hover:shadow-[0_10px_24px_rgba(15,48,91,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5882E8] sm:px-4";
@@ -16,6 +17,30 @@ const factIconClass =
   "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[#93C5FD]";
 
 export default function OfficesSection() {
+  const contact = useSiteSettings();
+  const markets = useCountryMarkets().filter((country) => country.show_in_coverage);
+  const regionRank = ["Americas", "Europe", "Middle East", "Asia-Pacific"];
+  const remoteRegions = [...new Set(markets.map((country) => country.region))].sort((a, b) => {
+    const rankA = regionRank.indexOf(a);
+    const rankB = regionRank.indexOf(b);
+    return (rankA < 0 ? regionRank.length : rankA) - (rankB < 0 ? regionRank.length : rankB);
+  }).map((region) => {
+    const regionMarkets = markets.filter((country) => country.region === region);
+    const coverageRank: Record<string, string[]> = { Europe: ["UK", "Germany", "Switzerland"] };
+    const preferredOrder = coverageRank[region] ?? [];
+    regionMarkets.sort((a, b) => {
+      const rankA = preferredOrder.indexOf(a.name);
+      const rankB = preferredOrder.indexOf(b.name);
+      return (rankA < 0 ? preferredOrder.length : rankA) - (rankB < 0 ? preferredOrder.length : rankB);
+    });
+    return {
+      id: region.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      title: region,
+      countries: regionMarkets.map((country) => country.name).join(", "),
+      flags: regionMarkets.map((country) => country.flag_image),
+    };
+  });
+
   return (
     <section className="relative isolate w-full overflow-hidden bg-white px-4 py-10 min-[480px]:px-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16 xl:px-12 xl:py-20">
       <div
@@ -87,7 +112,7 @@ export default function OfficesSection() {
                     Working Hours
                   </p>
                   <p className="mt-0.5 font-inter text-xs font-semibold text-white">
-                    {brand.hours}
+                    {contact.hours}
                   </p>
                 </div>
               </div>

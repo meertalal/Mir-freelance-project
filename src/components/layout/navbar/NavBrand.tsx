@@ -1,51 +1,30 @@
 import { Link } from "react-router-dom";
-import { Code2 } from "lucide-react";
 
 type NavBrandProps = {
   name: string;
   subtitle: string;
   href?: string;
-  isScrolled: boolean;
 };
 
-export default function NavBrand({
-  name,
-  subtitle,
-  href = "/",
-  isScrolled,
-}: NavBrandProps) {
+export default function NavBrand({ name, subtitle, href = "/" }: NavBrandProps) {
   return (
     <Link
       to={href}
       aria-label={`${name} - ${subtitle}`}
-      className="group flex min-h-11 min-w-0 shrink items-center gap-2 sm:gap-2.5 2xl:gap-3 min-[1920px]:gap-4 min-[2560px]:gap-5"
+      className="group flex min-h-10 min-w-0 shrink items-center gap-2.5 sm:gap-3 2xl:gap-3.5"
     >
-      <Code2
+      <span
         aria-hidden="true"
-        className={[
-          "shrink-0 text-[#5882E8] transition-transform duration-300 ease-out group-hover:scale-110",
-          isScrolled ? "h-6 w-6" : "h-7 w-7 sm:h-8 sm:w-8",
-          "2xl:h-9 2xl:w-9 min-[1920px]:h-10 min-[1920px]:w-10 min-[2560px]:h-12 min-[2560px]:w-12",
-        ].join(" ")}
-        strokeWidth={2.5}
-      />
+        className="relative inline-flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#2B7CFF] to-[#0B3A6B] text-[10px] font-black tracking-tight text-white shadow-[0_8px_22px_rgba(6,32,65,0.45)] ring-1 ring-inset ring-white/20 transition duration-300 group-hover:scale-105 sm:h-10 sm:w-10 sm:text-[11px] 2xl:h-11 2xl:w-11 2xl:text-xs min-[1920px]:h-12 min-[1920px]:w-12 min-[1920px]:text-sm"
+      >
+        <span className="absolute -right-2 -top-2 h-5 w-5 rounded-full bg-white/20 blur-md" />
+        MT
+      </span>
       <span className="flex min-w-0 flex-col">
-        <span
-          className={[
-            "truncate font-montserrat font-bold tracking-tight text-white transition-all duration-300",
-            isScrolled ? "text-sm 2xl:text-base" : "text-sm sm:text-base 2xl:text-lg",
-            "min-[1920px]:text-xl min-[2560px]:text-2xl",
-          ].join(" ")}
-        >
+        <span className="truncate font-montserrat text-sm font-bold tracking-tight text-white transition-colors duration-300 2xl:text-base min-[1920px]:text-lg">
           {name}
         </span>
-        <span
-          className={[
-            "truncate font-inter font-medium text-white/75 transition-all duration-300",
-            isScrolled ? "text-[11px] 2xl:text-xs" : "text-[11px] sm:text-xs",
-            "min-[1920px]:text-sm min-[2560px]:text-base",
-          ].join(" ")}
-        >
+        <span className="truncate font-inter text-[9px] font-medium uppercase tracking-[0.12em] text-[#9DB8D8] transition-colors duration-300 group-hover:text-[#BFDBFE] sm:text-[10px] 2xl:text-[11px]">
           {subtitle}
         </span>
       </span>

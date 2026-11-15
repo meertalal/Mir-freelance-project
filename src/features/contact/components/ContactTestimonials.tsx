@@ -5,12 +5,12 @@ import {
   innerContainerClass,
   innerSectionClass,
 } from "../../../components/shared/section.styles";
-import { sharedTestimonials } from "../../../data/site.data";
+import { useTestimonials } from "../../content/useContent";
 import { contactTestimonialsCopy } from "../data/contact-page.data";
 
-const testimonials = sharedTestimonials.slice(0, 3);
-
 export default function ContactTestimonials() {
+  const testimonials = useTestimonials().slice(0, 3);
+
   return (
     <section
       aria-labelledby="contact-testimonials-title"

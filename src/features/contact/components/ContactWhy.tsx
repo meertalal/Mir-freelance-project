@@ -1,6 +1,6 @@
 import { Globe2, Mail, MessageCircle, Quote } from "lucide-react";
 import { contactWhy, contactWhyCopy } from "../data/contact-page.data";
-import { brand } from "../../../data/site.data";
+import { useSiteSettings } from "../../site-settings/useSiteSettings";
 import SectionHeader from "../../../components/shared/SectionHeader";
 import Reveal from "../../../components/shared/Reveal";
 import {
@@ -15,6 +15,8 @@ const channelIconClass =
   "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[#93C5FD] transition group-hover:bg-white/15";
 
 export default function ContactWhy() {
+  const contact = useSiteSettings();
+
   return (
     <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
       <div
@@ -89,7 +91,7 @@ export default function ContactWhy() {
             </p>
 
             <div className="mt-6 flex flex-col gap-2.5 border-t border-white/10 pt-6">
-              <a href={`mailto:${brand.email}`} className={channelClass}>
+              <a href={`mailto:${contact.email}`} className={channelClass}>
                 <span className={channelIconClass}>
                   <Mail size={16} strokeWidth={1.9} aria-hidden="true" />
                 </span>
@@ -98,13 +100,13 @@ export default function ContactWhy() {
                     Email
                   </span>
                   <span className="mt-0.5 block truncate font-inter text-xs font-semibold text-white sm:text-sm">
-                    {brand.email}
+                    {contact.email}
                   </span>
                 </span>
               </a>
 
               <a
-                href={brand.whatsappHref}
+                href={contact.whatsappHref}
                 target="_blank"
                 rel="noreferrer"
                 className={channelClass}
@@ -117,7 +119,7 @@ export default function ContactWhy() {
                     WhatsApp
                   </span>
                   <span className="mt-0.5 block font-inter text-xs font-semibold text-white sm:text-sm">
-                    {brand.phone}
+                    {contact.phone}
                   </span>
                 </span>
               </a>

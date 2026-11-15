@@ -230,7 +230,7 @@ export const legalDocs: Record<LegalDoc["slug"], LegalDoc> = {
         id: "managing-cookies",
         title: "Managing Cookies",
         paragraphs: [
-          "You can block or delete cookies through your browser settings. Blocking essential cookies may affect how parts of the website work. Browser help pages explain how to manage cookies for your device.",
+          "You can change your preference at any time using the cookie banner, and you can block or delete cookies through your browser settings. Blocking essential cookies may affect how parts of the website work. Browser help pages explain how to manage cookies for your device.",
         ],
       },
       {

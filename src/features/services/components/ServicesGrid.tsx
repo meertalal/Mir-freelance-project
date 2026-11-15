@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { sharedServices } from "../../../data/site.data";
+import { useServices } from "../../content/useContent";
 import { servicesGridCopy } from "../data/services-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import Reveal from "../../../components/shared/Reveal";
@@ -10,6 +10,8 @@ import {
 } from "../../../components/shared/section.styles";
 
 export default function ServicesGrid() {
+  const services = useServices();
+
   return (
     <section
       id="services"
@@ -36,8 +38,8 @@ export default function ServicesGrid() {
         </Reveal>
 
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {sharedServices.map((service, index) => {
-            const Icon = service.icon;
+          {services.map((service, index) => {
+            const Icon = service.Icon;
             return (
               <li key={service.id} className="min-w-0">
                 <Reveal delay={(index % 3) * 80} className="h-full">

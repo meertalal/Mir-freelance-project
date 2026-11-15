@@ -6,10 +6,7 @@ import {
   Send,
   Star,
 } from "lucide-react";
-import {
-  sharedServices,
-  sharedTestimonials,
-} from "../../../data/site.data";
+import { useServices, useTestimonials } from "../../content/useContent";
 import { servicesFeedbackCopy } from "../data/services-page.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import Reveal from "../../../components/shared/Reveal";
@@ -17,16 +14,18 @@ import {
   innerContainerClass,
   innerSectionClass,
 } from "../../../components/shared/section.styles";
-import { submitContactForm } from "../../../services/contact.service";
+import { submitFeedback } from "../../feedback/feedback.service";
 
 const fieldClass =
   "w-full min-h-11 rounded-xl border border-slate-200 bg-[#F7FAFF] px-3.5 py-3 text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 sm:text-sm";
 
-const initialForm = { fullName: "", email: "", designation: "", service: "", message: "" };
+const initialForm = { fullName: "", email: "", company: "", designation: "", service: "", message: "" };
 
 export default function ServicesFeedback() {
-  const featured = sharedTestimonials[1] ?? sharedTestimonials[0];
-  const clients = sharedTestimonials;
+  const services = useServices();
+  const testimonials = useTestimonials();
+  const featured = testimonials[1] ?? testimonials[0];
+  const clients = testimonials;
   const [form, setForm] = useState(initialForm);
   const [rating, setRating] = useState(5);
   const [hovered, setHovered] = useState(0);
@@ -58,20 +57,20 @@ export default function ServicesFeedback() {
     setNotice("");
 
     try {
-      const result = await submitContactForm({
-        fullName: form.fullName,
+      const selectedService = services.find((service) => service.title === form.service);
+      const serviceId = selectedService && /^\d+$/.test(selectedService.id)
+        ? Number(selectedService.id)
+        : null;
+      const result = await submitFeedback({
+        author: form.fullName.trim(),
         email: form.email,
-        phone: "",
-        company: "",
-        designation: form.designation.trim(),
-        projectType: form.service
-          ? `Client Feedback: ${form.service}`
-          : "Client Feedback",
-        budgetRange: `${rating} out of 5`,
+        company: form.company.trim(),
+        role: form.designation.trim(),
         message: form.message,
-        country: "",
-        countryPhone: "",
-        subject: `New client feedback from ${form.fullName}`,
+        rating,
+        service_id: serviceId,
+        service_title: form.service,
+        source: "services",
       });
       setStatus("success");
       setNotice(result.message);
@@ -239,6 +238,20 @@ export default function ServicesFeedback() {
 
               <label className="block">
                 <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
+                  Organization / Company
+                </span>
+                <input
+                  name="company"
+                  value={form.company}
+                  onChange={(event) => updateField("company", event.target.value)}
+                  className={fieldClass}
+                  placeholder="Enter your organization or company"
+                  autoComplete="organization"
+                />
+              </label>
+
+              <label className="block">
+                <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
                   Designation
                 </span>
                 <input
@@ -253,7 +266,7 @@ export default function ServicesFeedback() {
                 />
               </label>
 
-              <label className="block">
+              <label className="block sm:col-span-2">
                 <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
                   Service Provided
                 </span>
@@ -266,7 +279,7 @@ export default function ServicesFeedback() {
                   className={fieldClass}
                 >
                   <option value="">Select a service</option>
-                  {sharedServices.map((service) => (
+                  {services.map((service) => (
                     <option key={service.id} value={service.title}>
                       {service.title}
                     </option>

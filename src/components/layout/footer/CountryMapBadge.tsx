@@ -5,17 +5,17 @@ type CountryMapBadgeProps = {
 
 export default function CountryMapBadge({ name, image }: CountryMapBadgeProps) {
   return (
-    <div className="group flex flex-col items-center gap-1 text-center transition duration-300 hover:-translate-y-1">
+    <div className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1.5 pl-2 pr-3 text-white/75 transition duration-300 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/10 hover:text-white">
       <img
         src={image}
-        alt={`${name} map`}
+        alt=""
         loading="lazy"
         decoding="async"
-        width={44}
-        height={32}
-        className="h-8 w-11 object-contain"
+        width={24}
+        height={18}
+        className="h-[18px] w-6 object-contain"
       />
-      <span className="max-w-[5.5rem] font-inter text-[11px] leading-tight text-white/85">
+      <span className="font-inter text-[11px] font-medium leading-none sm:text-xs">
         {name}
       </span>
     </div>

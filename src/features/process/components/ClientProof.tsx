@@ -1,16 +1,17 @@
 import { Star } from "lucide-react";
-import { sharedTestimonials } from "../../../data/site.data";
 import Reveal from "../../../components/shared/Reveal";
+import { useTestimonials } from "../../content/useContent";
 import {
   innerContainerClass,
 } from "../../../components/shared/section.styles";
 
-const proofIds = ["james-wilson", "michael-thompson", "sarah-johnson"] as const;
-const proofTestimonials = sharedTestimonials.filter((item) =>
-  (proofIds as readonly string[]).includes(item.id),
-);
+const proofAuthors = ["James Wilson", "Michael Thompson", "Sarah Johnson"];
 
 export default function ClientProof() {
+  const proofTestimonials = useTestimonials().filter((item) =>
+    proofAuthors.includes(item.author),
+  );
+
   return (
     <section className="relative isolate w-full overflow-hidden bg-gradient-to-br from-[#0f3d6e] via-[#092f58] to-[#072444] px-4 py-12 min-[480px]:px-5 sm:px-6 sm:py-16 lg:px-8 lg:py-20 xl:px-12 xl:py-24">
       <div

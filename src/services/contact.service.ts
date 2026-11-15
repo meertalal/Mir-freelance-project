@@ -17,71 +17,61 @@ export type ContactResult = {
   message: string;
 };
 
+type ApiErrorPayload = {
+  error?: {
+    message?: string;
+    details?: {
+      errors?: Record<string, string>;
+    };
+  };
+};
+
+const API_URL = (
+  (import.meta.env.VITE_API_URL as string | undefined) || ""
+).replace(/\/+$/, "");
+
+/**
+ * In development Vite proxies `/api` to the Slim API (see vite.config.ts).
+ * In production set VITE_API_URL to the API origin, e.g. https://api.mirtalal.com
+ */
 function getEndpoint() {
-  const formspreeId = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
-  if (formspreeId) {
-    return `https://formspree.io/f/${formspreeId}`;
-  }
-
-  const web3formsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as
-    | string
-    | undefined;
-  if (web3formsKey) {
-    return "https://api.web3forms.com/submit";
-  }
-
-  return (
-    (import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined) ||
-    "/api/contact.php"
-  );
+  return `${API_URL}/api/contact`;
 }
 
 export async function submitContactForm(
   payload: ContactPayload,
 ): Promise<ContactResult> {
-  const endpoint = getEndpoint();
-  const web3formsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as
-    | string
-    | undefined;
-
-  const body: Record<string, string> = {
-    ...payload,
-    name: payload.fullName,
-    subject:
-      payload.subject || `New project inquiry from ${payload.fullName}`,
-  };
-
-  if (web3formsKey && endpoint.includes("web3forms")) {
-    body.access_key = web3formsKey;
-    body.from_name = "Mir Talal Website";
-  }
-
-  const response = await fetch(endpoint, {
+  const response = await fetch(getEndpoint(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(payload),
   });
 
-  let data: { message?: string; error?: string; success?: boolean };
+  let data: ({ message?: string } & ApiErrorPayload) | undefined;
   try {
     data = await response.json();
   } catch {
-    data = {};
+    data = undefined;
   }
 
-  if (!response.ok || data.success === false) {
+  if (!response.ok) {
+    const fieldErrors = data?.error?.details?.errors;
+    const firstFieldError = fieldErrors ? Object.values(fieldErrors)[0] : "";
+
     throw new Error(
-      data.error || data.message || "Unable to send your message. Please try again.",
+      firstFieldError ||
+        data?.error?.message ||
+        "Unable to send your message. Please try again.",
     );
   }
 
   return {
     ok: true,
     message:
-      data.message ||
+      data?.message ||
       "Thanks! Your message has been sent. I will get back to you soon.",
   };
 }

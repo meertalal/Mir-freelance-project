@@ -1,8 +1,11 @@
+import { Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Seo from "../seo/Seo";
+import PageLoader from "../shared/PageLoader";
+import CookieConsent from "../shared/CookieConsent";
+import SeoRedirectHandler from "../seo/SeoRedirectHandler";
 
 export default function MainLayout() {
   const location = useLocation();
@@ -26,11 +29,15 @@ export default function MainLayout() {
   return (
     <>
       <Seo />
+      <SeoRedirectHandler />
       <Navbar />
       <main>
-        <Outlet />
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }
