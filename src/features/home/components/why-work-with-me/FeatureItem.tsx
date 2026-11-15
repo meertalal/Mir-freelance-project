@@ -20,19 +20,35 @@ export default function FeatureItem({
   return (
     <article
       className="
-        flex min-w-0 items-start gap-2.5
-        sm:gap-3
-        lg:gap-3.5
-        2xl:gap-4
+        group relative flex h-full flex-col items-center
+        rounded-2xl border border-[#E6EEF9] bg-white
+        px-5 py-6 text-center
+        shadow-[0_10px_28px_rgba(15,48,91,0.05)]
+        transition duration-300
+        hover:-translate-y-1 hover:border-[#C9DEFF]
+        hover:shadow-[0_18px_40px_rgba(15,48,91,0.10)]
+        motion-reduce:transition-none
+        sm:px-6 sm:py-7
+        2xl:px-7 2xl:py-8
       "
     >
+      <span
+        aria-hidden="true"
+        className="
+          absolute inset-x-8 top-0 h-0.5 rounded-full
+          bg-gradient-to-r from-transparent via-[#1670F5]/70 to-transparent
+          opacity-0 transition-opacity duration-300 group-hover:opacity-100
+        "
+      />
+
       <div
         className="
-          flex h-8 w-8 shrink-0 items-center justify-center
-          rounded-lg bg-blue-50 text-blue-600
-          sm:h-9 sm:w-9
-          lg:h-10 lg:w-10
-          2xl:h-12 2xl:w-12
+          flex h-12 w-12 shrink-0 items-center justify-center
+          rounded-2xl bg-gradient-to-br from-[#EAF2FF] to-[#DCE9FF]
+          text-[#1670F5] ring-1 ring-[#D6E4F7]
+          transition duration-300
+          group-hover:from-[#092f58] group-hover:to-[#0f3d6e] group-hover:text-white
+          2xl:h-14 2xl:w-14
         "
       >
         <svg
@@ -42,41 +58,31 @@ export default function FeatureItem({
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="
-            h-4 w-4
-            sm:h-[18px] sm:w-[18px]
-            lg:h-5 lg:w-5
-            2xl:h-6 2xl:w-6
-          "
+          className="h-6 w-6 2xl:h-7 2xl:w-7"
           aria-hidden="true"
         >
           <path d={iconPaths[feature.icon]} />
         </svg>
       </div>
 
-      <div className="min-w-0">
-        <h3
-          className="
-            font-roboto-condensed text-[11px] font-bold leading-4 text-slate-800
-            sm:text-xs
-            lg:text-sm
-            2xl:text-base
-          "
-        >
-          {feature.title}
-        </h3>
+      <h3
+        className="
+          mt-4 font-montserrat text-sm font-bold leading-snug text-[#10234B]
+          2xl:mt-5 2xl:text-base
+        "
+      >
+        {feature.title}
+      </h3>
 
-        <p
-          className="
-            mt-0.5 font-inter text-[11px] leading-[1.5] text-slate-500
-            sm:text-[11px]
-            lg:text-xs
-            2xl:text-sm 2xl:leading-relaxed
-          "
-        >
-          {feature.description}
-        </p>
-      </div>
+      <p
+        className="
+          mt-2 font-inter text-xs leading-relaxed text-[#5B7291]
+          sm:text-[13px]
+          2xl:text-sm
+        "
+      >
+        {feature.description}
+      </p>
     </article>
   );
 }

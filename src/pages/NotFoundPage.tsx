@@ -3,7 +3,7 @@ import { pageHeroTitleClass } from "../components/shared/section.styles";
 
 export default function NotFoundPage() {
   return (
-    <section className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-20 text-center">
+    <section className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-20 text-center motion-safe:animate-page-reveal">
       <p className="font-montserrat text-sm font-semibold uppercase tracking-[0.12em] text-[#2563eb]">
         404
       </p>

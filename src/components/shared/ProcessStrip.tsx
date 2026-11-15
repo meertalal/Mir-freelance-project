@@ -1,6 +1,7 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clock3 } from "lucide-react";
 import { processSteps } from "../../data/site.data";
 import SectionHeading from "./SectionHeading";
+import Reveal from "./Reveal";
 import { innerContainerClass, innerSectionClass } from "./section.styles";
 
 type ProcessStripProps = {
@@ -20,21 +21,28 @@ export default function ProcessStrip({
     <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
       <div className={innerContainerClass}>
         {showHeading && (
-          <SectionHeading
-            eyebrow={eyebrow}
-            title={title}
-            description={description}
-          />
+          <Reveal className="[&>header]:mb-0">
+            <SectionHeading
+              eyebrow={eyebrow}
+              title={title}
+              description={description}
+            />
+          </Reveal>
         )}
 
-        <ol className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-4">
+        <Reveal delay={showHeading ? 100 : 0}>
+        <ol
+          className={[
+            "grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-4",
+            showHeading ? "mt-7 sm:mt-10 lg:mt-12" : "",
+          ].join(" ")}
+        >
           {processSteps.map((step, index) => {
             const Icon = step.icon;
             return (
               <li
                 key={step.id}
-                style={{ animationDelay: `${index * 90}ms` }}
-                className="relative flex min-w-0 motion-safe:animate-page-reveal"
+                className="relative flex min-w-0"
               >
                 <article className="flex h-full w-full flex-col items-center rounded-2xl border border-slate-100 bg-white px-4 py-6 text-center shadow-[0_8px_28px_rgba(15,48,91,0.05)] transition hover:-translate-y-1 hover:border-[#D6E4F7] hover:shadow-[0_16px_36px_rgba(37,99,235,0.1)]">
                   <span className="relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#EAF2FF] text-[#1670F5] ring-4 ring-white">
@@ -49,6 +57,10 @@ export default function ProcessStrip({
                   <p className="mt-1.5 font-inter text-xs leading-relaxed text-slate-600">
                     {step.description}
                   </p>
+                  <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-[#EAF2FF] px-2.5 py-1 font-inter text-[10px] font-semibold text-[#3B6EA8]">
+                    <Clock3 size={11} aria-hidden="true" />
+                    {step.duration}
+                  </span>
                 </article>
                 {index < processSteps.length - 1 && (
                   <span
@@ -62,6 +74,7 @@ export default function ProcessStrip({
             );
           })}
         </ol>
+        </Reveal>
       </div>
     </section>
   );

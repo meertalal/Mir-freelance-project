@@ -11,28 +11,6 @@ export interface WorkFeature {
   icon: FeatureIcon;
 }
 
-export interface Testimonial {
-  id: string;
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
-  avatar: string;
-  rating: number;
-}
-
 export interface FeatureItemProps {
   feature: WorkFeature;
-}
-
-export interface StarRatingProps {
-  rating: number;
-}
-
-export interface TestimonialCardProps {
-  testimonials: Testimonial[];
-  onPrevious: () => void;
-  onNext: () => void;
-  currentIndex: number;
-  onSelect: (index: number) => void;
 }

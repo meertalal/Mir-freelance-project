@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clock3 } from "lucide-react";
 import type { workingProcessSteps } from "../../data/working-process.data";
 
 type ProcessStep = (typeof workingProcessSteps)[number];
@@ -38,6 +38,10 @@ export default function ProcessStepCard({
         <p className="mt-2 font-inter text-xs leading-relaxed text-slate-600 sm:text-sm">
           {step.description}
         </p>
+        <span className="mt-3 inline-flex w-max items-center gap-1 rounded-full bg-[#EAF2FF] px-2.5 py-1 font-inter text-[10px] font-semibold text-[#3B6EA8]">
+          <Clock3 size={11} aria-hidden="true" />
+          {step.duration}
+        </span>
       </article>
 
       {showConnector && (

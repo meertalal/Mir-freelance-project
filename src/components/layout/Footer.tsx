@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, MessageCircle } from "lucide-react";
 import { brand } from "../../data/site.data";
 import {
   footerBrand,
@@ -118,10 +118,13 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href={`tel:${brand.phone.replace(/\s/g, "")}`}
+                href={brand.whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`WhatsApp: ${brand.phone}`}
                 className="group flex min-h-9 items-center gap-3 transition hover:text-white"
               >
-                <Phone
+                <MessageCircle
                   size={16}
                   strokeWidth={1.6}
                   className="shrink-0 text-white/70 transition group-hover:text-white"
@@ -160,9 +163,16 @@ export default function Footer() {
       </div>
 
       <div className="relative border-t border-white/10 bg-[#0b2f52]">
-        <p className={`px-4 py-2.5 text-center font-inter text-xs text-white/70 sm:px-6 sm:text-sm lg:px-10 ${contentRailClass}`}>
-          © {year} {footerBrand.name}. All Rights Reserved.
-        </p>
+        <div className={"flex flex-col items-center justify-between gap-2 px-4 py-3 text-center sm:flex-row sm:px-6 sm:text-left lg:px-10 " + contentRailClass}>
+          <p className="font-inter text-xs text-white/70 sm:text-sm">
+            © {year} {footerBrand.name}. All Rights Reserved.
+          </p>
+          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <Link to="/privacy" className="font-inter text-xs text-white/70 transition hover:text-white sm:text-sm">Privacy Policy</Link>
+            <Link to="/terms" className="font-inter text-xs text-white/70 transition hover:text-white sm:text-sm">Terms of Service</Link>
+            <Link to="/cookies" className="font-inter text-xs text-white/70 transition hover:text-white sm:text-sm">Cookie Policy</Link>
+          </nav>
+        </div>
       </div>
     </footer>
   );

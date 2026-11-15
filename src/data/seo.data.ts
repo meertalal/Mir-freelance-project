@@ -52,8 +52,32 @@ export const routeSeo: Record<string, RouteSeo> = {
   "/contact": {
     title: "Contact Mir Talal | Start Your Project",
     description:
-      "Share your project goals and get a consultation on web, mobile, AI and automation solutions. Reach Mir Talal by email or phone.",
+      "Share your project goals and get a consultation on web, mobile, AI and automation solutions. Reach Mir Talal by email or WhatsApp.",
     path: "/contact",
+  },
+  "/blog": {
+    title: "Blog & Insights on Web, AI & Product Development | Mir Talal",
+    description:
+      "Practical articles on AI agents, web development, SaaS products, discovery calls and turning ideas into a successful MVP.",
+    path: "/blog",
+  },
+  "/privacy": {
+    title: "Privacy Policy | Mir Talal",
+    description:
+      "How Mir Talal collects, uses and protects personal information submitted through this website and during client projects.",
+    path: "/privacy",
+  },
+  "/terms": {
+    title: "Terms of Service | Mir Talal",
+    description:
+      "The terms that apply when using this website and engaging Mir Talal for web, mobile, AI and product development services.",
+    path: "/terms",
+  },
+  "/cookies": {
+    title: "Cookie Policy | Mir Talal",
+    description:
+      "How this website uses cookies and similar technologies, and the choices available to visitors.",
+    path: "/cookies",
   },
 };
 
@@ -63,14 +87,12 @@ export const organization = {
   name: siteName,
   url: `${siteUrl}/`,
   email: brand.email,
-  telephone: brand.phone,
   logo: {
     "@type": "ImageObject",
     url: `${siteUrl}/favicon.svg`,
   },
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: brand.phone,
     email: brand.email,
     contactType: "customer support",
     availableLanguage: "English",

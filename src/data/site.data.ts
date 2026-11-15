@@ -21,35 +21,18 @@ export const brand = {
     "Helping startups and businesses build modern websites, mobile apps and automation solutions that actually deliver.",
   email: "mirtalal.baloch@yahoo.com",
   phone: "+1 438 905 4165",
+  whatsappHref: "https://wa.me/14389054165",
   location: "Serving Clients Worldwide",
   hours: "Mon to Sat, 10:00 AM to 7:00 PM",
 } as const;
 
-export const socialLinks = [
-  { id: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
-  { id: "facebook", label: "Facebook", href: "https://facebook.com" },
-  { id: "twitter", label: "Twitter", href: "https://twitter.com" },
-  { id: "instagram", label: "Instagram", href: "https://instagram.com" },
-  { id: "github", label: "GitHub", href: "https://github.com" },
-  { id: "youtube", label: "YouTube", href: "https://youtube.com" },
-] as const;
-
 export const footerQuickLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Services", href: "/services/web-development" },
+  { label: "Portfolio", href: "/portfolio/voice-agent" },
   { label: "Process", href: "/process" },
   { label: "Contact", href: "/contact" },
-] as const;
-
-export const footerServices = [
-  { label: "Web Development", href: "/services" },
-  { label: "Mobile Apps", href: "/services" },
-  { label: "AI Agents", href: "/services" },
-  { label: "SaaS Development", href: "/services" },
-  { label: "Cloud & DevOps", href: "/services" },
-  { label: "Digital Marketing", href: "/services" },
 ] as const;
 
 export const processSteps: {
@@ -57,6 +40,7 @@ export const processSteps: {
   step: number;
   title: string;
   description: string;
+  duration: string;
   icon: LucideIcon;
   tasks: string[];
 }[] = [
@@ -65,6 +49,7 @@ export const processSteps: {
     step: 1,
     title: "Discovery",
     description: "Understanding goals, users, and requirements.",
+    duration: "2-3 days",
     icon: Search,
     tasks: [
       "Requirement analysis",
@@ -78,6 +63,7 @@ export const processSteps: {
     step: 2,
     title: "Planning",
     description: "Creating timelines, architecture, and roadmaps.",
+    duration: "3-5 days",
     icon: CalendarDays,
     tasks: [
       "Project roadmap",
@@ -91,6 +77,7 @@ export const processSteps: {
     step: 3,
     title: "Development",
     description: "Design, build, and rigorously test the product.",
+    duration: "2-4 weeks",
     icon: Code2,
     tasks: [
       "UI/UX design",
@@ -104,6 +91,7 @@ export const processSteps: {
     step: 4,
     title: "Launch",
     description: "Smooth rollout with monitoring and handover.",
+    duration: "3-5 days",
     icon: Rocket,
     tasks: [
       "Production deployment",
@@ -117,6 +105,7 @@ export const processSteps: {
     step: 5,
     title: "Ongoing Support",
     description: "Maintenance, updates, and continuous improvement.",
+    duration: "Ongoing",
     icon: Headset,
     tasks: [
       "Bug fixes",
@@ -148,7 +137,7 @@ export const sharedServices = [
     title: "Web Development",
     description: "Modern, responsive websites using latest technologies.",
     icon: Code2,
-    href: "/services",
+    href: "/services/digital-marketing",
     image: "/image/services/serviceWebDevelopment.webp",
     imageAlt: "Laptop displaying code in a modern workspace",
   },
@@ -229,7 +218,7 @@ export const sharedProjects = [
     category: "saas",
     country: "USA",
     flag: "/image/flags/usa-flag.webp",
-    href: "/portfolio",
+    href: "/portfolio/estate-crm",
   },
   {
     id: "estate-crm",
@@ -242,7 +231,7 @@ export const sharedProjects = [
     category: "web",
     country: "Canada",
     flag: "/image/flags/canadian-flag.webp",
-    href: "/portfolio",
+    href: "/portfolio/ecommerce-marketplace",
   },
   {
     id: "ecommerce-marketplace",
@@ -255,7 +244,7 @@ export const sharedProjects = [
     category: "mobile",
     country: "Australia",
     flag: "/image/flags/australian-flag.webp",
-    href: "/portfolio",
+    href: "/portfolio/healthcare-app",
   },
   {
     id: "healthcare-app",
@@ -268,7 +257,7 @@ export const sharedProjects = [
     category: "mobile",
     country: "UK",
     flag: "/image/flags/uk-flag.webp",
-    href: "/portfolio",
+    href: "/portfolio/saas-analytics",
   },
   {
     id: "saas-analytics",
@@ -281,7 +270,7 @@ export const sharedProjects = [
     category: "saas",
     country: "UAE",
     flag: "/image/flags/uae-flag.webp",
-    href: "/portfolio",
+    href: "/portfolio/lms",
   },
   {
     id: "lms",

@@ -7,6 +7,7 @@ export const navigationLinks: NavigationLink[] = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
   { label: "Process", href: "/process" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 

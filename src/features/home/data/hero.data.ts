@@ -93,19 +93,19 @@ export const floatingCards = [
     title: "5+ Years",
     subtitle: "Experience",
     icon: "award" as const,
-    className: "left-0 top-[38%]",
+    className: "left-0 top-[18%] sm:-left-4 2xl:-left-6 min-[1920px]:-left-8",
   },
   {
     title: "100+",
     subtitle: "Projects Delivered",
     icon: "layers" as const,
-    className: "left-0 bottom-[2%]",
+    className: "left-0 bottom-[24%] sm:-left-4 2xl:-left-6 min-[1920px]:-left-8",
   },
   {
     title: "Global Clients",
     subtitle: "128+ Countries",
     icon: "globe" as const,
-    className: "right-0 bottom-[12%]",
+    className: "right-0 top-[40%] sm:-right-4 2xl:-right-6 min-[1920px]:-right-8",
   },
 ];
 
