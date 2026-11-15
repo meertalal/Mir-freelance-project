@@ -6,37 +6,13 @@ import {
   Mail,
   MessageCircle,
 } from "lucide-react";
-import { brand } from "../../../data/site.data";
+import { useSiteSettings } from "../../site-settings/useSiteSettings";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import Reveal from "../../../components/shared/Reveal";
 import {
   innerContainerClass,
   innerSectionClass,
 } from "../../../components/shared/section.styles";
-
-const bookingHref =
-  "mailto:" +
-  brand.email +
-  "?subject=Discovery%20Call%20Request&body=Hi%20Mir%2C%20I%20would%20like%20to%20book%20a%20discovery%20call.%0A%0AProject%3A%0ATimeline%3A%0ABudget%3A";
-
-const quickContacts = [
-  {
-    id: "whatsapp",
-    label: "WhatsApp",
-    value: brand.phone,
-    href: brand.whatsappHref,
-    Icon: MessageCircle,
-    external: true,
-  },
-  {
-    id: "email",
-    label: "Email",
-    value: brand.email,
-    href: "mailto:" + brand.email,
-    Icon: Mail,
-    external: false,
-  },
-] as const;
 
 const callSteps = [
   "We clarify your goals, users and must-have features.",
@@ -45,6 +21,32 @@ const callSteps = [
 ] as const;
 
 export default function BookingSection() {
+  const contact = useSiteSettings();
+
+  const bookingHref =
+    "mailto:" +
+    contact.email +
+    "?subject=Discovery%20Call%20Request&body=Hi%20Mir%2C%20I%20would%20like%20to%20book%20a%20discovery%20call.%0A%0AProject%3A%0ATimeline%3A%0ABudget%3A";
+
+  const quickContacts = [
+    {
+      id: "whatsapp",
+      label: "WhatsApp",
+      value: contact.phone,
+      href: contact.whatsappHref,
+      Icon: MessageCircle,
+      external: true,
+    },
+    {
+      id: "email",
+      label: "Email",
+      value: contact.email,
+      href: "mailto:" + contact.email,
+      Icon: Mail,
+      external: false,
+    },
+  ];
+
   return (
     <section
       id="book-a-call"
@@ -90,7 +92,7 @@ export default function BookingSection() {
 
           <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#F7FAFF] px-3.5 py-2 font-inter text-[11px] font-medium text-[#526987] ring-1 ring-[#E6EEF9]">
             <Clock3 size={13} className="text-[#1670F5]" aria-hidden="true" />
-            {brand.hours} · usually replies within one business day
+            {contact.hours} · usually replies within one business day
           </p>
         </Reveal>
 
@@ -129,7 +131,7 @@ export default function BookingSection() {
                   <ArrowRight size={15} aria-hidden="true" />
                 </a>
                 <a
-                  href={brand.whatsappHref}
+                  href={contact.whatsappHref}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 font-inter text-xs font-bold uppercase tracking-wide text-white transition hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

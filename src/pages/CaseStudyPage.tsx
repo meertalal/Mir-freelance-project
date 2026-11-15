@@ -14,13 +14,16 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { sharedProjects, sharedTestimonials } from "../data/site.data";
+import { useTestimonials } from "../features/content/useContent";
 import { caseStudies, getCaseStudy } from "../features/portfolio/data/case-studies.data";
 import PageHeroCentered from "../components/shared/PageHeroCentered";
 import Reveal from "../components/shared/Reveal";
 import LinkButton from "../components/ui/LinkButton";
 import CtaBanner from "../components/shared/CtaBanner";
+import JsonLd from "../components/seo/JsonLd";
 import NotFoundPage from "./NotFoundPage";
 import usePageSeo from "../hooks/usePageSeo";
+import { breadcrumbSchema, siteName, siteUrl } from "../data/seo.data";
 import {
   innerContainerClass,
   innerSectionClass,
@@ -33,9 +36,14 @@ export default function CaseStudyPage() {
   const { slug } = useParams();
   const study = getCaseStudy(slug);
   const project = sharedProjects.find((item) => item.id === study?.id);
-  const testimonial = sharedTestimonials.find(
+  const liveTestimonials = useTestimonials();
+  const staticTestimonial = sharedTestimonials.find(
     (item) => item.id === study?.testimonialId,
   );
+  const testimonial = staticTestimonial
+    ? (liveTestimonials.find((item) => item.author === staticTestimonial.author) ??
+      staticTestimonial)
+    : undefined;
 
   const nextStudy = useMemo(() => {
     if (!study) return undefined;
@@ -52,7 +60,7 @@ export default function CaseStudyPage() {
               title: project.title + " Case Study | Mir Talal",
               description: project.description ?? study.overview,
               path: "/portfolio/" + study.id,
-              image: project.image,
+              image: `/image/og/case-${study.id}.png`,
             }
           : null,
       [project, study],
@@ -66,8 +74,50 @@ export default function CaseStudyPage() {
   const titleWords = project.title.split(" ");
   const titleHighlight = titleWords[titleWords.length - 1];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${siteUrl}/portfolio/${study.id}#article`,
+        headline: `${project.title} Case Study`,
+        description: study.overview,
+        url: `${siteUrl}/portfolio/${study.id}`,
+        image: `${siteUrl}/image/og/case-${study.id}.png`,
+        articleSection: `${study.industry} Case Study`,
+        about: study.services,
+        keywords: [...study.services, study.industry, ...study.stack].join(
+          ", ",
+        ),
+        author: {
+          "@type": "Person",
+          name: "Mir Talal",
+          url: `${siteUrl}/about`,
+        },
+        publisher: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          name: siteName,
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteUrl}/favicon.svg`,
+          },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${siteUrl}/portfolio/${study.id}`,
+        },
+      },
+      breadcrumbSchema([
+        { label: "Portfolio", path: "/portfolio" },
+        { label: project.title, path: `/portfolio/${study.id}` },
+      ]),
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={structuredData} />
       <PageHeroCentered
         eyebrow="Case Study"
         eyebrowIcon={Star}

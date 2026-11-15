@@ -1,5 +1,8 @@
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { apiUrl } from "../../features/admin/api/client";
 import {
+  breadcrumbSchema,
   defaultImage,
   organization,
   routeSeo,
@@ -30,19 +33,8 @@ function upsertLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
-const subscribeToRoute = (onChange: () => void) => {
-  window.addEventListener("popstate", onChange);
-  return () => window.removeEventListener("popstate", onChange);
-};
-
-const getPathname = () => window.location.pathname.replace(/\/+$/, "") || "/";
-
 export default function Seo() {
-  const pathname = useSyncExternalStore(
-    subscribeToRoute,
-    getPathname,
-    () => "/",
-  );
+  const pathname = useLocation().pathname.replace(/\/+$/, "") || "/";
   const seo = routeSeo[pathname] ?? routeSeo["/"];
   const isKnown = pathname in routeSeo;
   const canonical = `${siteUrl}${seo.path === "/" ? "/" : seo.path}`;
@@ -61,28 +53,61 @@ export default function Seo() {
     upsertMeta("property", "og:description", seo.description);
     upsertMeta("property", "og:url", canonical);
     upsertMeta("property", "og:image", image);
+    upsertMeta("property", "og:image:alt", seo.title);
+    upsertMeta("property", "og:image:width", "1200");
+    upsertMeta("property", "og:image:height", "630");
     upsertMeta("property", "og:locale", "en_US");
 
     upsertMeta("name", "twitter:card", "summary_large_image");
     upsertMeta("name", "twitter:title", seo.title);
     upsertMeta("name", "twitter:description", seo.description);
     upsertMeta("name", "twitter:image", image);
-  }, [seo, canonical, image, robots]);
+    upsertMeta("name", "twitter:image:alt", seo.title);
+
+    let cancelled = false;
+    const query = new URLSearchParams({ path: pathname });
+    void fetch(apiUrl(`/api/seo/page?${query}`), { headers: { Accept: "application/json" } })
+      .then((response) => response.ok ? response.json() : null)
+      .then((payload: { data?: { title?: string; description?: string; og_title?: string; og_description?: string; og_image?: string } | null } | null) => {
+        if (cancelled || !payload?.data) return;
+        const row = payload.data;
+        if (row.title) { document.title = row.title; upsertMeta("property", "og:title", row.title); upsertMeta("name", "twitter:title", row.title); }
+        if (row.description) { upsertMeta("name", "description", row.description); upsertMeta("property", "og:description", row.description); upsertMeta("name", "twitter:description", row.description); }
+        if (row.og_title) { upsertMeta("property", "og:title", row.og_title); upsertMeta("name", "twitter:title", row.og_title); }
+        if (row.og_description) { upsertMeta("property", "og:description", row.og_description); upsertMeta("name", "twitter:description", row.og_description); }
+        if (row.og_image) { const imageUrl = /^https?:\/\//i.test(row.og_image) ? row.og_image : `${siteUrl}${row.og_image.startsWith("/") ? "" : "/"}${row.og_image}`; upsertMeta("property", "og:image", imageUrl); upsertMeta("name", "twitter:image", imageUrl); }
+      })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, [seo, canonical, image, robots, pathname]);
+
+  const breadcrumbs =
+    isKnown && seo.breadcrumbs?.length
+      ? breadcrumbSchema(seo.breadcrumbs, `${canonical}#breadcrumb`)
+      : null;
 
   const pageSchema = {
     "@context": "https://schema.org",
     "@graph": [
       organization,
       websiteSchema,
-      {
-        "@type": "WebPage",
-        "@id": `${canonical}#webpage`,
-        url: canonical,
-        name: seo.title,
-        description: seo.description,
-        isPartOf: { "@id": `${siteUrl}/#website` },
-        inLanguage: "en",
-      },
+      ...(isKnown
+        ? [
+            {
+              "@type": "WebPage",
+              "@id": `${canonical}#webpage`,
+              url: canonical,
+              name: seo.title,
+              description: seo.description,
+              isPartOf: { "@id": `${siteUrl}/#website` },
+              inLanguage: "en",
+              ...(breadcrumbs
+                ? { breadcrumb: { "@id": `${canonical}#breadcrumb` } }
+                : {}),
+            },
+          ]
+        : []),
+      ...(breadcrumbs ? [breadcrumbs] : []),
     ],
   };
 

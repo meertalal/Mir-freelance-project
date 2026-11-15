@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const DESKTOP_NAV_QUERY = "(min-width: 1024px)";
+const DESKTOP_NAV_QUERY = "(min-width: 1280px)";
 const SCROLL_SHRINK_AT = 40;
 
 export default function useNavbarUi() {

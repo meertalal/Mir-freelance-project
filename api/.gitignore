@@ -1,0 +1,7 @@
+/vendor/
+/.env
+/logs/*
+!/logs/.gitignore
+/var/
+/public/uploads/*
+!/public/uploads/.gitignore

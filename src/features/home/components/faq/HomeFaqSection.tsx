@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionHeader from "../../../../components/shared/SectionHeader";
 import Reveal from "../../../../components/shared/Reveal";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import { homeFaqCopy, homeFaqs } from "../../data/faq.data";
 import FaqAccordionItem from "./FaqAccordionItem";
 import FaqPromoCard from "./FaqPromoCard";
+import { useFaqs } from "../../../faq/useFaqs";
+import { HelpCircle } from "lucide-react";
 
 export default function HomeFaqSection() {
+  const remoteFaqs = useFaqs();
+  const items = remoteFaqs?.length
+    ? remoteFaqs.filter((item) => item.category.toLowerCase() === "home").map((item) => ({ id: String(item.id), question: item.question, answer: item.answer, Icon: HelpCircle }))
+    : homeFaqs;
   const [openId, setOpenId] = useState<string>(homeFaqs[0]?.id ?? "");
+  useEffect(() => { if (items[0]) setOpenId(items[0].id); }, [remoteFaqs]);
 
   return (
     <section
@@ -36,7 +43,7 @@ export default function HomeFaqSection() {
           <FaqPromoCard />
 
           <div className="flex min-w-0 flex-col gap-3">
-            {homeFaqs.map((item) => (
+            {items.map((item) => (
               <FaqAccordionItem
                 key={item.id}
                 item={item}

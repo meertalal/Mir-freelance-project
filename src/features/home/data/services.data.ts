@@ -12,12 +12,12 @@ import type {
 } from "../types/services.types";
 
 export const services: Service[] = sharedServices.map(
-  ({ id, title, description, icon }) => ({
+  ({ id, title, description, icon, href }) => ({
     id,
     title,
     description,
     icon,
-    href: "/services",
+    href,
   }),
 );
 

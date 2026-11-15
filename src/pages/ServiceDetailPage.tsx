@@ -8,8 +8,10 @@ import ProcessStrip from "../components/shared/ProcessStrip";
 import CtaBanner from "../components/shared/CtaBanner";
 import LinkButton from "../components/ui/LinkButton";
 import Reveal from "../components/shared/Reveal";
+import JsonLd from "../components/seo/JsonLd";
 import NotFoundPage from "./NotFoundPage";
 import usePageSeo from "../hooks/usePageSeo";
+import { breadcrumbSchema, siteName, siteUrl } from "../data/seo.data";
 import { innerContainerClass, innerSectionClass } from "../components/shared/section.styles";
 
 export default function ServiceDetailPage() {
@@ -25,7 +27,7 @@ export default function ServiceDetailPage() {
               title: service.title + " Services | Mir Talal",
               description: service.description + " " + detail.tagline + ".",
               path: "/services/" + service.id,
-              image: service.image,
+              image: `/image/og/service-${service.id}.png`,
             }
           : null,
       [service, detail],
@@ -47,8 +49,42 @@ export default function ServiceDetailPage() {
     Icon: outcomeIcons[index % outcomeIcons.length],
   }));
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${siteUrl}/services/${service.id}#service`,
+        name: service.title,
+        serviceType: service.title,
+        description: detail.intro,
+        url: `${siteUrl}/services/${service.id}`,
+        image: `${siteUrl}/image/og/service-${service.id}.png`,
+        provider: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          name: siteName,
+        },
+        areaServed: { "@type": "Place", name: "Worldwide" },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
+          url: `${siteUrl}/pricing`,
+          description:
+            "Custom project quote provided after a free discovery call.",
+        },
+      },
+      breadcrumbSchema([
+        { label: "Services", path: "/services" },
+        { label: service.title, path: `/services/${service.id}` },
+      ]),
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={structuredData} />
       <PageHeroCentered
         eyebrow="Service"
         eyebrowIcon={Icon}
@@ -59,7 +95,7 @@ export default function ServiceDetailPage() {
         trustItems={heroTrust}
         chips={detail.tech}
         primaryCta={{ label: "Get a Free Quote", href: "/contact", showArrow: true }}
-        secondaryCta={{ label: "View Pricing", href: "/services#pricing" }}
+        secondaryCta={{ label: "View Pricing", href: "/pricing" }}
         media={{
           src: service.image,
           alt: service.imageAlt,

@@ -16,7 +16,7 @@ import {
 
 export const brand = {
   name: "Mir Talal",
-  subtitle: "Freelance Web Developer",
+  subtitle: "Full-Stack & AI Developer",
   tagline:
     "Helping startups and businesses build modern websites, mobile apps and automation solutions that actually deliver.",
   email: "mirtalal.baloch@yahoo.com",
@@ -25,15 +25,6 @@ export const brand = {
   location: "Serving Clients Worldwide",
   hours: "Mon to Sat, 10:00 AM to 7:00 PM",
 } as const;
-
-export const footerQuickLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services/web-development" },
-  { label: "Portfolio", href: "/portfolio/voice-agent" },
-  { label: "Process", href: "/process" },
-  { label: "Contact", href: "/contact" },
-] as const;
 
 export const processSteps: {
   id: string;
@@ -137,7 +128,7 @@ export const sharedServices = [
     title: "Web Development",
     description: "Modern, responsive websites using latest technologies.",
     icon: Code2,
-    href: "/services/digital-marketing",
+    href: "/services/web-development",
     image: "/image/services/serviceWebDevelopment.webp",
     imageAlt: "Laptop displaying code in a modern workspace",
   },
@@ -146,7 +137,7 @@ export const sharedServices = [
     title: "Mobile App Development",
     description: "iOS & Android apps tailored to your business needs.",
     icon: Smartphone,
-    href: "/services",
+    href: "/services/mobile-app-development",
     image: "/image/services/serviceMobileAppDevelopment.webp",
     imageAlt: "Smartphone displaying a mobile app beside design sketches",
   },
@@ -155,7 +146,7 @@ export const sharedServices = [
     title: "AI Agents & Automation",
     description: "AI voice agents, chatbots and workflow automation.",
     icon: Bot,
-    href: "/services",
+    href: "/services/ai-agents-automation",
     image: "/image/services/serviceAiAgentsAutomation.webp",
     imageAlt: "Glowing AI neural network orb above a laptop",
   },
@@ -164,7 +155,7 @@ export const sharedServices = [
     title: "Chatbot Development",
     description: "Smart chatbots for websites, WhatsApp and business platforms.",
     icon: MessageSquareMore,
-    href: "/services",
+    href: "/services/chatbot-development",
     image: "/image/services/serviceChatbotDevelopment.webp",
     imageAlt: "Smartphone showing a chatbot conversation on a desk",
   },
@@ -173,7 +164,7 @@ export const sharedServices = [
     title: "SaaS & Product Development",
     description: "Scalable SaaS products built for multiple tenants.",
     icon: Database,
-    href: "/services",
+    href: "/services/saas-development",
     image: "/image/services/serviceSaasProductDevelopment.webp",
     imageAlt: "Laptop displaying a SaaS analytics dashboard",
   },
@@ -182,7 +173,7 @@ export const sharedServices = [
     title: "UI/UX Design",
     description: "Clean, modern designs built to convert.",
     icon: Palette,
-    href: "/services",
+    href: "/services/ui-ux-design",
     image: "/image/services/serviceUiUxDesign.webp",
     imageAlt: "Designer wireframes, tablet mockup and blue color swatches",
   },
@@ -191,7 +182,7 @@ export const sharedServices = [
     title: "Cloud & DevOps",
     description: "Deployment, server setup, CI/CD and maintenance.",
     icon: Cloud,
-    href: "/services",
+    href: "/services/cloud-devops",
     image: "/image/services/serviceCloudDevops.webp",
     imageAlt: "Server room with blue-lit racks and cabling",
   },
@@ -200,7 +191,7 @@ export const sharedServices = [
     title: "Digital Marketing",
     description: "SEO, content strategy and social media marketing.",
     icon: ChartNoAxesCombined,
-    href: "/services",
+    href: "/services/digital-marketing",
     image: "/image/services/serviceDigitalMarketing.webp",
     imageAlt: "Laptop with marketing analytics charts beside a planning notebook",
   },
@@ -218,7 +209,7 @@ export const sharedProjects = [
     category: "saas",
     country: "USA",
     flag: "/image/flags/usa-flag.webp",
-    href: "/portfolio/estate-crm",
+    href: "/portfolio/voice-agent",
   },
   {
     id: "estate-crm",
@@ -231,7 +222,7 @@ export const sharedProjects = [
     category: "web",
     country: "Canada",
     flag: "/image/flags/canadian-flag.webp",
-    href: "/portfolio/ecommerce-marketplace",
+    href: "/portfolio/estate-crm",
   },
   {
     id: "ecommerce-marketplace",
@@ -244,7 +235,7 @@ export const sharedProjects = [
     category: "mobile",
     country: "Australia",
     flag: "/image/flags/australian-flag.webp",
-    href: "/portfolio/healthcare-app",
+    href: "/portfolio/ecommerce-marketplace",
   },
   {
     id: "healthcare-app",
@@ -257,7 +248,7 @@ export const sharedProjects = [
     category: "mobile",
     country: "UK",
     flag: "/image/flags/uk-flag.webp",
-    href: "/portfolio/saas-analytics",
+    href: "/portfolio/healthcare-app",
   },
   {
     id: "saas-analytics",
@@ -270,7 +261,7 @@ export const sharedProjects = [
     category: "saas",
     country: "UAE",
     flag: "/image/flags/uae-flag.webp",
-    href: "/portfolio/lms",
+    href: "/portfolio/saas-analytics",
   },
   {
     id: "lms",
@@ -283,7 +274,7 @@ export const sharedProjects = [
     category: "web",
     country: "Oman",
     flag: "/image/flags/omani-flag.webp",
-    href: "/portfolio",
+    href: "/portfolio/lms",
   },
 ] as const;
 

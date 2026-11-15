@@ -1,6 +1,6 @@
 import { Globe2, Mail, MessageCircle } from "lucide-react";
 import { contactHero, contactTrust } from "../data/contact-page.data";
-import { brand } from "../../../data/site.data";
+import { useSiteSettings } from "../../site-settings/useSiteSettings";
 import PageEyebrow from "../../../components/shared/PageEyebrow";
 import Reveal from "../../../components/shared/Reveal";
 import ProjectStartForm from "../../home/components/lets-talk/ProjectStartForm";
@@ -16,6 +16,8 @@ const contactIconClass =
   "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EAF2FF] text-[#1670F5] transition duration-300 group-hover:bg-[#092f58] group-hover:text-white";
 
 export default function ContactHero() {
+  const contact = useSiteSettings();
+
   return (
     <section className={`${innerSectionClass} bg-[#F7FAFF]`}>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
@@ -42,7 +44,7 @@ export default function ContactHero() {
               </p>
 
               <div className="mt-6 space-y-2.5 sm:mt-7">
-                <a href={`mailto:${brand.email}`} className={contactLinkClass}>
+                <a href={`mailto:${contact.email}`} className={contactLinkClass}>
                   <span className={contactIconClass}>
                     <Mail size={17} strokeWidth={1.9} aria-hidden="true" />
                   </span>
@@ -51,13 +53,13 @@ export default function ContactHero() {
                       Email
                     </span>
                     <span className="mt-0.5 block break-words font-inter text-sm font-semibold text-[#10234B] transition group-hover:text-[#1670F5]">
-                      {brand.email}
+                      {contact.email}
                     </span>
                   </span>
                 </a>
 
                 <a
-                  href={brand.whatsappHref}
+                  href={contact.whatsappHref}
                   target="_blank"
                   rel="noreferrer"
                   className={contactLinkClass}
@@ -70,7 +72,7 @@ export default function ContactHero() {
                       WhatsApp
                     </span>
                     <span className="mt-0.5 block font-inter text-sm font-semibold text-[#10234B] transition group-hover:text-[#1670F5]">
-                      {brand.phone}
+                      {contact.phone}
                     </span>
                   </span>
                 </a>

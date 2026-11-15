@@ -4,4 +4,7 @@ Allow: /
 # API endpoint — not a page
 Disallow: /api/
 
+# Private admin area
+Disallow: /admin
+
 Sitemap: https://mirtalal.web.app/sitemap.xml
