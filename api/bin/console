@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use App\Command\SeedAdminCommand;
+use App\Support\EntityManagerFactory;
+use App\Support\Env;
+use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
+use Doctrine\Migrations\Configuration\Migration\ConfigurationArray;
+use Doctrine\Migrations\DependencyFactory;
+use Doctrine\Migrations\Tools\Console\Command\DiffCommand;
+use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
+use Doctrine\Migrations\Tools\Console\Command\StatusCommand;
+use Symfony\Component\Console\Application;
+
+$root = dirname(__DIR__);
+
+require $root . '/vendor/autoload.php';
+
+Env::load($root);
+
+$em = EntityManagerFactory::create($root);
+
+$migrationConfig = new ConfigurationArray([
+    'migrations_paths' => ['App\\Migrations' => $root . '/migrations'],
+    'all_or_nothing' => true,
+    'transactional' => true,
+    'table_storage' => [
+        'table_name' => 'doctrine_migration_versions',
+    ],
+]);
+
+$dependencyFactory = DependencyFactory::fromEntityManager($migrationConfig, new ExistingEntityManager($em));
+
+$application = new Application('Mir Talal API', '1.0.0');
+$application->addCommands([
+    new MigrateCommand($dependencyFactory),
+    new StatusCommand($dependencyFactory),
+    new DiffCommand($dependencyFactory),
+    new SeedAdminCommand($em),
+]);
+$application->run();

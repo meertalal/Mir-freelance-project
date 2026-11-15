@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, LoaderCircle, Mail } from "lucide-react";
 import CountrySearchSelect from "./CountrySearchSelect";
 import {
@@ -42,6 +43,7 @@ export default function ProjectStartForm({
     "idle",
   );
   const [feedback, setFeedback] = useState("");
+  const navigate = useNavigate();
 
   const updateField = (field: keyof ContactPayload, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -61,11 +63,10 @@ export default function ProjectStartForm({
     setFeedback("");
 
     try {
-      const result = await submitContactForm(form);
-      setStatus("success");
-      setFeedback(result.message);
+      await submitContactForm(form);
       setForm(initialForm);
       setPhoneCountry("");
+      navigate("/thank-you");
     } catch (error) {
       setStatus("error");
       setFeedback(
@@ -181,7 +182,12 @@ export default function ProjectStartForm({
           <CountrySearchSelect
             id="start-form-country"
             value={form.country ?? ""}
-            onChange={(countryName) => updateField("country", countryName)}
+            onChange={(countryName) => {
+              updateField("country", countryName);
+              setPhoneCountry(countryName);
+              const match = countries.find((country) => country.name === countryName);
+              updateField("countryPhone", match?.phoneCode ?? "");
+            }}
             countries={countries}
           />
         </div>
@@ -200,6 +206,7 @@ export default function ProjectStartForm({
                   const match = countries.find(
                     (country) => country.name === countryName,
                   );
+                  updateField("country", countryName);
                   updateField("countryPhone", match?.phoneCode ?? "");
                 }}
                 countries={countries}

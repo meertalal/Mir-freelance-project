@@ -8,14 +8,15 @@ import {
 } from "../../../../components/shared/section.styles";
 import {
   clientLogos,
-  homeTestimonials,
   homeTestimonialsCopy,
 } from "../../data/testimonials.data";
+import { useTestimonials } from "../../../content/useContent";
 
 const navButtonClass =
   "inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-white/40 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#93C5FD]";
 
 export default function HomeTestimonialsSection() {
+  const homeTestimonials = useTestimonials();
   const total = homeTestimonials.length;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);

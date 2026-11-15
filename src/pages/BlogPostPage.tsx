@@ -6,8 +6,10 @@ import PageHeroCompact from "../components/shared/PageHeroCompact";
 import Reveal from "../components/shared/Reveal";
 import CtaBanner from "../components/shared/CtaBanner";
 import LinkButton from "../components/ui/LinkButton";
+import JsonLd from "../components/seo/JsonLd";
 import NotFoundPage from "./NotFoundPage";
 import usePageSeo from "../hooks/usePageSeo";
+import { breadcrumbSchema, siteName, siteUrl } from "../data/seo.data";
 import { innerContainerClass, innerSectionClass } from "../components/shared/section.styles";
 
 export default function BlogPostPage() {
@@ -22,6 +24,7 @@ export default function BlogPostPage() {
               title: post.title + " | Mir Talal Blog",
               description: post.excerpt,
               path: "/blog/" + post.slug,
+              image: `/image/og/blog-${post.slug}.png`,
             }
           : null,
       [post],
@@ -35,8 +38,49 @@ export default function BlogPostPage() {
   const related = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 2);
   const Icon = post.Icon;
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${siteUrl}/blog/${post.slug}#article`,
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.dateTime,
+        dateModified: post.dateTime,
+        articleSection: post.category,
+        url: `${siteUrl}/blog/${post.slug}`,
+        image: `${siteUrl}/image/og/blog-${post.slug}.png`,
+        isAccessibleForFree: true,
+        author: {
+          "@type": "Person",
+          name: "Mir Talal",
+          url: `${siteUrl}/about`,
+        },
+        publisher: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          name: siteName,
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteUrl}/favicon.svg`,
+          },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${siteUrl}/blog/${post.slug}`,
+        },
+      },
+      breadcrumbSchema([
+        { label: "Blog", path: "/blog" },
+        { label: post.title, path: `/blog/${post.slug}` },
+      ]),
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={structuredData} />
             <PageHeroCompact
         eyebrow={post.category}
         eyebrowIcon={Icon}

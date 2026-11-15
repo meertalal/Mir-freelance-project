@@ -1,16 +1,16 @@
 import { useRef, useState } from "react";
 import { Quote, Star } from "lucide-react";
-import { sharedTestimonials } from "../../../data/site.data";
+import { useTestimonials } from "../../content/useContent";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import Reveal from "../../../components/shared/Reveal";
 import { innerContainerClass } from "../../../components/shared/section.styles";
 
 export default function TestimonialsGrid() {
-  const items = sharedTestimonials.slice(0, 3);
+  const items = useTestimonials().slice(0, 3);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const averageRating = (
-    items.reduce((total, item) => total + item.rating, 0) / items.length
+    items.reduce((total, item) => total + item.rating, 0) / (items.length || 1)
   ).toFixed(1);
 
   const handleScroll = () => {

@@ -25,11 +25,15 @@ export default function NavCta({
       className={fullWidth ? `${navCtaClassName} mt-3 w-full` : navCtaClassName}
     >
       <span>{label}</span>
-      <ArrowRight
+      <span
         aria-hidden="true"
-        size={14}
-        className="transition-transform duration-300 group-hover:translate-x-1 2xl:h-4 2xl:w-4 min-[1920px]:h-5 min-[1920px]:w-5 min-[2560px]:h-6 min-[2560px]:w-6"
-      />
+        className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#0c2c54]/10 transition duration-300 group-hover:bg-[#0c2c54]/15 2xl:h-6 2xl:w-6"
+      >
+        <ArrowRight
+          size={12}
+          className="transition-transform duration-300 group-hover:translate-x-0.5"
+        />
+      </span>
     </Link>
   );
 }

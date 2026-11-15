@@ -2,9 +2,11 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
 import HeroShowcase from "./HeroShowcase";
-import { countries, trustItems } from "../../data/hero.data";
+import { trustItems } from "../../data/hero.data";
+import { useCountryMarkets } from "../../../countries/useCountryMarkets";
 
 export default function HeroSection() {
+  const countries = useCountryMarkets().filter((country) => country.show_in_hero);
   return (
     <section
       id="home"
@@ -189,7 +191,7 @@ export default function HeroSection() {
               Clients in
             </span>
             <div className="hero-country-flags" aria-label="Countries served">
-              {countries.map(({ name, flag }, index) => (
+              {countries.map(({ name, flag_image: flag }, index) => (
                 <span
                   key={name}
                   title={name}
