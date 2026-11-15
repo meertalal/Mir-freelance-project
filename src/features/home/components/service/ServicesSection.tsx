@@ -2,13 +2,14 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ServicesSectionProps } from "../../types/services.types";
 import { services, serviceStats } from "../../data/services.data";
+import Reveal from "../../../../components/shared/Reveal";
 import ServiceCard from "./ServiceCard";
 import ServiceStats from "./ServiceStats";
 
 export default function ServicesSection({
-  title = "End-to-End Digital Solutions",
+  title = "End to End Digital Solutions",
   subtitle =
-    "From idea to deployment, we provide complete development and AI automation services.",
+    "Everything you need to build, launch, and grow your business in the digital world.",
   allServicesHref = "/services",
 }: ServicesSectionProps) {
   return (
@@ -16,7 +17,7 @@ export default function ServicesSection({
       id="services"
       aria-labelledby="services-heading"
       className="
-        services-section relative isolate w-full overflow-hidden
+        services-section relative isolate w-full overflow-hidden scroll-mt-20 sm:scroll-mt-24
         border-t border-[#D6E4F7]
         bg-[#EAF2FF] px-4 py-10
         min-[480px]:px-5
@@ -28,7 +29,6 @@ export default function ServicesSection({
         min-[2560px]:px-24 min-[2560px]:py-32
       "
     >
-      {/* Subtle background decoration */}
       <div
         aria-hidden="true"
         className="
@@ -52,7 +52,6 @@ export default function ServicesSection({
         style={{ animationDelay: "1.5s" }}
       />
 
-      {/* Main container */}
       <div
         className="
           relative z-10 mx-auto w-full max-w-[1280px]
@@ -62,142 +61,102 @@ export default function ServicesSection({
           min-[2560px]:max-w-[1920px]
         "
       >
-        {/* Section heading */}
-        <header
-          className="
-            services-heading relative mb-6 text-center
-            motion-safe:animate-service-heading
-            sm:mb-9 lg:mb-10
-            xl:mb-12 2xl:mb-14
-            min-[1920px]:mb-16
-          "
-        >
-          <div
-            className="
-              mb-2 flex items-center justify-center
-              gap-2.5 sm:gap-3
-              xl:mb-3 2xl:gap-4
-            "
-          >
-            <span
-              aria-hidden="true"
-              className="
-                h-px w-5 origin-right bg-[#092F58]
-                motion-safe:animate-service-line
-                sm:w-7 xl:w-10 2xl:w-14
-              "
-            />
+        <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:gap-14 2xl:gap-16">
+          <header className="services-heading mb-0 xl:sticky xl:top-24">
+            <div className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-px w-8 shrink-0 bg-[#092F58] sm:w-10"
+              />
+              <p className="font-playfair text-xs font-bold uppercase tracking-[0.14em] text-[#092F58] sm:text-sm">
+                Our Services
+              </p>
+            </div>
 
-            <p
+            <h2
+              id="services-heading"
               className="
-                whitespace-nowrap font-playfair text-xs
-                font-bold uppercase tracking-[0.16em]
-                text-[#092F58] sm:text-sm
-                xl:text-base 2xl:text-lg
+                mt-3 max-w-md font-montserrat text-3xl font-bold
+                leading-[1.12] tracking-tight text-[#10234B]
+                min-[480px]:text-4xl
+                xl:text-[42px]
+                2xl:text-5xl
               "
             >
-              Our Services
+              {title}
+            </h2>
+
+            <p className="mt-3 max-w-md font-inter text-sm leading-7 text-[#526580] xl:mt-4 xl:text-base xl:leading-8">
+              {subtitle}
             </p>
 
-            <span
-              aria-hidden="true"
+            <Link
+              to={allServicesHref}
               className="
-                h-px w-5 origin-left bg-[#092F58]
-                motion-safe:animate-service-line
-                sm:w-7 xl:w-10 2xl:w-14
+                group mt-6 inline-flex min-h-12 items-center justify-center gap-2
+                rounded-xl bg-[#092F58] px-5 py-2.5
+                font-inter text-sm font-semibold text-white
+                shadow-[0_10px_24px_rgba(9,47,88,0.22)]
+                transition-colors duration-300
+                hover:bg-[#12427A]
+                focus-visible:outline-none focus-visible:ring-2
+                focus-visible:ring-[#5882E8] focus-visible:ring-offset-4
               "
-              style={{ animationDelay: "150ms" }}
-            />
-          </div>
+            >
+              View All Services
+              <ArrowRight
+                aria-hidden="true"
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
 
-          <h2
-            id="services-heading"
-            className="
-              mx-auto max-w-3xl font-montserrat
-              text-2xl font-bold leading-tight
-              tracking-tight text-[#10234B]
-              min-[480px]:text-3xl lg:text-[38px]
-              xl:max-w-4xl xl:text-4xl
-              2xl:max-w-5xl 2xl:text-5xl
-              min-[1920px]:text-6xl
-              min-[2560px]:text-7xl
-            "
-          >
-            {title}
-          </h2>
+            <div className="mt-8 max-w-md rounded-2xl border border-[#D6E4F7] bg-white/70 p-4 backdrop-blur-sm sm:p-5">
+              <p className="font-montserrat text-sm font-bold text-[#10234B]">
+                Need something custom?
+              </p>
+              <p className="mt-1 font-inter text-xs leading-relaxed text-[#526580] sm:text-[13px]">
+                Tell me about your idea and I will map the right solution for your business.
+              </p>
+              <Link
+                to="/contact"
+                className="
+                  group mt-3 inline-flex items-center gap-1.5
+                  font-inter text-xs font-semibold text-[#1670F5]
+                  transition-colors duration-300 hover:text-[#092F58]
+                  focus-visible:outline-none focus-visible:ring-2
+                  focus-visible:ring-[#5882E8] focus-visible:ring-offset-2
+                "
+              >
+                Start a conversation
+                <ArrowRight
+                  aria-hidden="true"
+                  size={13}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </Link>
+            </div>
+          </header>
 
-          <p
-            className="
-              mx-auto mt-3 max-w-2xl font-inter
-              text-xs leading-6 text-[#526580]
-              min-[480px]:text-sm
-              xl:mt-4 xl:max-w-3xl xl:text-base xl:leading-7
-              2xl:mt-5 2xl:max-w-4xl 2xl:text-lg 2xl:leading-8
-              min-[1920px]:text-xl
-            "
-          >
-            {subtitle}
-          </p>
-
-          <Link
-            to={allServicesHref}
-            className="
-              group mt-4 inline-flex min-h-11 items-center justify-center gap-2
-              rounded-lg border border-[#092F58]/20 bg-white/70 px-4 py-2
-              font-playfair text-xs font-semibold text-[#092F58]
-              transition-colors duration-300 hover:text-[#5882E8]
-              focus-visible:outline-none focus-visible:ring-2
-              focus-visible:ring-[#5882E8] focus-visible:ring-offset-4
-              sm:mt-3 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0
-              md:absolute md:right-0 md:top-1 md:mt-0 md:inline-flex
-              xl:top-2 xl:text-sm
-              2xl:text-base
-            "
-          >
-            View All Services
-
-            <ArrowRight
-              aria-hidden="true"
-              className="
-                h-4 w-4 transition-transform duration-300
-                group-hover:translate-x-1
-                xl:h-5 xl:w-5
-              "
-            />
-          </Link>
-        </header>
-
-        {/* Responsive service cards */}
-        <div
-          className="
-            grid grid-cols-1 items-stretch gap-3
-            min-[480px]:gap-3.5
-            sm:grid-cols-2 md:gap-4
-            lg:grid-cols-3
-            xl:grid-cols-4 xl:gap-6
-            2xl:gap-7
-            min-[1920px]:gap-8
-            min-[2560px]:gap-10
-          "
-        >
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              index={index}
-            />
-          ))}
+          <ul className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4 xl:gap-5">
+            {services.map((service, index) => (
+              <li key={service.id} className="min-w-0">
+                <Reveal delay={(index % 2) * 80} className="h-full">
+                  <ServiceCard service={service} />
+                </Reveal>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Website statistics */}
         <div
           className="
-            services-stats-wrap mt-5
+            services-stats-wrap mt-8
             motion-safe:animate-service-stats
-            sm:mt-8
-            xl:mt-10
-            2xl:mt-12
-            min-[1920px]:mt-14
+            sm:mt-10
+            xl:mt-12
+            2xl:mt-14
+            min-[1920px]:mt-16
           "
         >
           <ServiceStats stats={serviceStats} />

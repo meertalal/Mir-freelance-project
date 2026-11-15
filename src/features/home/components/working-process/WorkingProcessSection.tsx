@@ -1,4 +1,5 @@
 import SectionHeader from "../../../../components/shared/SectionHeader";
+import Reveal from "../../../../components/shared/Reveal";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
 import {
   workingProcessCopy,
@@ -21,24 +22,30 @@ export default function WorkingProcessSection() {
       `}
     >
       <div className={`relative z-10 ${innerContainerClass}`}>
-        <SectionHeader
-          titleId="working-process-title"
-          eyebrow={workingProcessCopy.eyebrow}
-          title={workingProcessCopy.title}
-          description={workingProcessCopy.description}
-        />
+        <Reveal className="[&>header]:mb-0">
+          <SectionHeader
+            titleId="working-process-title"
+            eyebrow={workingProcessCopy.eyebrow}
+            title={workingProcessCopy.title}
+            description={workingProcessCopy.description}
+          />
+        </Reveal>
 
-        <ol className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 xl:gap-10">
-          {workingProcessSteps.map((step, index) => (
-            <ProcessStepCard
-              key={step.id}
-              step={step}
-              showConnector={index < workingProcessSteps.length - 1}
-            />
-          ))}
-        </ol>
+        <Reveal delay={100}>
+          <ol className="mt-7 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-8 xl:gap-10">
+            {workingProcessSteps.map((step, index) => (
+              <ProcessStepCard
+                key={step.id}
+                step={step}
+                showConnector={index < workingProcessSteps.length - 1}
+              />
+            ))}
+          </ol>
+        </Reveal>
 
-        <ProcessHighlights />
+        <Reveal delay={160}>
+          <ProcessHighlights />
+        </Reveal>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { Globe2, Mail, Phone, Quote } from "lucide-react";
+import { Globe2, Mail, MessageCircle, Quote } from "lucide-react";
 import { contactWhy, contactWhyCopy } from "../data/contact-page.data";
 import { brand } from "../../../data/site.data";
 import SectionHeader from "../../../components/shared/SectionHeader";
@@ -103,13 +103,18 @@ export default function ContactWhy() {
                 </span>
               </a>
 
-              <a href={`tel:${brand.phone.replace(/\s+/g, "")}`} className={channelClass}>
+              <a
+                href={brand.whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className={channelClass}
+              >
                 <span className={channelIconClass}>
-                  <Phone size={16} strokeWidth={1.9} aria-hidden="true" />
+                  <MessageCircle size={16} strokeWidth={1.9} aria-hidden="true" />
                 </span>
                 <span className="min-w-0">
                   <span className="block font-playfair text-[10px] font-semibold uppercase tracking-[0.14em] text-[#A9C6EC]">
-                    Phone
+                    WhatsApp
                   </span>
                   <span className="mt-0.5 block font-inter text-xs font-semibold text-white sm:text-sm">
                     {brand.phone}

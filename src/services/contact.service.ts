@@ -3,6 +3,7 @@ export type ContactPayload = {
   email: string;
   phone: string;
   company: string;
+  designation?: string;
   projectType: string;
   budgetRange?: string;
   message: string;

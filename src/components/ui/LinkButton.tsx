@@ -51,7 +51,7 @@ export default function LinkButton({
     </>
   );
 
-  if (external || to.startsWith("http") || to.startsWith("mailto:")) {
+  if (external || to.startsWith("#") || to.startsWith("http") || to.startsWith("mailto:")) {
     return (
       <a href={to} className={classes}>
         {content}

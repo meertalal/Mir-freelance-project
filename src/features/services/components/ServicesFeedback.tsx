@@ -22,7 +22,7 @@ import { submitContactForm } from "../../../services/contact.service";
 const fieldClass =
   "w-full min-h-11 rounded-xl border border-slate-200 bg-[#F7FAFF] px-3.5 py-3 text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 sm:text-sm";
 
-const initialForm = { fullName: "", email: "", service: "", message: "" };
+const initialForm = { fullName: "", email: "", designation: "", service: "", message: "" };
 
 export default function ServicesFeedback() {
   const featured = sharedTestimonials[1] ?? sharedTestimonials[0];
@@ -63,6 +63,7 @@ export default function ServicesFeedback() {
         email: form.email,
         phone: "",
         company: "",
+        designation: form.designation.trim(),
         projectType: form.service
           ? `Client Feedback: ${form.service}`
           : "Client Feedback",
@@ -236,7 +237,23 @@ export default function ServicesFeedback() {
                 />
               </label>
 
-              <label className="block sm:col-span-2">
+              <label className="block">
+                <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
+                  Designation
+                </span>
+                <input
+                  name="designation"
+                  value={form.designation}
+                  onChange={(event) =>
+                    updateField("designation", event.target.value)
+                  }
+                  className={fieldClass}
+                  placeholder="e.g. CEO, Owner, Manager"
+                  autoComplete="organization-title"
+                />
+              </label>
+
+              <label className="block">
                 <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
                   Service Provided
                 </span>

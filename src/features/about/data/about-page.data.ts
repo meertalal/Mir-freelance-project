@@ -1,17 +1,22 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  Award,
   Bot,
   Boxes,
+  CalendarCheck2,
+  ClipboardCheck,
+  Clock3,
   CloudCog,
   Code2,
   Globe2,
   HeartHandshake,
   Layers,
+  PackageCheck,
   PenTool,
+  ShieldCheck,
   Smartphone,
   Target,
   Telescope,
+  UserRoundCheck,
 } from "lucide-react";
 
 export const aboutHero = {
@@ -111,28 +116,78 @@ export const presenceFlags = [
   { name: "Germany", flag: "/image/flags/german-flag.webp" },
 ];
 
-export const aboutHeroHighlights: {
-  id: string;
-  title: string;
-  description: string;
-  Icon: LucideIcon;
-}[] = [
+export const aboutTestimonialsCopy = {
+  eyebrow: "Client Feedback",
+  title: "What Clients Say",
+  description:
+    "Direct feedback from the founders and teams behind these products.",
+};
+
+export const aboutHowIWorkCopy = {
+  eyebrow: "How I Work",
+  title: "A Process Built Around Clarity",
+  description:
+    "No black boxes and no silent weeks. You always know what is being built, what comes next and when it lands.",
+  cta: { label: "See the Full Process", href: "/process" },
+};
+
+export const aboutHowIWorkPoints = [
   {
-    id: "experience",
-    title: "Our Experience",
-    description: "Building web, mobile, and AI products for clients since 2020.",
-    Icon: Award,
+    id: "scope",
+    title: "Clear from Day One",
+    description:
+      "Scope, milestones and a fixed quote agreed before any build starts.",
+    Icon: ClipboardCheck,
   },
   {
-    id: "expertise",
-    title: "Our Expertise",
-    description: "Web development, mobile apps, UI/UX design, AI automation, and SaaS.",
-    Icon: Layers,
+    id: "momentum",
+    title: "Weekly Momentum",
+    description:
+      "A working demo or written progress update every week, not only at the end.",
+    Icon: CalendarCheck2,
   },
   {
-    id: "reach",
-    title: "Our Global Reach",
-    description: `Serving clients across ${presenceFlags.length} countries, from the USA to Australia.`,
-    Icon: Globe2,
+    id: "quality",
+    title: "Tested Before Delivery",
+    description:
+      "Responsive checks, QA and browser testing completed before anything goes live.",
+    Icon: ShieldCheck,
   },
-];
+  {
+    id: "handover",
+    title: "Clean Handover",
+    description:
+      "Documented code, design files and a walkthrough, with support after launch.",
+    Icon: PackageCheck,
+  },
+] as const;
+
+export const aboutBeyondCopy = {
+  eyebrow: "Beyond the Code",
+  title: "The Person Behind the Work",
+  description:
+    "I'm Mir Talal, a freelance developer working with clients worldwide. I keep a deliberately small roster so you work directly with me — from the first call to post-launch support.",
+  chips: ["Remote-first", "Direct communication", "Long-term focus"],
+  cta: { label: "Start a Conversation", href: "/contact" },
+  details: [
+    {
+      id: "location",
+      label: "Location",
+      value: "Serving Clients Worldwide",
+      Icon: Globe2,
+    },
+    {
+      id: "hours",
+      label: "Working Hours",
+      value: "Mon to Sat, 10:00 AM to 7:00 PM",
+      Icon: Clock3,
+    },
+    {
+      id: "style",
+      label: "Working Style",
+      value: "Remote-first, async-friendly",
+      Icon: UserRoundCheck,
+    },
+  ],
+  availability: "Open to new projects",
+} as const;

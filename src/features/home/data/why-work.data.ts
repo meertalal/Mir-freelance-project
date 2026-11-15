@@ -1,8 +1,5 @@
 
-import type {
-  WorkFeature,
-  Testimonial,
-} from "../types/why-work.types";
+import type { WorkFeature } from "../types/why-work.types";
 
 export const whyWorkCopy = {
   eyebrow: "Why Work With Me",
@@ -35,38 +32,5 @@ export const workFeatures: WorkFeature[] = [
     title: "Ongoing Support",
     description: "Post-launch support and maintenance.",
     icon: "support",
-  },
-];
-
-export const testimonials: Testimonial[] = [
-  {
-    id: "michael-thompson",
-    quote:
-      "Excellent work! Delivered our platform on time with outstanding quality. Communication was smooth and professional throughout the project. Highly recommended!",
-    author: "Michael Thompson",
-    role: "CEO",
-    company: "Real Estate Company",
-    avatar: "/image/profile.webp",
-    rating: 5,
-  },
-  {
-    id: "sarah-johnson",
-    quote:
-      "The entire process was smooth and professional. The final product was thoughtfully designed and delivered to a high standard.",
-    author: "Sarah Johnson",
-    role: "Founder",
-    company: "Digital Solutions",
-    avatar: "/image/profile.webp",
-    rating: 5,
-  },
-  {
-    id: "david-lee",
-    quote:
-      "A reliable development partner who transformed our ideas into a polished digital experience.",
-    author: "David Lee",
-    role: "Product Manager",
-    company: "Technology Company",
-    avatar: "/image/profile.webp",
-    rating: 5,
   },
 ];

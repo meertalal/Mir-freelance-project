@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import type { NavigationLink } from "../../../types/navigation";
+import { brand } from "../../../data/site.data";
 import NavLinks from "./NavLinks";
 import NavCta from "./NavCta";
 
@@ -88,6 +89,17 @@ export default function MobileMenu({
           tabIndex={open ? 0 : -1}
           onClick={onClose}
         />
+        <a
+          href={brand.whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+          tabIndex={open ? 0 : -1}
+          onClick={onClose}
+          className="mt-2 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-4 font-inter text-sm font-semibold text-white transition hover:bg-white/15"
+        >
+          <MessageCircle size={16} aria-hidden="true" />
+          Chat on WhatsApp
+        </a>
       </div>
     </div>
   );
