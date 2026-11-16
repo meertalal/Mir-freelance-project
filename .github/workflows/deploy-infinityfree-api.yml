@@ -1,0 +1,93 @@
+name: Deploy API to InfinityFree
+
+on:
+  push:
+    branches:
+      - talal
+      - main
+    paths:
+      - "api/**"
+      - ".github/workflows/deploy-infinityfree-api.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP and Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: fileinfo, mbstring, pdo_mysql
+          tools: composer:v2
+
+      - name: Install production dependencies
+        run: composer install --working-dir=api --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress
+
+      - name: Assemble API deployment
+        run: |
+          mkdir -p .deploy/api
+          cp -a api/bin api/bootstrap api/config api/migrations api/src api/vendor .deploy/api/
+          mkdir -p .deploy/api/public
+          rsync -a --exclude='/uploads/*' api/public/ .deploy/api/public/
+          mkdir -p .deploy/api/public/uploads
+          cp api/.htaccess .deploy/api/.htaccess
+
+      - name: Write private production environment file
+        env:
+          DB_NAME: ${{ secrets.INFINITYFREE_DB_NAME }}
+          DB_USER: ${{ secrets.INFINITYFREE_DB_USER }}
+          DB_PASSWORD: ${{ secrets.INFINITYFREE_DB_PASSWORD }}
+        run: |
+          php <<'PHP'
+          <?php
+          $required = ['DB_NAME', 'DB_USER', 'DB_PASSWORD'];
+          foreach ($required as $key) {
+              if (getenv($key) === false || getenv($key) === '') {
+                  fwrite(STDERR, "Missing GitHub Actions secret for {$key}.\n");
+                  exit(1);
+              }
+          }
+
+          $values = [
+              'APP_ENV' => 'production',
+              'APP_URL' => 'https://mirtalal.ifree.page',
+              'DB_HOST' => 'sql206.infinityfree.com',
+              'DB_PORT' => '3306',
+              'DB_NAME' => getenv('DB_NAME'),
+              'DB_USER' => getenv('DB_USER'),
+              'DB_PASSWORD' => getenv('DB_PASSWORD'),
+              'CORS_ORIGINS' => 'https://mirtalal.web.app,https://mirtalal.firebaseapp.com',
+              'AUTH_TOKEN_TTL_DAYS' => '7',
+              'CONTACT_RATE_LIMIT_PER_HOUR' => '5',
+              'TRUST_PROXY' => 'false',
+              'MAIL_DSN' => '',
+              'MAIL_FROM' => 'no-reply@mirtalal.com',
+              'CONTACT_NOTIFY_TO' => '',
+          ];
+
+          $lines = [];
+          foreach ($values as $key => $value) {
+              $escaped = addcslashes((string) $value, "\\\"\n\r");
+              $lines[] = $key . '="' . $escaped . '"';
+          }
+
+          file_put_contents('.deploy/api/.env', implode("\n", $lines) . "\n", LOCK_EX);
+          PHP
+
+      - name: Deploy over encrypted FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.INFINITYFREE_FTP_USER }}
+          password: ${{ secrets.INFINITYFREE_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: .deploy/api/
+          server-dir: /htdocs/

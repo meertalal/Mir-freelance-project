@@ -1,5 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Do not expose application internals when this directory is the FTP document root.
+    RewriteRule ^(?:\.|vendor(?:/|$)|src(?:/|$)|bootstrap(?:/|$)|config(?:/|$)|migrations(?:/|$)|var(?:/|$)|logs(?:/|$)|bin(?:/|$)|composer\.(?:json|lock)$) - [F,L,NC]
+
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
