@@ -53,7 +53,7 @@ jobs:
           cp -a api/bin api/bootstrap api/config api/migrations api/src api/vendor .deploy/api/
           mkdir -p .deploy/api/public
           rsync -a --exclude='/uploads/*' api/public/ .deploy/api/public/
-          cp -a dist/. .deploy/api/public/
+          cp -a dist/. .deploy/api/
           mkdir -p .deploy/api/public/uploads
           cp api/.htaccess .deploy/api/.htaccess
 
