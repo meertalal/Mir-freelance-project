@@ -35,7 +35,7 @@ jobs:
       - name: Build website
         run: npm ci && npm run build
         env:
-          VITE_API_URL: https://mirtalal.ifree.page
+          VITE_API_URL: https://mirtalal.freedev.app
 
       - name: Set up PHP and Composer
         uses: shivammathur/setup-php@v2
@@ -62,6 +62,7 @@ jobs:
           DB_NAME: ${{ secrets.INFINITYFREE_DB_NAME }}
           DB_USER: ${{ secrets.INFINITYFREE_DB_USER }}
           DB_PASSWORD: ${{ secrets.INFINITYFREE_DB_PASSWORD }}
+          CORS_ORIGINS: ${{ vars.CORS_ORIGINS }}
         run: |
           php <<'PHP'
           <?php
@@ -75,13 +76,13 @@ jobs:
 
           $values = [
               'APP_ENV' => 'production',
-              'APP_URL' => 'https://mirtalal.ifree.page',
+              'APP_URL' => 'https://mirtalal.freedev.app',
               'DB_HOST' => 'sql206.infinityfree.com',
               'DB_PORT' => '3306',
               'DB_NAME' => getenv('DB_NAME'),
               'DB_USER' => getenv('DB_USER'),
               'DB_PASSWORD' => getenv('DB_PASSWORD'),
-              'CORS_ORIGINS' => 'https://mirtalal.ifree.page,https://mirtalal.web.app,https://mirtalal.firebaseapp.com',
+              'CORS_ORIGINS' => getenv('CORS_ORIGINS') ?: 'https://mirtalal.freedev.app',
               'AUTH_TOKEN_TTL_DAYS' => '7',
               'CONTACT_RATE_LIMIT_PER_HOUR' => '5',
               'TRUST_PROXY' => 'false',
