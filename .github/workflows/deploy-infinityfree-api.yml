@@ -62,7 +62,7 @@ jobs:
           DB_NAME: ${{ secrets.INFINITYFREE_DB_NAME }}
           DB_USER: ${{ secrets.INFINITYFREE_DB_USER }}
           DB_PASSWORD: ${{ secrets.INFINITYFREE_DB_PASSWORD }}
-          CORS_ORIGINS: ${{ vars.CORS_ORIGINS }}
+          CORS_ORIGINS: ${{ secrets.CORS_ORIGINS }}
         run: |
           php <<'PHP'
           <?php
