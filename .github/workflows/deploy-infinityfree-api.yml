@@ -77,7 +77,7 @@ jobs:
           $values = [
               'APP_ENV' => 'production',
               'APP_URL' => 'https://mirtalal.freedev.app',
-              'DB_HOST' => 'sql206.infinityfree.com',
+              'DB_HOST' => 'sql304.infinityfree.com',
               'DB_PORT' => '3306',
               'DB_NAME' => getenv('DB_NAME'),
               'DB_USER' => getenv('DB_USER'),
