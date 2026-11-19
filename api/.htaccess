@@ -1,5 +1,19 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteCond %{REQUEST_URI} !^/public/
-    RewriteRule ^(.*)$ public/$1 [L]
+    DirectoryIndex index.html index.php index.htm
+
+    # Do not expose application internals when this directory is the FTP document root.
+    RewriteRule ^(?:\.|vendor(?:/|$)|src(?:/|$)|bootstrap(?:/|$)|config(?:/|$)|migrations(?:/|$)|var(?:/|$)|logs(?:/|$)|bin(?:/|$)|composer\.(?:json|lock)$) - [F,L,NC]
+
+    # Send API requests to the PHP front controller.
+    RewriteRule ^api(?:/.*)?$ public/index.php [QSA,L]
+
+    # Uploaded media is stored under the API public directory.
+    RewriteRule ^uploads/(.*)$ public/uploads/$1 [L]
+
+    # Serve existing site files directly, then send client-side routes to React.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    RewriteRule ^ index.html [L]
 </IfModule>
