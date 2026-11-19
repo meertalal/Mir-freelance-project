@@ -22,7 +22,16 @@ After adding all five secrets, push a commit that changes a file under `api/` or
 
 ## Database setup still needs a separate step
 
-The workflow uploads PHP files; it cannot run Doctrine migrations because InfinityFree free databases reject remote MySQL connections. In InfinityFree's phpMyAdmin, select the new database, choose **Import**, and upload [`infinityfree-schema.sql`](infinityfree-schema.sql). This is for a new, empty database. The API tables will exist after import, but you still need to create the first admin account before the admin pages can log in. Do not add a public migration endpoint or put database credentials in committed files.
+The workflow uploads PHP files; it cannot run Doctrine migrations because InfinityFree free databases reject remote MySQL connections. In InfinityFree's phpMyAdmin, select the new database, choose **Import**, and upload [`infinityfree-schema.sql`](infinityfree-schema.sql). This is for a new, empty database. The API tables will exist after import, but you still need to create the first admin account before the admin pages can log in.
+
+To create that account without exposing a plaintext password:
+
+1. Add GitHub Actions repository secrets named `INFINITYFREE_ADMIN_EMAIL`, `INFINITYFREE_ADMIN_PASSWORD` (at least 12 characters), and optionally `INFINITYFREE_ADMIN_NAME`.
+2. Push a change to `talal` or `main`, or manually run **Actions > Deploy website and API to InfinityFree > Run workflow**. The workflow generates a SQL file containing only a password hash and keeps it as an artifact for one day.
+3. Open the successful workflow run, download `one-time-admin-sql`, extract `create-admin.sql`, then in phpMyAdmin choose **Import** for this database and import that file.
+4. Delete the three admin secrets from GitHub after importing, then sign in at `/admin/login` with the email and password you chose.
+
+The SQL uses a plain `INSERT`; import it only once. Do not commit or share the SQL artifact. Never add a public migration or account-setup endpoint.
 
 ## Firebase fallback
 
