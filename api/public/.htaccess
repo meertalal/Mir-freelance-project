@@ -1,15 +1,22 @@
-DirectoryIndex index.php
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Pass the Authorization header through to PHP when running under CGI/FastCGI.
+    DirectoryIndex index.html index.php
+
+    # Preserve admin bearer tokens under CGI/FastCGI hosting.
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [QSA,L]
+    # Let uploaded images, Vite assets, and other real files be served directly.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Send API requests to the Slim front controller.
+    RewriteRule ^api(?:/.*)?$ index.php [QSA,L]
+
+    # React Router handles all remaining website routes in the browser.
+    RewriteRule ^ index.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>

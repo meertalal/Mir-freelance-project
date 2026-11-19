@@ -1,0 +1,148 @@
+name: Deploy website and API to InfinityFree
+
+on:
+  push:
+    branches:
+      - talal
+      - main
+    paths:
+      - "api/**"
+      - "src/**"
+      - "public/**"
+      - "index.html"
+      - "package.json"
+      - "package-lock.json"
+      - "vite.config.ts"
+      - ".github/workflows/deploy-infinityfree-api.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build website
+        run: npm ci && npm run build
+        env:
+          VITE_API_URL: https://mirtalal.freedev.app
+
+      - name: Set up PHP and Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: fileinfo, mbstring, pdo_mysql
+          tools: composer:v2
+
+      - name: Install production dependencies
+        run: composer install --working-dir=api --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress
+
+      - name: Assemble website and API deployment
+        run: |
+          mkdir -p .deploy/api
+          cp -a api/bin api/bootstrap api/config api/migrations api/src api/vendor .deploy/api/
+          mkdir -p .deploy/api/public
+          rsync -a --exclude='/uploads/*' api/public/ .deploy/api/public/
+          cp -a dist/. .deploy/api/
+          mkdir -p .deploy/api/public/uploads
+          cp api/.htaccess .deploy/api/.htaccess
+
+      - name: Write private production environment file
+        env:
+          DB_NAME: ${{ secrets.INFINITYFREE_DB_NAME }}
+          DB_USER: ${{ secrets.INFINITYFREE_DB_USER }}
+          DB_PASSWORD: ${{ secrets.INFINITYFREE_DB_PASSWORD }}
+          CORS_ORIGINS: ${{ secrets.CORS_ORIGINS }}
+        run: |
+          php <<'PHP'
+          <?php
+          $required = ['DB_NAME', 'DB_USER', 'DB_PASSWORD'];
+          foreach ($required as $key) {
+              if (getenv($key) === false || getenv($key) === '') {
+                  fwrite(STDERR, "Missing GitHub Actions secret for {$key}.\n");
+                  exit(1);
+              }
+          }
+
+          $values = [
+              'APP_ENV' => 'production',
+              'APP_URL' => 'https://mirtalal.freedev.app',
+              'DB_HOST' => 'sql304.infinityfree.com',
+              'DB_PORT' => '3306',
+              'DB_NAME' => getenv('DB_NAME'),
+              'DB_USER' => getenv('DB_USER'),
+              'DB_PASSWORD' => getenv('DB_PASSWORD'),
+              'CORS_ORIGINS' => getenv('CORS_ORIGINS') ?: 'https://mirtalal.freedev.app',
+              'AUTH_TOKEN_TTL_DAYS' => '7',
+              'CONTACT_RATE_LIMIT_PER_HOUR' => '5',
+              'TRUST_PROXY' => 'false',
+              'MAIL_DSN' => '',
+              'MAIL_FROM' => 'no-reply@mirtalal.com',
+              'CONTACT_NOTIFY_TO' => '',
+          ];
+
+          $lines = [];
+          foreach ($values as $key => $value) {
+              $escaped = addcslashes((string) $value, "\\\"\n\r");
+              $lines[] = $key . '="' . $escaped . '"';
+          }
+
+          file_put_contents('.deploy/api/.env', implode("\n", $lines) . "\n", LOCK_EX);
+          PHP
+
+      - name: Deploy over encrypted FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.INFINITYFREE_FTP_USER }}
+          password: ${{ secrets.INFINITYFREE_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: .deploy/api/
+          server-dir: /htdocs/
+
+      - name: Prepare one-time admin SQL for phpMyAdmin
+        id: prepare_admin
+        env:
+          ADMIN_EMAIL: ${{ secrets.INFINITYFREE_ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.INFINITYFREE_ADMIN_PASSWORD }}
+          ADMIN_NAME: ${{ secrets.INFINITYFREE_ADMIN_NAME }}
+        run: |
+          php <<'PHP'
+          <?php
+          $email = strtolower(trim((string) getenv('ADMIN_EMAIL')));
+          $password = (string) getenv('ADMIN_PASSWORD');
+          $name = trim((string) (getenv('ADMIN_NAME') ?: 'Administrator'));
+          if ($email === '' && $password === '') {
+              file_put_contents(getenv('GITHUB_OUTPUT'), "available=false\n", FILE_APPEND);
+              exit(0);
+          }
+          if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 12 || strlen($name) < 1 || strlen($name) > 120) {
+              fwrite(STDERR, "Admin email/name invalid or password shorter than 12 characters.\n");
+              exit(1);
+          }
+          $sqlString = static fn (string $value): string => "CONVERT(0x" . bin2hex($value) . " USING utf8mb4)";
+          $hash = password_hash($password, PASSWORD_DEFAULT);
+          $sql = 'INSERT INTO admins (email, password_hash, name, is_active, created_at) VALUES ('
+              . $sqlString($email) . ', ' . $sqlString($hash) . ', ' . $sqlString($name) . ', 1, NOW());' . "\n";
+          file_put_contents('create-admin.sql', $sql, LOCK_EX);
+          file_put_contents(getenv('GITHUB_OUTPUT'), "available=true\n", FILE_APPEND);
+          PHP
+
+      - name: Save admin SQL as a short-lived workflow artifact
+        if: steps.prepare_admin.outputs.available == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: one-time-admin-sql
+          path: create-admin.sql
+          retention-days: 1
