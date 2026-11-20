@@ -32,7 +32,3 @@ To create that account without exposing a plaintext password:
 4. Delete the three admin secrets from GitHub after importing, then sign in at `/admin/login` with the email and password you chose.
 
 The SQL uses a plain `INSERT`; import it only once. Do not commit or share the SQL artifact. Never add a public migration or account-setup endpoint.
-
-## Firebase fallback
-
-The Firebase live deploy workflow is now manual only. Firebase preview deployments for pull requests remain available.
