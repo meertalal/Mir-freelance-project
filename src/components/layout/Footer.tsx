@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 import { useSiteSettings } from "../../features/site-settings/useSiteSettings";
 import { useServices } from "../../features/content/useContent";
+import { useCountryMarkets } from "../../features/countries/useCountryMarkets";
 import {
   footerBrand,
-  footerCountries,
   footerQuickLinks,
   footerSocialLinks,
 } from "../../data/footer.data";
@@ -39,12 +39,18 @@ export default function Footer() {
   const contact = useSiteSettings();
   const year = new Date().getFullYear();
   const footerServices = useServices().slice(0, 6);
+  const footerCountries = useCountryMarkets().filter((country) => country.show_in_coverage);
+  const socialLinks = footerSocialLinks.map((social) => ({
+    ...social,
+    href: contact.social[social.id as keyof typeof contact.social] || social.href,
+  }));
 
   return (
-    <footer
-      id="site-footer"
-      className="relative isolate overflow-hidden border-t border-white/10 bg-[#092f58] text-white"
-    >
+    <>
+      <footer
+        id="site-footer"
+        className="relative isolate overflow-hidden border-t border-white/10 bg-[#092f58] text-white"
+      >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-[#1670F5]/15 blur-3xl"
@@ -97,7 +103,7 @@ export default function Footer() {
             </Link>
 
             <div className="mt-6 flex items-center gap-2.5">
-              {footerSocialLinks.map((social) => (
+              {socialLinks.map((social) => (
                 <a
                   key={social.id}
                   href={social.href}
@@ -272,7 +278,7 @@ export default function Footer() {
           <ul className="mt-4 flex flex-wrap gap-2">
             {footerCountries.map((country) => (
               <li key={country.id}>
-                <CountryMapBadge name={country.name} image={country.image} />
+              <CountryMapBadge name={country.name} image={country.flag_image} />
               </li>
             ))}
           </ul>
@@ -312,6 +318,15 @@ export default function Footer() {
           </button>
         </div>
       </div>
-    </footer>
+      </footer>
+      <div
+        aria-hidden="true"
+        className="relative isolate h-[clamp(1.4rem,8.05vw,7rem)] overflow-hidden border-t border-white/10 bg-gradient-to-b from-[#092f58] to-[#061a30] px-4 sm:px-6 lg:px-10 before:absolute before:inset-0 before:-z-10 before:bg-[radial-gradient(ellipse_at_50%_120%,rgba(59,130,246,0.24),transparent_62%)] before:content-['']"
+      >
+        <p className="relative mx-auto w-full select-none whitespace-nowrap bg-gradient-to-b from-white via-[#dbeafe] to-[#60a5fa] bg-clip-text text-center font-montserrat text-[clamp(2rem,11.5vw,10rem)] font-black leading-none tracking-[-0.075em] text-transparent drop-shadow-[0_10px_28px_rgba(37,99,235,0.3)] [-webkit-text-stroke:1px_rgba(255,255,255,0.12)]">
+          Mir Talal Baloch
+        </p>
+      </div>
+    </>
   );
 }

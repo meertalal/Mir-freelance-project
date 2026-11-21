@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2, Clock3 } from "lucide-react";
-import { blogPosts, getBlogPost } from "../features/blog/data/blog.data";
+import { useBlogPosts } from "../features/content/useEditorialContent";
 import PageHeroCompact from "../components/shared/PageHeroCompact";
 import Reveal from "../components/shared/Reveal";
 import CtaBanner from "../components/shared/CtaBanner";
@@ -14,7 +14,8 @@ import { innerContainerClass, innerSectionClass } from "../components/shared/sec
 
 export default function BlogPostPage() {
   const { slug } = useParams();
-  const post = getBlogPost(slug);
+  const { data: blogPosts, loaded } = useBlogPosts();
+  const post = blogPosts.find((item) => item.slug === slug);
 
   usePageSeo(
     useMemo(
@@ -24,7 +25,7 @@ export default function BlogPostPage() {
               title: post.title + " | Mir Talal Blog",
               description: post.excerpt,
               path: "/blog/" + post.slug,
-              image: `/image/og/blog-${post.slug}.png`,
+              image: post.coverImage || `/image/og/blog-${post.slug}.png`,
             }
           : null,
       [post],
@@ -32,6 +33,7 @@ export default function BlogPostPage() {
   );
 
   if (!post) {
+    if (!loaded) return <div className="px-4 py-24 text-center font-inter text-sm text-[#526987]">Loading article…</div>;
     return <NotFoundPage />;
   }
 
@@ -50,11 +52,11 @@ export default function BlogPostPage() {
         dateModified: post.dateTime,
         articleSection: post.category,
         url: `${siteUrl}/blog/${post.slug}`,
-        image: `${siteUrl}/image/og/blog-${post.slug}.png`,
+        image: post.coverImage ? new URL(post.coverImage, siteUrl).toString() : `${siteUrl}/image/og/blog-${post.slug}.png`,
         isAccessibleForFree: true,
         author: {
           "@type": "Person",
-          name: "Mir Talal",
+          name: post.authorName || "Mir Talal",
           url: `${siteUrl}/about`,
         },
         publisher: {
@@ -89,20 +91,20 @@ export default function BlogPostPage() {
           { label: "Blog", href: "/blog" },
           { label: post.category },
         ]}
-        backgroundImage="/image/background-image/global-network-wave-background.webp"
+        backgroundImage={post.coverImage || "/image/background-image/global-network-wave-background.webp"}
         title={post.title}
         description={post.excerpt}
         meta={
           <>
             <span className="inline-flex items-center gap-2">
               <img
-                src="/image/profile.webp"
-                alt="Mir Talal"
+                src={post.authorAvatar || "/image/profile.webp"}
+                alt={post.authorName || "Mir Talal"}
                 width={32}
                 height={32}
                 className="h-8 w-8 rounded-full object-cover ring-2 ring-white"
               />
-              <span className="font-semibold text-[#10234B]">Mir Talal</span>
+              <span className="font-semibold text-[#10234B]">{post.authorName || "Mir Talal"}</span>
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CalendarDays size={14} aria-hidden="true" />
@@ -119,7 +121,7 @@ export default function BlogPostPage() {
       <section className={innerSectionClass + " bg-white"}>
         <div className={"relative z-10 mx-auto w-full max-w-3xl"}>
           <Reveal>
-            <p className="font-inter text-base leading-relaxed text-[#334155] sm:text-lg sm:leading-8">{post.intro}</p>
+              <p className="font-inter text-base leading-relaxed text-[#334155] sm:text-lg sm:leading-8">{post.intro}</p>
           </Reveal>
 
           <div className="mt-8 space-y-8">
@@ -162,10 +164,10 @@ export default function BlogPostPage() {
           <Reveal delay={140}>
           <div className="mt-8 flex flex-col gap-4 rounded-[1.5rem] border border-[#E6EEF9] bg-white p-5 shadow-[0_12px_32px_rgba(15,48,91,0.05)] sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <div className="flex items-center gap-3">
-              <img src="/image/profile.webp" alt="Mir Talal" width={56} height={56} loading="lazy" className="h-14 w-14 rounded-full object-cover ring-2 ring-[#DCE9FF]" />
+            <img src={post.authorAvatar || "/image/profile.webp"} alt={post.authorName || "Mir Talal"} width={56} height={56} loading="lazy" className="h-14 w-14 rounded-full object-cover ring-2 ring-[#DCE9FF]" />
               <div>
-                <p className="font-montserrat text-sm font-bold text-[#10234B]">Mir Talal</p>
-                <p className="font-inter text-xs leading-relaxed text-[#526987]">Freelance web & AI developer helping businesses build products that last.</p>
+                <p className="font-montserrat text-sm font-bold text-[#10234B]">{post.authorName || "Mir Talal"}</p>
+                <p className="font-inter text-xs leading-relaxed text-[#526987]">{post.authorRole || "Freelance web & AI developer helping businesses build products that last."}</p>
               </div>
             </div>
             <LinkButton to="/about" variant="secondary" className="shrink-0">

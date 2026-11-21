@@ -7,6 +7,8 @@ export type SiteSettingsView = {
   whatsappHref: string;
   location: string;
   hours: string;
+  social: { linkedin: string; x: string; github: string; instagram: string; facebook: string; youtube: string };
+  seo: { title: string; description: string; ogImage: string };
 };
 
 type SettingsResponse = {
@@ -16,6 +18,8 @@ type SettingsResponse = {
     whatsapp_href?: string;
     location?: string;
     hours?: string;
+    social?: { linkedin?: string; x?: string; github?: string; instagram?: string; facebook?: string; youtube?: string };
+    seo?: { title?: string; description?: string; og_image?: string };
   };
 };
 
@@ -29,6 +33,8 @@ const fallback: SiteSettingsView = {
   whatsappHref: brand.whatsappHref,
   location: brand.location,
   hours: brand.hours,
+  social: { linkedin: "", x: "", github: "", instagram: "", facebook: "", youtube: "" },
+  seo: { title: "", description: "", ogImage: "" },
 };
 
 let current: SiteSettingsView = fallback;
@@ -58,6 +64,19 @@ async function load() {
       whatsappHref: data.whatsapp_href?.trim() || fallback.whatsappHref,
       location: data.location?.trim() || fallback.location,
       hours: data.hours?.trim() || fallback.hours,
+      social: {
+        linkedin: data.social?.linkedin?.trim() || "",
+        x: data.social?.x?.trim() || "",
+        github: data.social?.github?.trim() || "",
+        instagram: data.social?.instagram?.trim() || "",
+        facebook: data.social?.facebook?.trim() || "",
+        youtube: data.social?.youtube?.trim() || "",
+      },
+      seo: {
+        title: data.seo?.title?.trim() || "",
+        description: data.seo?.description?.trim() || "",
+        ogImage: data.seo?.og_image?.trim() || "",
+      },
     };
 
     const changed = (Object.keys(next) as (keyof SiteSettingsView)[]).some(

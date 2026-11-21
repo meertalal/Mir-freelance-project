@@ -19,7 +19,7 @@ const categoryIcons = { "Getting Started": Rocket, "Services & Pricing": Wallet,
 export default function FaqPage() {
   const remoteFaqs = useFaqs();
   const categories = useMemo(() => {
-    if (!remoteFaqs?.length) return faqCategories;
+    if (remoteFaqs === null) return faqCategories;
     const groups = new Map<string, FaqPageItem[]>();
     for (const faq of remoteFaqs.filter((item) => item.category.toLowerCase() !== "home")) {
       const list = groups.get(faq.category) ?? [];

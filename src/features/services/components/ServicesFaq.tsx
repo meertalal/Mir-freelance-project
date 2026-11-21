@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, Mail } from "lucide-react";
+import { ChevronDown, HelpCircle, Mail } from "lucide-react";
 import LinkButton from "../../../components/ui/LinkButton";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import Reveal from "../../../components/shared/Reveal";
@@ -8,8 +8,13 @@ import {
   innerSectionClass,
 } from "../../../components/shared/section.styles";
 import { servicesFaqCopy, servicesFaqs } from "../data/services-page.data";
+import { useFaqs } from "../../faq/useFaqs";
 
 export default function ServicesFaq() {
+  const remoteFaqs = useFaqs();
+  const faqs = remoteFaqs === null
+    ? servicesFaqs
+    : remoteFaqs.filter((item) => item.category.toLowerCase() === "services").map((item) => ({ id: String(item.id), question: item.question, answer: item.answer, Icon: HelpCircle }));
   const [openId, setOpenId] = useState<string | null>(
     servicesFaqs[0]?.id ?? null,
   );
@@ -40,7 +45,7 @@ export default function ServicesFaq() {
         </Reveal>
 
         <div className="mx-auto flex max-w-3xl flex-col gap-3">
-          {servicesFaqs.map((faq, index) => {
+          {faqs.map((faq, index) => {
             const isOpen = openId === faq.id;
             const Icon = faq.Icon;
 

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { sharedProjects, sharedTestimonials } from "../data/site.data";
 import { useTestimonials } from "../features/content/useContent";
+import { useCaseStudies, type SiteCaseStudy } from "../features/content/useEditorialContent";
 import { caseStudies, getCaseStudy } from "../features/portfolio/data/case-studies.data";
 import PageHeroCentered from "../components/shared/PageHeroCentered";
 import Reveal from "../components/shared/Reveal";
@@ -32,8 +33,61 @@ import {
 const eyebrowClass =
   "font-playfair text-[11px] font-bold uppercase tracking-[0.16em] text-[#5882E8]";
 
+function CmsCaseStudyPage({ study }: { study: SiteCaseStudy }) {
+  usePageSeo(
+    useMemo(() => ({
+      title: `${study.title} Case Study | Mir Talal`,
+      description: study.excerpt,
+      path: `/portfolio/${study.slug}`,
+      image: study.coverImage || undefined,
+    }), [study]),
+  );
+
+  return (
+    <>
+      <PageHeroCentered
+        eyebrow={study.projectType || "Case Study"}
+        title={study.title}
+        highlight={study.title.split(" ").at(-1) || study.title}
+        description={study.excerpt}
+        trustItems={[
+          { title: "Project Type", description: study.projectType, Icon: Target },
+          { title: "Client", description: study.clientCompany || study.clientName, Icon: Building2 },
+          { title: "Services", description: study.services.join(", "), Icon: Clock3 },
+        ]}
+      />
+      {study.coverImage && (
+        <div className="mx-auto -mt-8 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+          <img src={study.coverImage} alt={study.coverImageAlt || study.title} className="max-h-[520px] w-full rounded-3xl object-cover shadow-xl" />
+        </div>
+      )}
+      <section className={`${innerSectionClass} bg-white`}>
+        <div className={`${innerContainerClass} grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]`}>
+          <article className="space-y-8">
+            <p className="font-inter text-base leading-8 text-[#526987] sm:text-lg">{study.overview}</p>
+            {study.challenge && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">The Challenge</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.challenge}</p></div>}
+            {study.solution && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">The Solution</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.solution}</p></div>}
+            {study.results.length > 0 && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">Results</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.results.map((result) => `${result.value}${result.label ? ` — ${result.label}` : ""}`).join("\n")}</p></div>}
+            {study.body && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">Project Overview</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.body}</p></div>}
+          </article>
+          <aside className="h-fit rounded-2xl border border-[#E1EAF6] bg-[#F7FAFF] p-5">
+            <h2 className="font-montserrat text-base font-bold text-[#10234B]">Project Details</h2>
+            <dl className="mt-4 space-y-4 font-inter text-sm">
+              {[["Client", study.clientName], ["Company", study.clientCompany], ["Role", study.clientRole], ["Services", study.services.join(", ")]].filter(([, value]) => value).map(([label, value]) => <div key={label}><dt className="text-xs font-semibold uppercase tracking-wide text-[#8298B5]">{label}</dt><dd className="mt-1 text-[#334155]">{value}</dd></div>)}
+              {study.clientWebsite && <a href={study.clientWebsite} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center font-semibold text-[#1670F5]">Visit project</a>}
+            </dl>
+          </aside>
+        </div>
+      </section>
+      <CtaBanner showCountryPanel={false} />
+    </>
+  );
+}
+
 export default function CaseStudyPage() {
   const { slug } = useParams();
+  const { data: remoteStudies, loaded: contentLoaded, remote: hasRemoteStudies } = useCaseStudies();
+  const remoteStudy = hasRemoteStudies ? remoteStudies.find((item) => item.slug === slug && item.managedByCms) : undefined;
   const study = getCaseStudy(slug);
   const project = sharedProjects.find((item) => item.id === study?.id);
   const liveTestimonials = useTestimonials();
@@ -67,6 +121,9 @@ export default function CaseStudyPage() {
     ),
   );
 
+  if (!contentLoaded && !study) return <div className="px-4 py-24 text-center font-inter text-sm text-[#526987]">Loading case study…</div>;
+  if (remoteStudy) return <CmsCaseStudyPage study={remoteStudy} />;
+  if (!contentLoaded && !study) return <div className="px-4 py-24 text-center font-inter text-sm text-[#526987]">Loading case study…</div>;
   if (!study || !project) {
     return <NotFoundPage />;
   }

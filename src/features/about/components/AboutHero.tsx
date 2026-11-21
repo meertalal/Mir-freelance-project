@@ -5,6 +5,7 @@ import { aboutHero, aboutHeroServices, heroServiceIcons } from "../data/about-pa
 import { brand } from "../../../data/site.data";
 import { useTestimonials } from "../../content/useContent";
 import { footerSocialLinks } from "../../../data/footer.data";
+import { useSiteSettings } from "../../site-settings/useSiteSettings";
 import {
   innerContainerClass,
   innerSectionClass,
@@ -17,6 +18,11 @@ const stripPaddingClass =
   "mt-12 -mx-4 -mb-10 px-4 py-3.5 min-[480px]:-mx-5 sm:-mx-6 sm:-mb-14 sm:px-6 lg:-mx-8 lg:-mb-16 lg:px-8 xl:-mx-12 xl:-mb-20 xl:px-12 min-[1920px]:-mx-16 min-[1920px]:-mb-24 min-[1920px]:px-16";
 
 export default function AboutHero() {
+  const siteSettings = useSiteSettings();
+  const socialLinks = footerSocialLinks.map((social) => ({
+    ...social,
+    href: siteSettings.social[social.id as keyof typeof siteSettings.social] || social.href,
+  }));
   const review = useTestimonials()[0];
 
   return (
@@ -108,7 +114,7 @@ export default function AboutHero() {
                 Follow Me On
               </p>
               <div className="mt-3 flex items-center gap-2">
-                {footerSocialLinks.map((social) => (
+                {socialLinks.map((social) => (
                   <a
                     key={social.id}
                     href={social.href}

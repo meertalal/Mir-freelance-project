@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, BookOpen } from "lucide-react";
-import { blogHero, blogPosts, blogTopics } from "../features/blog/data/blog.data";
+import { blogHero } from "../features/blog/data/blog.data";
+import { useBlogPosts } from "../features/content/useEditorialContent";
 import { innerContainerClass, innerSectionClass } from "../components/shared/section.styles";
 import PageHeroCompact from "../components/shared/PageHeroCompact";
 import Reveal from "../components/shared/Reveal";
@@ -10,6 +11,7 @@ import CtaBanner from "../components/shared/CtaBanner";
 const allTopicsLabel = "All Topics";
 
 export default function BlogPage() {
+  const { data: blogPosts } = useBlogPosts();
   const [activeTopic, setActiveTopic] = useState<string>(allTopicsLabel);
   const isAll = activeTopic === allTopicsLabel;
   const articles = isAll
@@ -17,6 +19,7 @@ export default function BlogPage() {
     : blogPosts.filter((post) => post.category === activeTopic);
   const [featured, ...rest] = articles;
   const FeaturedIcon = featured?.Icon;
+  const blogTopics = [...new Set(blogPosts.map((post) => post.category).filter(Boolean))];
   const topicOptions = [allTopicsLabel, ...blogTopics];
 
   return (
@@ -103,7 +106,9 @@ export default function BlogPage() {
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.14)_1px,transparent_1px)] bg-[size:26px_26px] opacity-60" />
                 <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full border border-white/15" />
                 <div aria-hidden="true" className="pointer-events-none absolute -bottom-20 -left-12 h-44 w-44 rounded-full bg-white/10 blur-2xl" />
-                {FeaturedIcon && (
+                {featured.coverImage ? (
+                  <img src={featured.coverImage} alt={featured.coverImageAlt || ""} className="absolute inset-0 h-full w-full object-cover" />
+                ) : FeaturedIcon && (
                   <FeaturedIcon size={86} strokeWidth={1.2} className="relative text-white/25 transition duration-500 group-hover:scale-105" aria-hidden="true" />
                 )}
                 <span className="absolute left-5 top-5 rounded-full bg-white/15 px-3 py-1 font-inter text-[10px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-md">
@@ -154,7 +159,11 @@ export default function BlogPage() {
                   >
                     <div className={"relative flex aspect-[16/9] items-center justify-center overflow-hidden bg-gradient-to-br " + post.coverClass}>
                       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.14)_1px,transparent_1px)] bg-[size:24px_24px] opacity-60" />
-                      <Icon size={56} strokeWidth={1.3} className="relative text-white/25 transition duration-500 group-hover:scale-105" aria-hidden="true" />
+                      {post.coverImage ? (
+                        <img src={post.coverImage} alt={post.coverImageAlt || ""} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                      ) : (
+                        <Icon size={56} strokeWidth={1.3} className="relative text-white/25 transition duration-500 group-hover:scale-105" aria-hidden="true" />
+                      )}
                       <span className="absolute left-4 top-4 rounded-full bg-white/15 px-2.5 py-1 font-inter text-[10px] font-bold uppercase tracking-[0.1em] text-white backdrop-blur-md">
                         {post.category}
                       </span>

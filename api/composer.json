@@ -30,7 +30,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "start": "php -S 127.0.0.1:8090 -t public",
+        "start": "php -S 127.0.0.1:8090 -t public public/index.php",
         "migrate": "php bin/console migrations:migrate",
         "seed:admin": "php bin/console app:seed-admin"
     }

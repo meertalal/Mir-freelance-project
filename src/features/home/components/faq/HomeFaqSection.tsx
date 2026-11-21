@@ -10,9 +10,9 @@ import { HelpCircle } from "lucide-react";
 
 export default function HomeFaqSection() {
   const remoteFaqs = useFaqs();
-  const items = remoteFaqs?.length
-    ? remoteFaqs.filter((item) => item.category.toLowerCase() === "home").map((item) => ({ id: String(item.id), question: item.question, answer: item.answer, Icon: HelpCircle }))
-    : homeFaqs;
+  const items = remoteFaqs === null
+    ? homeFaqs
+    : remoteFaqs.filter((item) => item.category.toLowerCase() === "home").map((item) => ({ id: String(item.id), question: item.question, answer: item.answer, Icon: HelpCircle }));
   const [openId, setOpenId] = useState<string>(homeFaqs[0]?.id ?? "");
   useEffect(() => { if (items[0]) setOpenId(items[0].id); }, [remoteFaqs]);
 

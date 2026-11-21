@@ -9,7 +9,7 @@ use App\Support\Json;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class AdminUploadController
+class UploadController
 {
     public function __construct(private readonly UploadService $upload) {}
 

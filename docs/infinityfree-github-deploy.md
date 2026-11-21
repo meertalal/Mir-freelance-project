@@ -24,6 +24,8 @@ After adding all five secrets, push a commit that changes a file under `api/` or
 
 The workflow uploads PHP files; it cannot run Doctrine migrations because InfinityFree free databases reject remote MySQL connections. In InfinityFree's phpMyAdmin, select the new database, choose **Import**, and upload [`infinityfree-schema.sql`](infinityfree-schema.sql). This is for a new, empty database. The API tables will exist after import, but you still need to create the first admin account before the admin pages can log in.
 
+For an existing database, import [`infinityfree-content-module-upgrade.sql`](infinityfree-content-module-upgrade.sql) to add the Blog and Portfolio tables used by the Admin modules. This upgrade only creates the missing tables.
+
 To create that account without exposing a plaintext password:
 
 1. Add GitHub Actions repository secrets named `INFINITYFREE_ADMIN_EMAIL`, `INFINITYFREE_ADMIN_PASSWORD` (at least 12 characters), and optionally `INFINITYFREE_ADMIN_NAME`.

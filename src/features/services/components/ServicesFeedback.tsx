@@ -15,6 +15,7 @@ import {
   innerSectionClass,
 } from "../../../components/shared/section.styles";
 import { submitFeedback } from "../../feedback/feedback.service";
+import { useApprovedFeedback } from "../../feedback/useApprovedFeedback";
 
 const fieldClass =
   "w-full min-h-11 rounded-xl border border-slate-200 bg-[#F7FAFF] px-3.5 py-3 text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 sm:text-sm";
@@ -24,8 +25,18 @@ const initialForm = { fullName: "", email: "", company: "", designation: "", ser
 export default function ServicesFeedback() {
   const services = useServices();
   const testimonials = useTestimonials();
-  const featured = testimonials[1] ?? testimonials[0];
-  const clients = testimonials;
+  const approvedFeedback = useApprovedFeedback();
+  const approvedCards = approvedFeedback.map((item) => ({
+    id: `feedback-${item.id}`,
+    author: item.author,
+    role: item.role || item.service_title,
+    company: item.company,
+    quote: item.message,
+    avatar: item.avatar || "/image/profile.webp",
+    rating: item.rating,
+  }));
+  const clients = [...approvedCards, ...testimonials].slice(0, 8);
+  const featured = approvedCards[0] ?? testimonials[1] ?? testimonials[0];
   const [form, setForm] = useState(initialForm);
   const [rating, setRating] = useState(5);
   const [hovered, setHovered] = useState(0);
@@ -114,7 +125,7 @@ export default function ServicesFeedback() {
             className="mb-6 sm:mb-8"
           />
 
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-[#E6EEF9] bg-white p-6 shadow-[0_18px_50px_rgba(15,48,91,0.08)] sm:p-7">
+          {featured ? <div className="relative overflow-hidden rounded-[1.75rem] border border-[#E6EEF9] bg-white p-6 shadow-[0_18px_50px_rgba(15,48,91,0.08)] sm:p-7">
             <Quote
               size={72}
               aria-hidden="true"
@@ -159,7 +170,7 @@ export default function ServicesFeedback() {
                 </p>
               </div>
             </div>
-          </div>
+          </div> : <div className="rounded-[1.75rem] border border-[#E6EEF9] bg-white p-6 text-sm text-[#526987]">Client feedback will appear here after approval.</div>}
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <div className="flex -space-x-2.5">

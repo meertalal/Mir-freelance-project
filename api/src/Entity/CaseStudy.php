@@ -32,7 +32,7 @@ class CaseStudy
     #[ORM\Column(type: 'text', options: ['default' => ''])]
     private string $excerpt = '';
 
-    #[ORM\Column(type: 'string', length: 255, options: ['default' => ''])]
+    #[ORM\Column(name: 'cover_image', type: 'string', length: 255, options: ['default' => ''])]
     private string $coverImage = '';
 
     #[ORM\Column(name: 'cover_image_alt', type: 'string', length: 255, options: ['default' => ''])]
@@ -44,7 +44,7 @@ class CaseStudy
     #[ORM\Column(type: 'string', length: 40, options: ['default' => 'code2'])]
     private string $icon = 'code2';
 
-    #[ORM\Column(type: 'string', length: 80)]
+    #[ORM\Column(name: 'project_type', type: 'string', length: 80)]
     private string $projectType = '';
 
     #[ORM\Column(name: 'sort_order', type: 'integer', options: ['default' => 0])]

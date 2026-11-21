@@ -5,6 +5,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaXTwitter,
+  FaYoutube,
 } from "react-icons/fa6";
 
 type SocialIconProps = {
@@ -18,6 +19,7 @@ const socialIcons: Record<string, IconType> = {
   github: FaGithub,
   instagram: FaInstagram,
   facebook: FaFacebookF,
+  youtube: FaYoutube,
 };
 
 export default function SocialIcon({ id, className = "h-4 w-4" }: SocialIconProps) {
