@@ -1,5 +1,20 @@
--- Add the database tables used by the Admin Blog and Portfolio modules.
+-- Add database tables used by the Admin Blog, Portfolio, and Media Library modules.
 -- Safe for an existing InfinityFree database; it does not alter existing rows.
+
+CREATE TABLE IF NOT EXISTS uploaded_files (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  relative_path VARCHAR(255) NOT NULL,
+  original_filename VARCHAR(255) DEFAULT '' NOT NULL,
+  mime_type VARCHAR(120) DEFAULT '' NOT NULL,
+  size_bytes INT DEFAULT 0 NOT NULL,
+  uploadable_type VARCHAR(40) DEFAULT '' NOT NULL,
+  uploadable_id INT DEFAULT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX idx_uploaded_files_uploadable (uploadable_type, uploadable_id),
+  INDEX idx_uploaded_files_created (created_at),
+  PRIMARY KEY (id)
+);
 
 CREATE TABLE IF NOT EXISTS blog_posts (
   id INT AUTO_INCREMENT NOT NULL,
