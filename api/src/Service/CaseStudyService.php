@@ -43,7 +43,7 @@ final class CaseStudyService
 
     public function getBySlug(string $slug): CaseStudy
     {
-        $caseStudy = $this->caseStudies->findBySlug($slug);
+        $caseStudy = $this->caseStudies->findPublishedBySlug($slug);
         if ($caseStudy === null) {
             throw new ApiException('Case study not found.', 404);
         }

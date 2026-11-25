@@ -19,13 +19,16 @@ export default function ServiceDetailPage() {
   const { slug } = useParams();
   const liveServices = useServices();
   const storedDetail = getServiceDetail(slug);
-  const serviceSource = liveServices.find((item) => item.href.endsWith(`/${slug}`) || item.id === slug)
-    ?? sharedServices.find((item) => item.id === (storedDetail?.id ?? slug));
-  const service = serviceSource ? {
-    ...serviceSource,
-    icon: "Icon" in serviceSource ? serviceSource.Icon : serviceSource.icon,
-  } : undefined;
-  const detail = storedDetail ?? (service ? {
+  const service = useMemo(() => {
+    const serviceSource = liveServices.find((item) => item.href.endsWith(`/${slug}`))
+      ?? liveServices.find((item) => item.id === slug)
+      ?? sharedServices.find((item) => item.id === (storedDetail?.id ?? slug));
+    return serviceSource ? {
+      ...serviceSource,
+      icon: "Icon" in serviceSource ? serviceSource.Icon : serviceSource.icon,
+    } : undefined;
+  }, [liveServices, slug, storedDetail]);
+  const detail = useMemo(() => storedDetail ?? (service ? {
     id: service.id,
     tagline: `A tailored ${service.title.toLowerCase()} solution for your business.`,
     intro: service.description,
@@ -33,7 +36,7 @@ export default function ServiceDetailPage() {
     outcomes: [{ value: "Built around you", label: "Clear scope and milestones" }],
     deliverables: [service.description],
     idealFor: ["Businesses looking for a reliable, tailored solution"],
-  } : undefined);
+  } : undefined), [storedDetail, service]);
 
   usePageSeo(
     useMemo(
@@ -46,7 +49,7 @@ export default function ServiceDetailPage() {
               image: `/image/og/service-${service.id}.png`,
             }
           : null,
-      [service, detail],
+      [service, detail, slug],
     ),
   );
 

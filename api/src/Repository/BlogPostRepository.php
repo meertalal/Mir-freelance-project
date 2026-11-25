@@ -21,6 +21,20 @@ final class BlogPostRepository
         return $this->em->getRepository(BlogPost::class)->findOneBy(['slug' => $slug]);
     }
 
+    public function findPublishedBySlug(string $slug): ?BlogPost
+    {
+        return $this->em->createQueryBuilder()
+            ->select('b')
+            ->from(BlogPost::class, 'b')
+            ->where('b.slug = :slug')
+            ->andWhere('b.isPublished = true')
+            ->andWhere('b.status = :status')
+            ->setParameter('slug', $slug)
+            ->setParameter('status', BlogPost::STATUS_PUBLISHED)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     /** @return list<BlogPost> */
     public function all(bool $publishedOnly = false): array
     {
@@ -31,7 +45,9 @@ final class BlogPostRepository
             ->addOrderBy('b.createdAt', 'DESC');
 
         if ($publishedOnly) {
-            $qb->andWhere('b.isPublished = true');
+            $qb->andWhere('b.isPublished = true')
+                ->andWhere('b.status = :publishedStatus')
+                ->setParameter('publishedStatus', BlogPost::STATUS_PUBLISHED);
         }
 
         return $qb->getQuery()->getResult();

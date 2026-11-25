@@ -129,31 +129,33 @@ export default function AboutHero() {
               </div>
             </div>
 
-            <div className={`${floatCardClass} relative z-20 lg:absolute lg:bottom-[9%] lg:left-4 lg:w-60 xl:left-10`}>
-              <div
-                className="flex items-center gap-1 text-[#F59E0B]"
-                aria-label={`${review.rating} out of 5 stars`}
-              >
-                {Array.from({ length: review.rating }).map((_, index) => (
-                  <Star
-                    key={index}
-                    size={14}
-                    fill="currentColor"
-                    strokeWidth={0}
-                    aria-hidden="true"
-                  />
-                ))}
+            {review && (
+              <div className={`${floatCardClass} relative z-20 lg:absolute lg:bottom-[9%] lg:left-4 lg:w-60 xl:left-10`}>
+                <div
+                  className="flex items-center gap-1 text-[#F59E0B]"
+                  aria-label={`${review.rating} out of 5 stars`}
+                >
+                  {Array.from({ length: review.rating }).map((_, index) => (
+                    <Star
+                      key={index}
+                      size={14}
+                      fill="currentColor"
+                      strokeWidth={0}
+                      aria-hidden="true"
+                    />
+                  ))}
+                </div>
+                <p className="mt-2 font-playfair text-[11px] font-semibold uppercase tracking-[0.14em] text-[#092F58]">
+                  Client Reviews
+                </p>
+                <p className="mt-1 font-inter text-xs leading-relaxed text-slate-600">
+                  {review.quote}
+                </p>
+                <p className="mt-1.5 font-inter text-[11px] font-semibold text-slate-500">
+                  {review.author}, {review.role}
+                </p>
               </div>
-              <p className="mt-2 font-playfair text-[11px] font-semibold uppercase tracking-[0.14em] text-[#092F58]">
-                Client Reviews
-              </p>
-              <p className="mt-1 font-inter text-xs leading-relaxed text-slate-600">
-                {review.quote}
-              </p>
-              <p className="mt-1.5 font-inter text-[11px] font-semibold text-slate-500">
-                {review.author}, {review.role}
-              </p>
-            </div>
+            )}
 
             <div className={`${floatCardClass} relative z-20 lg:absolute lg:right-0 lg:top-[24%] lg:w-56 xl:w-64`}>
               <span

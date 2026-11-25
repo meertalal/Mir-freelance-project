@@ -39,6 +39,17 @@ final class UploadService
         'image/gif' => 'gif',
     ];
 
+    /** @var array<string, list<string>> */
+    private const array EXTENSIONS_FOR_MIME = [
+        'image/jpeg' => ['jpg', 'jpeg'],
+        'image/png' => ['png'],
+        'image/webp' => ['webp'],
+        'image/gif' => ['gif'],
+    ];
+
+    private const int MAX_IMAGE_DIMENSION = 8000;
+    private const int MAX_IMAGE_PIXELS = 20000000;
+
     public function __construct(
         private readonly UploadedFileRepository $files,
         private readonly LoggerInterface $logger,
@@ -83,7 +94,7 @@ final class UploadService
         $this->assertUploadedFile($uploadedFile);
         $this->enforceSizeLimit($uploadedFile);
         $mediaType = $this->detectMimeType($uploadedFile);
-        $this->enforceLimits($uploadedFile, $mediaType, $declaredExtension);
+        $this->enforceLimits($mediaType, $declaredExtension);
 
         $extension = self::extForMimeType($mediaType);
         $safeName = $this->safeName($filename, $extension);
@@ -111,7 +122,18 @@ final class UploadService
         $file->setSizeBytes($uploadedFile->getSize() ?: 0);
         $file->setUploadableType($uploadableType);
         $file->setUploadableId($uploadableId);
-        $this->files->save($file);
+        try {
+            $this->files->save($file);
+        } catch (\Throwable $e) {
+            if (is_file($targetPath) && !unlink($targetPath)) {
+                $this->logger->error('Failed to remove uploaded file after database save failed.', [
+                    'target_path' => $targetPath,
+                    'exception' => $e,
+                ]);
+            }
+
+            throw $e;
+        }
 
         return $file;
     }
@@ -129,12 +151,18 @@ final class UploadService
         string $uploadableType,
         int $uploadableId
     ): UploadedFile {
+        $replacement = $this->store($data, $uploadedFiles, $uploadableType, $uploadableId);
+
         foreach ($this->files->findByUploadable($uploadableType, $uploadableId) as $existing) {
+            if ($existing->getId() === $replacement->getId()) {
+                continue;
+            }
+
             $this->deleteFile($existing);
             $this->files->remove($existing);
         }
 
-        return $this->store($data, $uploadedFiles, $uploadableType, $uploadableId);
+        return $replacement;
     }
 
     public function attach(int $fileId, string $uploadableType, int $uploadableId): UploadedFile
@@ -145,6 +173,11 @@ final class UploadService
         }
 
         foreach ($this->files->findByUploadable($uploadableType, $uploadableId) as $existing) {
+            if ($existing->getId() === $file->getId()) {
+                continue;
+            }
+
+            $this->deleteFile($existing);
             $this->files->remove($existing);
         }
 
@@ -255,28 +288,18 @@ final class UploadService
     }
 
     /** @throws ValidationException */
-    private function enforceLimits(\Slim\Psr7\UploadedFile $uploadedFile, string $declaredMimeType, string $declaredExtension): void
+    private function enforceLimits(string $declaredMimeType, string $declaredExtension): void
     {
         $detectedExtension = self::extForMimeType($declaredMimeType);
-        if ($detectedExtension !== '' && $declaredExtension !== '' && $detectedExtension !== $declaredExtension) {
-            $this->logger->warning('Uploaded file MIME/extension mismatch.', [
-                'original_filename' => $uploadedFile->getClientFilename(),
-                'declared_extension' => $declaredExtension,
-                'detected_extension' => $detectedExtension,
-                'mime_type' => $declaredMimeType,
+        if (!in_array($declaredMimeType, self::ALLOWED_MIME_TYPES, true)
+            || !in_array($declaredExtension, self::EXTENSIONS_FOR_MIME[$declaredMimeType] ?? [], true)) {
+            throw new ValidationException([
+                'field' => 'The file extension must match a supported image format.',
             ]);
         }
 
-        if ($detectedExtension !== '' && !in_array($detectedExtension, self::ALLOWED_EXTENSIONS, true)) {
-            throw new ValidationException([
-                'field' => 'This file type is not allowed.',
-            ]);
-        }
-
-        if (!in_array($declaredMimeType, self::ALLOWED_MIME_TYPES, true)) {
-            throw new ValidationException([
-                'field' => 'This file type is not allowed.',
-            ]);
+        if (!in_array($detectedExtension, self::ALLOWED_EXTENSIONS, true)) {
+            throw new ValidationException(['field' => 'This file type is not allowed.']);
         }
     }
 
@@ -316,6 +339,15 @@ final class UploadService
             || !is_array($imageInfo)
             || ($imageInfo['mime'] ?? null) !== $mimeType) {
             throw new ValidationException(['field' => 'The uploaded file must contain a valid JPEG, PNG, WebP, or GIF image.']);
+        }
+
+        $width = (int) ($imageInfo[0] ?? 0);
+        $height = (int) ($imageInfo[1] ?? 0);
+        if ($width < 1 || $height < 1
+            || $width > self::MAX_IMAGE_DIMENSION
+            || $height > self::MAX_IMAGE_DIMENSION
+            || $width > intdiv(self::MAX_IMAGE_PIXELS, $height)) {
+            throw new ValidationException(['field' => 'The uploaded image dimensions are too large.']);
         }
 
         return $mimeType;
@@ -370,15 +402,33 @@ final class UploadService
 
     private function deleteFile(UploadedFile $file): void
     {
-        $path = $this->targetDir() . '/' . $file->getRelativePath();
+        $relativePath = str_replace('\\', '/', $file->getRelativePath());
+        if (!str_starts_with($relativePath, 'uploads/')
+            || basename($relativePath) !== substr($relativePath, strlen('uploads/'))) {
+            throw new ApiException('Stored upload path is invalid.', 500);
+        }
 
-        if (is_file($path)) {
-            if (!unlink($path)) {
-                $this->logger->warning('Failed to delete uploaded file from disk.', [
-                    'path' => $path,
-                    'file_id' => $file->getId(),
-                ]);
-            }
+        $uploadDir = realpath($this->targetDir());
+        if ($uploadDir === false) {
+            return;
+        }
+
+        $path = realpath($uploadDir . DIRECTORY_SEPARATOR . basename($relativePath));
+        if ($path === false) {
+            return;
+        }
+
+        $prefix = $uploadDir . DIRECTORY_SEPARATOR;
+        if (!str_starts_with(strtolower($path), strtolower($prefix))) {
+            throw new ApiException('Stored upload path is outside the upload directory.', 500);
+        }
+
+        if (is_file($path) && !unlink($path)) {
+            $this->logger->error('Failed to delete uploaded file from disk.', [
+                'path' => $path,
+                'file_id' => $file->getId(),
+            ]);
+            throw new ApiException('Could not delete the stored upload. Please retry.', 500);
         }
     }
 

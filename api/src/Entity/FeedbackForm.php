@@ -282,4 +282,19 @@ class FeedbackForm
             'updated_at' => $this->updatedAt->format(\DATE_ATOM),
         ];
     }
+
+    /** @return array{id: int|null, author: string, role: string, company: string, message: string, avatar: string, rating: int, service_title: string} */
+    public function toPublicArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'author' => $this->author,
+            'role' => $this->role,
+            'company' => $this->company,
+            'message' => $this->message,
+            'avatar' => $this->avatar,
+            'rating' => $this->rating,
+            'service_title' => $this->serviceTitle,
+        ];
+    }
 }

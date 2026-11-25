@@ -20,14 +20,64 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Lint frontend
+        run: npm run lint
+
+      - name: Run frontend tests
+        run: npm test
+
+      - name: Build and type-check frontend
+        run: npm run build
+
+      - name: Audit production npm dependencies
+        run: npm audit --omit=dev
+
+      - name: Set up PHP and Composer
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: "8.4"
+          extensions: fileinfo, mbstring, pdo_mysql, pdo_sqlite, gd
+          tools: composer:v2
+
+      - name: Validate Composer configuration
+        run: composer validate --working-dir=api --no-check-publish
+
+      - name: Install backend dependencies
+        run: composer install --working-dir=api --prefer-dist --no-interaction --no-progress
+
+      - name: Check backend PHP syntax
+        run: find api -name '*.php' -not -path 'api/vendor/*' -print0 | xargs -0 -n1 php -l
+
+      - name: Run backend regression tests
+        run: composer test --working-dir=api
+
+      - name: Audit Composer dependencies
+        run: composer audit --working-dir=api
+
+  deploy:
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           cache: npm
@@ -36,9 +86,10 @@ jobs:
         run: npm ci && npm run build
         env:
           VITE_API_URL: https://mirtalal.freedev.app
+          VITE_SITE_URL: https://mirtalal.freedev.app
 
       - name: Set up PHP and Composer
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: "8.4"
           extensions: fileinfo, mbstring, pdo_mysql
@@ -55,6 +106,7 @@ jobs:
           rsync -a --exclude='/uploads/*' api/public/ .deploy/api/public/
           cp -a dist/. .deploy/api/
           mkdir -p .deploy/api/public/uploads
+          cp api/public/uploads/.htaccess .deploy/api/public/uploads/.htaccess
           cp api/.htaccess .deploy/api/.htaccess
 
       - name: Write private production environment file
@@ -101,7 +153,7 @@ jobs:
           PHP
 
       - name: Deploy over encrypted FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        uses: SamKirkland/FTP-Deploy-Action@3a9c65ae0fc12ac924ccef8afc26941cc43aad0b # v4.4.0
         with:
           server: ftpupload.net
           username: ${{ secrets.INFINITYFREE_FTP_USER }}
@@ -110,6 +162,9 @@ jobs:
           port: 21
           local-dir: .deploy/api/
           server-dir: /htdocs/
+
+      - name: Verify deployed API health
+        run: curl --fail --silent --show-error --retry 5 --retry-delay 10 --retry-connrefused https://mirtalal.freedev.app/api/health
 
       - name: Prepare one-time admin SQL for phpMyAdmin
         id: prepare_admin
@@ -141,7 +196,7 @@ jobs:
 
       - name: Save admin SQL as a short-lived workflow artifact
         if: steps.prepare_admin.outputs.available == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: one-time-admin-sql
           path: create-admin.sql

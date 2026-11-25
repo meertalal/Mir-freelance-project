@@ -30,7 +30,7 @@ final class FeedbackFormService
     public function approved(int $limit = 100): array
     {
         return array_map(
-            static fn (FeedbackForm $f): array => $f->toArray(),
+            static fn (FeedbackForm $f): array => $f->toPublicArray(),
             $this->feedbackForms->findApproved($limit)
         );
     }
