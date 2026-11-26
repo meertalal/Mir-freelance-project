@@ -5,6 +5,7 @@ import PageLoader from "../components/shared/PageLoader";
 import { AdminAuthProvider } from "../features/admin/context/AdminAuthContext";
 import ProtectedRoute from "../features/admin/components/ProtectedRoute";
 import AdminLayout from "../features/admin/components/AdminLayout";
+import RouteErrorPage from "./RouteErrorPage";
 import {
   AboutPage,
   AdminAccountPage,
@@ -43,6 +44,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <RouteErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
       { path: "services", element: <ServicesPage /> },
@@ -70,6 +72,7 @@ export const router = createBrowserRouter([
         <Outlet />
       </AdminAuthProvider>
     ),
+    errorElement: <RouteErrorPage />,
     children: [
       {
         path: "login",

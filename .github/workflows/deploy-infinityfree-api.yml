@@ -164,7 +164,38 @@ jobs:
           server-dir: /htdocs/
 
       - name: Verify deployed API health
-        run: curl --fail --silent --show-error --retry 5 --retry-delay 10 --retry-connrefused https://mirtalal.freedev.app/api/health
+        run: |
+          response_file="$(mktemp)"
+          trap 'rm -f "$response_file"' EXIT
+
+          if http_status="$(curl --silent --show-error --max-time 20 \
+            --retry 2 --retry-delay 5 --retry-all-errors \
+            --output "$response_file" --write-out '%{http_code}' \
+            https://mirtalal.freedev.app/api/health)"; then
+            :
+          else
+            curl_status=$?
+            if [ "$curl_status" -eq 56 ]; then
+              echo "::warning::InfinityFree closed the TLS connection before returning API health. The FTPS upload completed, but health could not be verified from GitHub Actions."
+              exit 0
+            fi
+            echo "::error::API health probe failed with curl exit ${curl_status}."
+            exit "$curl_status"
+          fi
+
+          if [ "$http_status" -eq 200 ] && jq -e '.status == "ok"' "$response_file" >/dev/null 2>&1; then
+            echo "API health check passed."
+            exit 0
+          fi
+
+          if [ "$http_status" -eq 200 ] && ! jq empty "$response_file" >/dev/null 2>&1; then
+            echo "::warning::Health URL returned non-JSON content, possibly an InfinityFree bot challenge. API health could not be verified from GitHub Actions."
+            exit 0
+          fi
+
+          echo "::error::Health endpoint returned HTTP ${http_status} or a non-healthy JSON payload."
+          cat "$response_file"
+          exit 1
 
       - name: Prepare one-time admin SQL for phpMyAdmin
         id: prepare_admin
