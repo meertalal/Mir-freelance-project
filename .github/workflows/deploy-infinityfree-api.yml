@@ -3,7 +3,6 @@ name: Deploy website and API to InfinityFree
 on:
   push:
     branches:
-      - talal
       - main
     paths:
       - "api/**"
@@ -14,7 +13,6 @@ on:
       - "package-lock.json"
       - "vite.config.ts"
       - ".github/workflows/deploy-infinityfree-api.yml"
-  workflow_dispatch:
 
 permissions:
   contents: read
