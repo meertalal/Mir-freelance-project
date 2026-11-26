@@ -3,7 +3,6 @@ name: Deploy website and API to InfinityFree
 on:
   push:
     branches:
-      - talal
       - main
     paths:
       - "api/**"
@@ -14,7 +13,6 @@ on:
       - "package-lock.json"
       - "vite.config.ts"
       - ".github/workflows/deploy-infinityfree-api.yml"
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -55,6 +53,7 @@ jobs:
           rsync -a --exclude='/uploads/*' api/public/ .deploy/api/public/
           cp -a dist/. .deploy/api/
           mkdir -p .deploy/api/public/uploads
+          cp api/public/uploads/.htaccess .deploy/api/public/uploads/.htaccess
           cp api/.htaccess .deploy/api/.htaccess
 
       - name: Write private production environment file
