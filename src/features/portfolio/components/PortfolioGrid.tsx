@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import { sharedProjects } from "../../../data/site.data";
+import { useCaseStudies } from "../../content/useEditorialContent";
+import { getCmsProjectCategory } from "../utils/projectCategory";
 import { portfolioFilters } from "../data/portfolio-page.data";
 import PortfolioProjectCard from "./PortfolioProjectCard";
 import SectionHeading from "../../../components/shared/SectionHeading";
@@ -7,32 +9,71 @@ import Reveal from "../../../components/shared/Reveal";
 import { innerContainerClass } from "../../../components/shared/section.styles";
 
 type FilterId = (typeof portfolioFilters)[number]["id"];
+type ProjectCardData = {
+  id: string;
+  title: string;
+  description?: string;
+  image: string;
+  imageAlt: string;
+  tags: readonly string[];
+  category?: string;
+  country?: string;
+  flag: string;
+  href: string;
+};
 
-function filterProjects(id: FilterId) {
-  if (id === "all") return sharedProjects;
+function filterProjects(id: FilterId, projects: ProjectCardData[]) {
+  if (id === "all") return projects;
   if (id === "ai") {
-    return sharedProjects.filter((project) =>
+    return projects.filter((project) =>
       project.tags.some((tag) => /ai|automation/i.test(tag)),
     );
   }
-  return sharedProjects.filter((project) => project.category === id);
+  return projects.filter((project) => project.category === id);
 }
 
 export default function PortfolioGrid() {
   const [active, setActive] = useState<FilterId>("all");
+  const { data: caseStudies, remote } = useCaseStudies();
+  const projects: ProjectCardData[] = useMemo(() => remote
+    ? (() => {
+      const cmsStudies = caseStudies.filter((study) => study.managedByCms);
+      const cmsSlugs = new Set(cmsStudies.map((study) => study.slug));
+      const cmsProjects = cmsStudies.map((study) => {
+        const staticProject = sharedProjects.find((project) => project.id === study.slug);
+        const category = getCmsProjectCategory(
+          study.projectType,
+          staticProject?.category,
+        );
+        return {
+          id: study.slug,
+          title: study.title,
+          description: study.excerpt,
+          image: study.coverImage || staticProject?.image || "/image/projects/voice-agent.webp",
+          imageAlt: study.coverImageAlt || staticProject?.imageAlt || study.title,
+          tags: study.services.length ? study.services : staticProject?.tags ?? [],
+          category,
+          flag: "",
+          href: `/portfolio/${study.slug}`,
+        };
+      });
+      const remainingStatic = sharedProjects.filter((project) => !cmsSlugs.has(project.id));
+      return [...cmsProjects, ...remainingStatic];
+    })()
+    : [...sharedProjects], [caseStudies, remote]);
 
   const counts = useMemo(
     () =>
       Object.fromEntries(
         portfolioFilters.map((filter) => [
           filter.id,
-          filterProjects(filter.id).length,
+          filterProjects(filter.id, projects).length,
         ]),
       ) as Record<FilterId, number>,
-    [],
+    [projects],
   );
 
-  const filtered = useMemo(() => filterProjects(active), [active]);
+  const filtered = useMemo(() => filterProjects(active, projects), [active, projects]);
 
   return (
     <section
@@ -108,7 +149,7 @@ export default function PortfolioGrid() {
           >
             Showing{" "}
             <span className="font-bold text-[#10234B]">{filtered.length}</span> of{" "}
-            {sharedProjects.length} projects
+            {projects.length} projects
           </p>
         </div>
         </Reveal>

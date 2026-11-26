@@ -7,4 +7,4 @@ Disallow: /api/
 # Private admin area
 Disallow: /admin
 
-Sitemap: https://mirtalal.web.app/sitemap.xml
+Sitemap: https://mirtalal.freedev.app/sitemap.xml

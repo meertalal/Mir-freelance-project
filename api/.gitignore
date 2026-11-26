@@ -5,3 +5,4 @@
 /var/
 /public/uploads/*
 !/public/uploads/.gitignore
+!/public/uploads/.htaccess

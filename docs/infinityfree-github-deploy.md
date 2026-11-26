@@ -24,6 +24,8 @@ After adding all five secrets, push a commit that changes a file under `api/` or
 
 The workflow uploads PHP files; it cannot run Doctrine migrations because InfinityFree free databases reject remote MySQL connections. In InfinityFree's phpMyAdmin, select the new database, choose **Import**, and upload [`infinityfree-schema.sql`](infinityfree-schema.sql). This is for a new, empty database. The API tables will exist after import, but you still need to create the first admin account before the admin pages can log in.
 
+For an existing database, import [`infinityfree-content-module-upgrade.sql`](infinityfree-content-module-upgrade.sql) to add the Blog, Portfolio, and Media Library tables used by the Admin modules. This upgrade only creates the missing tables.
+
 To create that account without exposing a plaintext password:
 
 1. Add GitHub Actions repository secrets named `INFINITYFREE_ADMIN_EMAIL`, `INFINITYFREE_ADMIN_PASSWORD` (at least 12 characters), and optionally `INFINITYFREE_ADMIN_NAME`.
@@ -32,7 +34,3 @@ To create that account without exposing a plaintext password:
 4. Delete the three admin secrets from GitHub after importing, then sign in at `/admin/login` with the email and password you chose.
 
 The SQL uses a plain `INSERT`; import it only once. Do not commit or share the SQL artifact. Never add a public migration or account-setup endpoint.
-
-## Firebase fallback
-
-The Firebase live deploy workflow is now manual only. Firebase preview deployments for pull requests remain available.

@@ -1,18 +1,24 @@
 import SocialIcon from "../layout/footer/SocialIcon";
 import { footerSocialLinks } from "../../data/footer.data";
+import { useSiteSettings } from "../../features/site-settings/useSiteSettings";
 
 type SocialFollowRowProps = {
   className?: string;
 };
 
 export default function SocialFollowRow({ className = "mt-7" }: SocialFollowRowProps) {
+  const settings = useSiteSettings();
+  const links = footerSocialLinks.map((social) => ({
+    ...social,
+    href: settings.social[social.id as keyof typeof settings.social] || social.href,
+  }));
   return (
     <div className={`flex flex-wrap items-center gap-3 ${className}`}>
       <p className="font-playfair text-[11px] font-semibold uppercase tracking-[0.14em] text-[#092F58]">
         Follow Me On
       </p>
       <div className="flex items-center gap-2">
-        {footerSocialLinks.map((social) => (
+        {links.map((social) => (
           <a
             key={social.id}
             href={social.href}

@@ -28,11 +28,10 @@ final class FeedbackController
 
         $this->rateLimits->enforce('feedback', ClientIp::fromRequest($request), 5, 3600, 'Too many feedback submissions. Please try again in an hour.');
 
-        $feedback = $this->feedbackForms->create($body);
+        $this->feedbackForms->create($body);
 
         return Json::write($response, [
             'message' => 'Thanks! Your feedback has been submitted for review.',
-            'data' => $feedback->toArray(),
         ], 201);
     }
 

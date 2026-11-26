@@ -29,19 +29,19 @@ class UploadedFile
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(name: 'relative_path', type: 'string', length: 255)]
     private string $relativePath = '';
 
-    #[ORM\Column(type: 'string', length: 255, options: ['default' => ''])]
+    #[ORM\Column(name: 'original_filename', type: 'string', length: 255, options: ['default' => ''])]
     private string $originalFilename = '';
 
-    #[ORM\Column(type: 'string', length: 120, options: ['default' => ''])]
+    #[ORM\Column(name: 'mime_type', type: 'string', length: 120, options: ['default' => ''])]
     private string $mimeType = '';
 
-    #[ORM\Column(type: 'integer', options: ['default' => 0])]
+    #[ORM\Column(name: 'size_bytes', type: 'integer', options: ['default' => 0])]
     private int $sizeBytes = 0;
 
-    #[ORM\Column(type: 'string', length: 40, options: ['default' => ''])]
+    #[ORM\Column(name: 'uploadable_type', type: 'string', length: 40, options: ['default' => ''])]
     private string $uploadableType = '';
 
     #[ORM\Column(name: 'uploadable_id', type: 'integer', nullable: true)]

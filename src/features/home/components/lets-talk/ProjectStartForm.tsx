@@ -14,7 +14,9 @@ import {
 } from "../../../../services/contact.service";
 
 const fieldClass =
-  "w-full min-h-11 rounded-xl border border-slate-200 bg-[#F7FAFF] px-3.5 py-3 text-base text-slate-800 outline-none transition focus:border-[#1670F5] focus:bg-white focus:ring-2 focus:ring-[#1670F5]/20 sm:text-sm";
+  "w-full min-h-12 rounded-xl border border-[#DCE6F2] bg-[#F8FAFD] px-4 py-3 text-base text-[#172B4D] outline-none transition duration-200 placeholder:text-[#91A0B5] hover:border-[#B9CBE0] focus:border-[#1670F5] focus:bg-white focus:ring-4 focus:ring-[#1670F5]/10 sm:text-sm";
+const labelClass =
+  "mb-2 block font-inter text-xs font-bold tracking-[0.025em] text-[#344968]";
 
 const initialForm: ContactPayload = {
   fullName: "",
@@ -82,30 +84,31 @@ export default function ProjectStartForm({
       onSubmit={handleSubmit}
       noValidate
       className="
-        rounded-[1.75rem] border border-white/80 bg-white
-        p-5 shadow-[0_18px_50px_rgba(15,48,91,0.08)]
+        rounded-[1.75rem] border border-[#DCE8F7] bg-gradient-to-br from-white via-white to-[#F7FAFF]
+        p-5 shadow-[0_24px_70px_rgba(15,48,91,0.11)]
         sm:p-7 lg:p-8
       "
     >
-      <div className="mb-6 flex items-start gap-3">
-        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EAF2FF] text-[#1670F5]">
+      <div className="mb-6 flex items-start gap-3 border-b border-[#E8EEF7] pb-5 sm:mb-7">
+        <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#EAF2FF] to-[#D9E9FF] text-[#1263D6] shadow-sm ring-1 ring-[#CFE0F5]">
           <Mail size={20} aria-hidden="true" />
         </span>
         <div>
-          <h3 className="font-montserrat text-xl font-bold text-[#10234B] sm:text-2xl">
+          <p className="mb-1 font-inter text-[10px] font-bold uppercase tracking-[0.16em] text-[#1670F5]">
+            Project inquiry
+          </p>
+          <h3 className="font-montserrat text-xl font-bold leading-tight text-[#10234B] sm:text-2xl">
             {title}
           </h3>
-          <p className="mt-1 font-inter text-sm text-slate-500">
+          <p className="mt-1.5 font-inter text-sm leading-relaxed text-[#71819A]">
             {subtitle}
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <label className="block">
-          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
-            Your Name *
-          </span>
+      <div className="grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-5">
+        <label className="block min-w-0">
+          <span className={labelClass}>Your Name <span className="text-[#1670F5]">*</span></span>
           <input
             required
             name="fullName"
@@ -117,10 +120,8 @@ export default function ProjectStartForm({
           />
         </label>
 
-        <label className="block">
-          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
-            Email Address *
-          </span>
+        <label className="block min-w-0">
+          <span className={labelClass}>Email Address <span className="text-[#1670F5]">*</span></span>
           <input
             required
             type="email"
@@ -133,16 +134,49 @@ export default function ProjectStartForm({
           />
         </label>
 
-        <label className="block">
-          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
-            Project Type *
-          </span>
+        <label className="block min-w-0">
+          <span className={labelClass}>Company</span>
+          <input
+            name="company"
+            value={form.company ?? ""}
+            onChange={(event) => updateField("company", event.target.value)}
+            className={fieldClass}
+            placeholder="Enter your company or organization"
+            autoComplete="organization"
+          />
+        </label>
+
+        <label className="block min-w-0">
+          <span className={labelClass}>Designation</span>
+          <input
+            name="designation"
+            value={form.designation ?? ""}
+            onChange={(event) => updateField("designation", event.target.value)}
+            className={fieldClass}
+            placeholder="Enter your job title"
+            autoComplete="organization-title"
+          />
+        </label>
+
+        <label className="block min-w-0">
+          <span className={labelClass}>Subject</span>
+          <input
+            name="subject"
+            value={form.subject ?? ""}
+            onChange={(event) => updateField("subject", event.target.value)}
+            className={fieldClass}
+            placeholder="Enter a subject"
+          />
+        </label>
+
+        <label className="block min-w-0">
+          <span className={labelClass}>Project Type <span className="text-[#1670F5]">*</span></span>
           <select
             required
             name="projectType"
             value={form.projectType}
             onChange={(event) => updateField("projectType", event.target.value)}
-            className={fieldClass}
+            className={`${fieldClass} cursor-pointer`}
           >
             <option value="">Select a service</option>
             {letsTalkProjectTypes.map((type) => (
@@ -153,15 +187,13 @@ export default function ProjectStartForm({
           </select>
         </label>
 
-        <label className="block">
-          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
-            Budget Range
-          </span>
+        <label className="block min-w-0">
+          <span className={labelClass}>Budget Range</span>
           <select
             name="budgetRange"
             value={form.budgetRange}
             onChange={(event) => updateField("budgetRange", event.target.value)}
-            className={fieldClass}
+            className={`${fieldClass} cursor-pointer`}
           >
             <option value="">Select a budget</option>
             {budgetRanges.map((range) => (
@@ -172,10 +204,10 @@ export default function ProjectStartForm({
           </select>
         </label>
 
-        <div>
+        <div className="min-w-0">
           <label
             htmlFor="start-form-country"
-            className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs"
+            className={labelClass}
           >
             Country
           </label>
@@ -192,10 +224,8 @@ export default function ProjectStartForm({
           />
         </div>
 
-        <fieldset className="min-w-0">
-          <legend className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
-            Phone Number
-          </legend>
+        <fieldset className="min-w-0 sm:col-span-2">
+          <legend className={labelClass}>Phone Number</legend>
           <div className="flex min-w-0 flex-col gap-2 min-[480px]:flex-row">
             <div className="min-w-0 min-[480px]:w-[40%]">
               <CountrySearchSelect
@@ -210,7 +240,7 @@ export default function ProjectStartForm({
                   updateField("countryPhone", match?.phoneCode ?? "");
                 }}
                 countries={countries}
-                placeholder="Code"
+                placeholder="Select your country code"
                 showDialCode
                 panelClassName="min-[480px]:min-w-[17.5rem]"
               />
@@ -229,16 +259,14 @@ export default function ProjectStartForm({
           </div>
         </fieldset>
 
-        <label className="block sm:col-span-2">
-          <span className="mb-1.5 block font-inter text-sm font-semibold text-slate-700 sm:text-xs">
-            Project Details *
-          </span>
+        <label className="block min-w-0 sm:col-span-2">
+          <span className={labelClass}>Project Details <span className="text-[#1670F5]">*</span></span>
           <textarea
             required
             name="message"
             value={form.message}
             onChange={(event) => updateField("message", event.target.value)}
-            className={`${fieldClass} min-h-32 resize-y`}
+            className={`${fieldClass} min-h-36 resize-y leading-relaxed`}
             placeholder="Tell me about your project, goals, and any specific requirements..."
           />
         </label>
@@ -248,9 +276,9 @@ export default function ProjectStartForm({
         type="submit"
         disabled={status === "loading"}
         className="
-          group mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2
-          rounded-xl bg-[#092f58] px-5 font-inter text-sm font-bold text-white
-          transition hover:bg-[#0f3d6e] disabled:cursor-not-allowed disabled:opacity-70
+          group mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2
+          rounded-xl bg-gradient-to-r from-[#092f58] to-[#1456A0] px-5 font-inter text-sm font-bold text-white
+          shadow-[0_10px_22px_rgba(9,47,88,0.18)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(9,47,88,0.24)] disabled:cursor-not-allowed disabled:opacity-70
         "
       >
         {status === "loading" ? (

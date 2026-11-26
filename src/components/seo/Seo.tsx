@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { apiUrl } from "../../features/admin/api/client";
+import { useSiteSettings } from "../../features/site-settings/useSiteSettings";
 import {
   breadcrumbSchema,
   defaultImage,
@@ -35,10 +36,23 @@ function upsertLink(rel: string, href: string) {
 
 export default function Seo() {
   const pathname = useLocation().pathname.replace(/\/+$/, "") || "/";
-  const seo = routeSeo[pathname] ?? routeSeo["/"];
+  const settings = useSiteSettings();
+  const route = routeSeo[pathname] ?? routeSeo["/"];
+  const seo = useMemo(
+    () => pathname === "/" ? {
+      ...route,
+      title: settings.seo.title || route.title,
+      description: settings.seo.description || route.description,
+      image: settings.seo.ogImage || route.image,
+    } : route,
+    [pathname, route, settings.seo.title, settings.seo.description, settings.seo.ogImage],
+  );
   const isKnown = pathname in routeSeo;
   const canonical = `${siteUrl}${seo.path === "/" ? "/" : seo.path}`;
-  const image = `${siteUrl}${seo.image ?? defaultImage}`;
+  const imagePath = seo.image ?? defaultImage;
+  const image = /^https?:\/\//i.test(imagePath)
+    ? imagePath
+    : `${siteUrl}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
   const robots = isKnown ? (seo.robots ?? "index, follow") : "noindex, follow";
 
   useEffect(() => {

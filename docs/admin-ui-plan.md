@@ -149,19 +149,15 @@ successful response, so a mail outage never loses a lead.
 
 ## Deployment notes
 
-- The API cannot run on Firebase Hosting. Host `api/` on PHP hosting (or a small
-  VPS) at its own origin, e.g. `https://api.mirtalal.com`, and set that origin in
-  `CORS_ORIGINS`, plus `VITE_API_URL` for the built frontend.
+- The React frontend and PHP API are deployed together to InfinityFree at
+  `https://mirtalal.freedev.app`; frontend API requests use the same origin.
 - Serve `/admin` from the same SPA; add `Disallow: /admin` to `public/robots.txt`
   and send `X-Robots-Tag: noindex` for the admin routes.
 - HTTPS only. Keep `TRUST_PROXY=true` only when actually behind a proxy, since it
   affects the contact rate limit key.
-- Firebase rewrite for `/api/**` currently points to `index.html`; once the form
-  uses an absolute `VITE_API_URL`, that rewrite is unused and can be dropped.
 
 ## Open decisions
 
 1. Admin UI scope for phase 1: submissions only, or submissions + site settings?
 2. Editing experience for long content: rich text (TipTap) or markdown?
-3. Where will `api/` be hosted? Needed before CORS and `VITE_API_URL` are final.
-4. Should `/admin` be on the same domain as the site (simplest) or separate?
+3. Should `/admin` be on the same domain as the site (simplest) or separate?

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { ChevronDown, Mail } from "lucide-react";
+import { ChevronDown, HelpCircle, Mail } from "lucide-react";
 import { processFaqs } from "../data/process-page.data";
+import { useFaqs } from "../../faq/useFaqs";
 import { brand } from "../../../data/site.data";
 import SectionHeading from "../../../components/shared/SectionHeading";
 import Reveal from "../../../components/shared/Reveal";
@@ -30,6 +31,10 @@ function ContactPrompt() {
 }
 
 export default function ProcessFaq() {
+  const remoteFaqs = useFaqs();
+  const faqs = remoteFaqs === null
+    ? processFaqs
+    : remoteFaqs.filter((item) => item.category.toLowerCase() === "process").map((item) => ({ id: String(item.id), question: item.question, answer: item.answer, Icon: HelpCircle }));
   const [openId, setOpenId] = useState<string | null>(processFaqs[0]?.id ?? null);
 
   return (
@@ -60,7 +65,7 @@ export default function ProcessFaq() {
         </div>
 
         <div className="flex min-w-0 flex-col gap-3">
-          {processFaqs.map((faq, index) => {
+          {faqs.map((faq, index) => {
             const isOpen = openId === faq.id;
             const Icon = faq.Icon;
 

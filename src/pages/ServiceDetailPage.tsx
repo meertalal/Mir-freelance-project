@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, CheckCircle2, Clock3, Gauge, ShieldCheck } from "lucide-react";
 import { sharedServices } from "../data/site.data";
+import { useServices } from "../features/content/useContent";
 import { getServiceDetail } from "../features/services/data/service-details.data";
 import PageHeroCentered from "../components/shared/PageHeroCentered";
 import ProcessStrip from "../components/shared/ProcessStrip";
@@ -16,8 +17,26 @@ import { innerContainerClass, innerSectionClass } from "../components/shared/sec
 
 export default function ServiceDetailPage() {
   const { slug } = useParams();
-  const detail = getServiceDetail(slug);
-  const service = sharedServices.find((item) => item.id === detail?.id);
+  const liveServices = useServices();
+  const storedDetail = getServiceDetail(slug);
+  const service = useMemo(() => {
+    const serviceSource = liveServices.find((item) => item.href.endsWith(`/${slug}`))
+      ?? liveServices.find((item) => item.id === slug)
+      ?? sharedServices.find((item) => item.id === (storedDetail?.id ?? slug));
+    return serviceSource ? {
+      ...serviceSource,
+      icon: "Icon" in serviceSource ? serviceSource.Icon : serviceSource.icon,
+    } : undefined;
+  }, [liveServices, slug, storedDetail]);
+  const detail = useMemo(() => storedDetail ?? (service ? {
+    id: service.id,
+    tagline: `A tailored ${service.title.toLowerCase()} solution for your business.`,
+    intro: service.description,
+    tech: [],
+    outcomes: [{ value: "Built around you", label: "Clear scope and milestones" }],
+    deliverables: [service.description],
+    idealFor: ["Businesses looking for a reliable, tailored solution"],
+  } : undefined), [storedDetail, service]);
 
   usePageSeo(
     useMemo(
@@ -26,11 +45,11 @@ export default function ServiceDetailPage() {
           ? {
               title: service.title + " Services | Mir Talal",
               description: service.description + " " + detail.tagline + ".",
-              path: "/services/" + service.id,
+              path: "/services/" + slug,
               image: `/image/og/service-${service.id}.png`,
             }
           : null,
-      [service, detail],
+      [service, detail, slug],
     ),
   );
 
@@ -39,7 +58,10 @@ export default function ServiceDetailPage() {
   }
 
   const Icon = service.icon;
-  const related = sharedServices.filter((item) => item.id !== service.id).slice(0, 3);
+  const related = liveServices
+    .filter((item) => item.id !== service.id)
+    .slice(0, 3)
+    .map((item) => ({ ...item, icon: item.Icon }));
   const outcomeIcons = [Gauge, ShieldCheck, Clock3];
   const titleWords = service.title.split(" ");
   const titleHighlight = titleWords[titleWords.length - 1];
@@ -58,7 +80,7 @@ export default function ServiceDetailPage() {
         name: service.title,
         serviceType: service.title,
         description: detail.intro,
-        url: `${siteUrl}/services/${service.id}`,
+        url: `${siteUrl}/services/${slug}`,
         image: `${siteUrl}/image/og/service-${service.id}.png`,
         provider: {
           "@type": "Organization",
@@ -185,7 +207,7 @@ export default function ServiceDetailPage() {
               return (
                 <Reveal key={item.id} delay={index * 80} className="h-full">
                 <Link
-                  to={"/services/" + item.id}
+                  to={item.href}
                   className="group flex h-full flex-col rounded-[1.4rem] border border-[#E1EAF6] bg-white p-5 shadow-[0_10px_30px_rgba(15,48,91,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#B8D2F4] hover:shadow-[0_20px_44px_rgba(15,48,91,0.12)] sm:p-6"
                 >
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#EAF2FF] text-[#1670F5] transition duration-300 group-hover:bg-[#092f58] group-hover:text-white">

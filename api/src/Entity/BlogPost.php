@@ -32,7 +32,7 @@ class BlogPost
     #[ORM\Column(type: 'text', options: ['default' => ''])]
     private string $excerpt = '';
 
-    #[ORM\Column(type: 'string', length: 255, options: ['default' => ''])]
+    #[ORM\Column(name: 'cover_image', type: 'string', length: 255, options: ['default' => ''])]
     private string $coverImage = '';
 
     #[ORM\Column(name: 'cover_image_alt', type: 'string', length: 255, options: ['default' => ''])]

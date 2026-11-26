@@ -28,7 +28,6 @@ dist-ssr
 .claude/
 .cursor/
 .windsurf/
-.firebase/
 
 # Build info and local environment files
 *.tsbuildinfo

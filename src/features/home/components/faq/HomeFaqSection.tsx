@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SectionHeader from "../../../../components/shared/SectionHeader";
 import Reveal from "../../../../components/shared/Reveal";
 import { innerContainerClass, innerSectionClass } from "../../../../components/shared/section.styles";
@@ -10,11 +10,11 @@ import { HelpCircle } from "lucide-react";
 
 export default function HomeFaqSection() {
   const remoteFaqs = useFaqs();
-  const items = remoteFaqs?.length
-    ? remoteFaqs.filter((item) => item.category.toLowerCase() === "home").map((item) => ({ id: String(item.id), question: item.question, answer: item.answer, Icon: HelpCircle }))
-    : homeFaqs;
-  const [openId, setOpenId] = useState<string>(homeFaqs[0]?.id ?? "");
-  useEffect(() => { if (items[0]) setOpenId(items[0].id); }, [remoteFaqs]);
+  const items = remoteFaqs === null
+    ? homeFaqs
+    : remoteFaqs.filter((item) => item.category.toLowerCase() === "home").map((item) => ({ id: String(item.id), question: item.question, answer: item.answer, Icon: HelpCircle }));
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const openId = selectedId ?? items[0]?.id ?? "";
 
   return (
     <section
@@ -49,7 +49,7 @@ export default function HomeFaqSection() {
                 item={item}
                 isOpen={openId === item.id}
                 onToggle={() =>
-                  setOpenId((current) => (current === item.id ? "" : item.id))
+                  setSelectedId((current) => (current === item.id ? "" : item.id))
                 }
               />
             ))}

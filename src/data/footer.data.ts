@@ -30,6 +30,11 @@ export const footerSocialLinks = [
     label: "Facebook",
     href: "https://facebook.com",
   },
+  {
+    id: "youtube",
+    label: "YouTube",
+    href: "https://youtube.com",
+  },
 ] as const;
 
 export const footerQuickLinks = [

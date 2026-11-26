@@ -30,8 +30,9 @@
         "sort-packages": true
     },
     "scripts": {
-        "start": "php -S 127.0.0.1:8090 -t public",
+        "start": "php -S 127.0.0.1:8090 -t public router.php",
         "migrate": "php bin/console migrations:migrate",
-        "seed:admin": "php bin/console app:seed-admin"
+        "seed:admin": "php bin/console app:seed-admin",
+        "test": "php tests/PublicContentTest.php"
     }
 }

@@ -120,7 +120,7 @@ async function load() {
   const serviceRows = (servicesPayload as { data?: ServiceResponse[] } | null)
     ?.data;
 
-  if (Array.isArray(serviceRows) && serviceRows.length > 0) {
+  if (Array.isArray(serviceRows)) {
     services = serviceRows.map((row) => ({
       id: String(row.id),
       title: row.title,
@@ -137,7 +137,7 @@ async function load() {
     testimonialsPayload as { data?: TestimonialResponse[] } | null
   )?.data;
 
-  if (Array.isArray(testimonialRows) && testimonialRows.length > 0) {
+  if (Array.isArray(testimonialRows)) {
     testimonials = testimonialRows.map((row) => ({
       id: String(row.id),
       author: row.author,

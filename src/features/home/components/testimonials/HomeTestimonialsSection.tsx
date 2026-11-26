@@ -34,6 +34,8 @@ export default function HomeTestimonialsSection() {
     return () => window.clearInterval(timer);
   }, [paused, total]);
 
+  if (!active) return null;
+
   const goPrev = () => setIndex((current) => (current - 1 + total) % total);
   const goNext = () => setIndex((current) => (current + 1) % total);
 

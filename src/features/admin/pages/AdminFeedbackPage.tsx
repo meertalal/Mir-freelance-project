@@ -10,18 +10,38 @@ export default function AdminFeedbackPage() {
   const { token, admin } = useAdminAuth();
   const [items, setItems] = useState<AdminFeedback[]>([]);
   const [filter, setFilter] = useState<(typeof statuses)[number]>("new");
-  const [loading, setLoading] = useState(true);
+  const [loadedKey, setLoadedKey] = useState("");
   const [working, setWorking] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [counts, setCounts] = useState<Record<string, number>>({});
+  const requestKey = `${token ?? ""}:${filter}`;
   const refresh = useCallback(() => {
     if (!token) return;
-    listFeedback(token, filter === "all" ? undefined : filter).then((result) => { setItems(result.data); setCounts(result.meta.status_counts); })
+    setError("");
+    void listFeedback(token, filter === "all" ? undefined : filter)
+      .then((result) => { setItems(result.data); setCounts(result.meta.status_counts); })
       .catch((cause) => setError(cause instanceof ApiError ? cause.message : "Could not load feedback."))
-      .finally(() => setLoading(false));
-  }, [token, filter]);
-  useEffect(() => { setLoading(true); refresh(); }, [refresh]);
+      .finally(() => setLoadedKey(requestKey));
+  }, [token, filter, requestKey]);
+  const loading = Boolean(token) && loadedKey !== requestKey;
+  useEffect(() => {
+    if (!token) return;
+    let active = true;
+    listFeedback(token, filter === "all" ? undefined : filter)
+      .then((result) => {
+        if (!active) return;
+        setItems(result.data);
+        setCounts(result.meta.status_counts);
+      })
+      .catch((cause) => {
+        if (active) setError(cause instanceof ApiError ? cause.message : "Could not load feedback.");
+      })
+      .finally(() => {
+        if (active) setLoadedKey(requestKey);
+      });
+    return () => { active = false; };
+  }, [token, filter, requestKey]);
   const moderate = async (item: AdminFeedback, status: AdminFeedback["status"]) => {
     if (!token || !admin) return;
     const notes = status === "reviewed" ? window.prompt("Add a note before marking this feedback reviewed:", item.notes) : item.notes;
