@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { GripVertical, LoaderCircle, Plus, Trash2 } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
 import ImageUploadField from "../components/ImageUploadField";
+import usePendingImageUploads from "../hooks/usePendingImageUploads";
 import {
   createTestimonial,
   deleteTestimonial,
@@ -56,12 +57,16 @@ export default function AdminTestimonialsPage() {
   const [notice, setNotice] = useState("");
 
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [formGeneration, setFormGeneration] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
   const [form, setForm] = useState<TestimonialInput>(emptyForm);
   const [saving, setSaving] = useState(false);
   const [workingId, setWorkingId] = useState<number | null>(null);
   const [dragId, setDragId] = useState<number | null>(null);
   const [orderSaving, setOrderSaving] = useState(false);
+  const { hasPending, onPendingChange } = usePendingImageUploads();
+  const uploadContextId = `testimonial:${editingId ?? "new"}:${formGeneration}`;
+  const imageUploadPending = hasPending(uploadContextId);
 
   useEffect(() => {
     if (!token) return;
@@ -91,6 +96,7 @@ export default function AdminTestimonialsPage() {
   }, [token]);
 
   const startCreate = () => {
+    setFormGeneration((generation) => generation + 1);
     setEditingId(null);
     setForm(emptyForm);
     setFormOpen(true);
@@ -99,6 +105,7 @@ export default function AdminTestimonialsPage() {
   };
 
   const startEdit = (item: AdminTestimonial) => {
+    setFormGeneration((generation) => generation + 1);
     setEditingId(item.id);
     setForm(toInput(item));
     setFormOpen(true);
@@ -109,6 +116,10 @@ export default function AdminTestimonialsPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!token) return;
+    if (imageUploadPending) {
+      setError("Wait for the image upload to finish before saving.");
+      return;
+    }
 
     setSaving(true);
     setError("");
@@ -240,10 +251,14 @@ export default function AdminTestimonialsPage() {
             </label>
 
             <ImageUploadField
+              key={uploadContextId}
               label="Avatar path"
               value={form.avatar}
               onChange={(avatar) => setForm((current) => ({ ...current, avatar }))}
               uploadableType="testimonial"
+              uploadContextId={uploadContextId}
+              uploadFieldId="avatar"
+              onPendingChange={onPendingChange}
             />
 
             <label className="block sm:col-span-2">
@@ -308,7 +323,7 @@ export default function AdminTestimonialsPage() {
           </div>
 
           <div className="mt-5 flex gap-2">
-            <button type="submit" disabled={saving} className={adminPrimaryButtonClass}>
+            <button type="submit" disabled={saving || imageUploadPending} className={adminPrimaryButtonClass}>
               {saving && <LoaderCircle className="animate-spin" size={16} />}
               {editingId === null ? "Add testimonial" : "Save changes"}
             </button>

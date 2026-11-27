@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { GripVertical, LoaderCircle, Plus, Trash2 } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
 import ImageUploadField from "../components/ImageUploadField";
+import usePendingImageUploads from "../hooks/usePendingImageUploads";
 import { ApiError } from "../api/client";
 import { saveContentOrder } from "../api/tools";
 import { moveItem } from "../utils/order";
@@ -30,6 +31,7 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
   const [items, setItems] = useState<RecordItem[]>([]);
   const [form, setForm] = useState<CaseStudyInput | BlogPostInput>(isBlog ? blankBlog : blankCase);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [formGeneration, setFormGeneration] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -37,6 +39,9 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
   const [notice, setNotice] = useState("");
   const [dragId, setDragId] = useState<number | null>(null);
   const [orderSaving, setOrderSaving] = useState(false);
+  const { hasPending, onPendingChange } = usePendingImageUploads();
+  const uploadContextId = `${mode}:${editingId ?? "new"}:${formGeneration}`;
+  const imageUploadPending = hasPending(uploadContextId);
 
   const refresh = useCallback(() => {
     if (!token) return;
@@ -47,8 +52,9 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
   }, [token, isBlog]);
   useEffect(() => { refresh(); }, [refresh]);
 
-  const beginCreate = () => { setEditingId(null); setForm(isBlog ? blankBlog : blankCase); setFormOpen(true); setError(""); setNotice(""); };
+  const beginCreate = () => { setFormGeneration((generation) => generation + 1); setEditingId(null); setForm(isBlog ? blankBlog : blankCase); setFormOpen(true); setError(""); setNotice(""); };
   const beginEdit = (item: RecordItem) => {
+    setFormGeneration((generation) => generation + 1);
     setEditingId(item.id);
     if (isBlog) {
       const post = item as AdminBlogPost;
@@ -66,6 +72,7 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
 
   const submit = async (event: FormEvent) => {
     event.preventDefault(); if (!token) return;
+    if (imageUploadPending) { setError("Wait for the image upload to finish before saving."); return; }
     setSaving(true); setError(""); setNotice("");
     try {
       let saved: RecordItem;
@@ -105,11 +112,14 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
   );
   const imageField = (key: "cover_image" | "author_avatar", label: string, uploadableType: "blog_post" | "case_study") => (
     <ImageUploadField
-      key={key}
+      key={`${uploadContextId}:${key}`}
       label={label}
       value={String((form as unknown as Record<string, unknown>)[key] ?? "")}
       onChange={(value) => updateField(key, value)}
       uploadableType={uploadableType}
+      uploadContextId={uploadContextId}
+      uploadFieldId={key}
+      onPendingChange={onPendingChange}
     />
   );
 
@@ -128,7 +138,7 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
         <label className="block"><span className={adminLabelClass}>Publication status</span><select className={adminFieldClass} value={form.status} onChange={(e) => setForm((current) => ({ ...current, status: e.target.value as "draft" | "published", is_published: e.target.value === "published" }))}><option value="draft">Draft</option><option value="published">Published</option></select></label>
         <label className="block"><span className={adminLabelClass}>Display order</span><input type="number" min="0" className={adminFieldClass} value={form.sort_order} onChange={(e) => setForm((current) => ({ ...current, sort_order: Number(e.target.value) }))} /></label>
       </div>
-      <div className="mt-5 flex gap-2"><button disabled={saving} className={adminPrimaryButtonClass} type="submit">{saving && <LoaderCircle size={16} className="animate-spin" />}Save {isBlog ? "post" : "case study"}</button><button type="button" onClick={() => setFormOpen(false)} className={adminSecondaryButtonClass}>Cancel</button></div>
+      <div className="mt-5 flex gap-2"><button disabled={saving || imageUploadPending} className={adminPrimaryButtonClass} type="submit">{saving && <LoaderCircle size={16} className="animate-spin" />}Save {isBlog ? "post" : "case study"}</button><button type="button" onClick={() => setFormOpen(false)} className={adminSecondaryButtonClass}>Cancel</button></div>
     </form>}
     <div className={`${adminCardClass} mt-5 overflow-hidden`}>
       {loading && <p className="px-5 py-7 text-sm text-slate-500">Loading content…</p>}

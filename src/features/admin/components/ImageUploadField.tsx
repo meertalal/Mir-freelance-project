@@ -1,8 +1,9 @@
-import { useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { LoaderCircle, UploadCloud } from "lucide-react";
-import { apiUrl } from "../api/client";
 import { uploadMedia, type UploadableType } from "../api/media";
 import { useAdminAuth } from "../context/adminAuth";
+import { siteUrl } from "../../../data/seo.data";
+import { resolveImageUrl } from "../../../utils/resolveImageUrl";
 import {
   adminFieldClass,
   adminLabelClass,
@@ -14,21 +15,22 @@ type ImageUploadFieldProps = {
   value: string;
   onChange: (value: string) => void;
   uploadableType: UploadableType;
+  uploadContextId: string;
+  uploadFieldId: string;
+  onPendingChange: (key: string, pending: boolean) => void;
   required?: boolean;
   hint?: string;
   wide?: boolean;
 };
-
-function imageUrl(path: string): string {
-  if (/^https?:\/\//i.test(path)) return path;
-  return apiUrl(path.startsWith("/") ? path : `/${path}`);
-}
 
 export default function ImageUploadField({
   label,
   value,
   onChange,
   uploadableType,
+  uploadContextId,
+  uploadFieldId,
+  onPendingChange,
   required = false,
   hint = "Upload an image or enter an existing image path.",
   wide = false,
@@ -37,6 +39,28 @@ export default function ImageUploadField({
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const mountedRef = useRef(false);
+  const uploadSequenceRef = useRef(0);
+  const activeUploadKeyRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      uploadSequenceRef.current += 1;
+      const activeKey = activeUploadKeyRef.current;
+      activeUploadKeyRef.current = null;
+      if (activeKey) onPendingChange(activeKey, false);
+    };
+  }, [onPendingChange]);
+
+  const invalidateUpload = () => {
+    uploadSequenceRef.current += 1;
+    const activeKey = activeUploadKeyRef.current;
+    activeUploadKeyRef.current = null;
+    if (activeKey) onPendingChange(activeKey, false);
+    setUploading(false);
+  };
 
   const upload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.currentTarget.files?.[0];
@@ -48,16 +72,39 @@ export default function ImageUploadField({
       return;
     }
 
+    invalidateUpload();
+    const sequence = ++uploadSequenceRef.current;
+    const pendingKey = `${uploadContextId}/${uploadFieldId}/${sequence}`;
+    activeUploadKeyRef.current = pendingKey;
     setUploading(true);
     setError("");
+    onPendingChange(pendingKey, true);
+
+    const isCurrentUpload = () =>
+      mountedRef.current && uploadSequenceRef.current === sequence;
+
     try {
       const result = await uploadMedia(token, file, uploadableType);
-      onChange(`/${result.data.avatar.replace(/^\/+/, "")}`);
+      if (!isCurrentUpload()) return;
+      const path = `/${result.data.avatar.replace(/^\/+/, "")}`;
+      onChange(path);
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Could not upload image.");
+      if (isCurrentUpload()) {
+        setError(cause instanceof Error ? cause.message : "Could not upload image.");
+      }
     } finally {
-      setUploading(false);
+      onPendingChange(pendingKey, false);
+      if (activeUploadKeyRef.current === pendingKey) {
+        activeUploadKeyRef.current = null;
+        if (mountedRef.current) setUploading(false);
+      }
     }
+  };
+
+  const updatePath = (nextValue: string) => {
+    invalidateUpload();
+    setError("");
+    onChange(nextValue);
   };
 
   return (
@@ -69,7 +116,7 @@ export default function ImageUploadField({
           maxLength={255}
           className={adminFieldClass}
           value={value}
-          onChange={(event) => onChange(event.target.value)}
+          onChange={(event) => updatePath(event.target.value)}
           placeholder="/uploads/image.webp"
         />
       </label>
@@ -79,6 +126,7 @@ export default function ImageUploadField({
           className="sr-only"
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
+          disabled={uploading}
           onChange={upload}
         />
         <button
@@ -99,7 +147,7 @@ export default function ImageUploadField({
       {error && <p role="alert" className="mt-2 text-xs text-rose-700">{error}</p>}
       {value && (
         <img
-          src={imageUrl(value)}
+          src={resolveImageUrl(value, siteUrl)}
           alt=""
           className="mt-3 max-h-32 max-w-full rounded-lg border border-slate-200 object-contain"
         />
