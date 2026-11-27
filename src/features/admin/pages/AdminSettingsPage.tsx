@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { LoaderCircle, Save } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
+import ImageUploadField from "../components/ImageUploadField";
 import {
   fetchAdminSettings,
   saveSettings,
@@ -259,15 +260,12 @@ export default function AdminSettingsPage() {
               />
             </label>
 
-            <label className="block">
-              <span className={adminLabelClass}>Default social image path</span>
-              <input
-                value={settings.seo.og_image}
-                onChange={(event) => updateSeo("og_image", event.target.value)}
-                className={adminFieldClass}
-                placeholder="/image/home-hero/global-connections-world-map.webp"
-              />
-            </label>
+            <ImageUploadField
+              label="Default social image path"
+              value={settings.seo.og_image}
+              onChange={(og_image) => updateSeo("og_image", og_image)}
+              uploadableType="site_asset"
+            />
           </div>
         </section>
 

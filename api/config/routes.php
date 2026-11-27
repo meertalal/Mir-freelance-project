@@ -11,7 +11,6 @@ use App\Controller\Admin\FeedbackController as AdminFeedbackController;
 use App\Controller\Admin\ServiceController as AdminServiceController;
 use App\Controller\Admin\SiteSettingController as AdminSiteSettingController;
 use App\Controller\Admin\TestimonialController as AdminTestimonialController;
-use App\Controller\Admin\UploadController as AdminUploadController;
 use App\Controller\AuthController;
 use App\Controller\BlogController as PublicBlogController;
 use App\Controller\ContactController;
@@ -44,9 +43,9 @@ return static function (App $app, ContainerInterface $container): void {
     $app->get('/api/seo/page', AdminToolsController::class . ':publicSeoPage');
     $app->get('/api/seo/redirects', AdminToolsController::class . ':publicRedirects');
 
-    // Upload management requires an admin token. Public callers do not need file APIs.
+    // Image uploads require an admin token; uploaded files are managed through content forms.
     $app->group('/api/uploads', function (RouteCollectorProxy $group): void {
-        $group->post('/{type:(?:service|testimonial|case_study|blog_post|feedback_form)}', UploadController::class . ':store');
+        $group->post('/{type:(?:service|testimonial|case_study|blog_post|feedback_form|site_asset)}', UploadController::class . ':store');
     })->add(AdminAuthMiddleware::class);
 
     // Feedback form (public submission).
@@ -116,7 +115,5 @@ return static function (App $app, ContainerInterface $container): void {
         $group->patch('/admin/feedback/{id:[0-9]+}/status', AdminFeedbackController::class . ':updateStatus');
         $group->delete('/admin/feedback/{id:[0-9]+}', AdminFeedbackController::class . ':destroy');
 
-        $group->get('/admin/uploads', AdminUploadController::class . ':index');
-        $group->delete('/admin/uploads/{id:[0-9]+}', AdminUploadController::class . ':destroy');
     })->add(AdminAuthMiddleware::class);
 };

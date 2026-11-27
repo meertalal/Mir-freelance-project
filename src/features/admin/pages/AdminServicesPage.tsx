@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { GripVertical, LoaderCircle, Plus, Trash2 } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
+import ImageUploadField from "../components/ImageUploadField";
 import {
   createService,
   deleteService,
@@ -266,17 +267,12 @@ export default function AdminServicesPage() {
               </select>
             </label>
 
-            <label className="block">
-              <span className={adminLabelClass}>Image path</span>
-              <input
-                value={form.image}
-                onChange={(event) =>
-                  setForm((current) => ({ ...current, image: event.target.value }))
-                }
-                className={adminFieldClass}
-                placeholder="/image/services/serviceName.webp"
-              />
-            </label>
+            <ImageUploadField
+              label="Image path"
+              value={form.image}
+              onChange={(image) => setForm((current) => ({ ...current, image }))}
+              uploadableType="service"
+            />
 
             <label className="block">
               <span className={adminLabelClass}>Image alt text</span>

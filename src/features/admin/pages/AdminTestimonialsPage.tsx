@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { GripVertical, LoaderCircle, Plus, Trash2 } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
+import ImageUploadField from "../components/ImageUploadField";
 import {
   createTestimonial,
   deleteTestimonial,
@@ -238,17 +239,12 @@ export default function AdminTestimonialsPage() {
               />
             </label>
 
-            <label className="block">
-              <span className={adminLabelClass}>Avatar path</span>
-              <input
-                value={form.avatar}
-                onChange={(event) =>
-                  setForm((current) => ({ ...current, avatar: event.target.value }))
-                }
-                className={adminFieldClass}
-                placeholder="/image/clients/clientName.webp"
-              />
-            </label>
+            <ImageUploadField
+              label="Avatar path"
+              value={form.avatar}
+              onChange={(avatar) => setForm((current) => ({ ...current, avatar }))}
+              uploadableType="testimonial"
+            />
 
             <label className="block sm:col-span-2">
               <span className={adminLabelClass}>Quote *</span>

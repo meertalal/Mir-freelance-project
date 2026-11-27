@@ -1,4 +1,4 @@
--- Add database tables used by the Admin Blog, Portfolio, and Media Library modules.
+-- Add database tables used by Blog, Portfolio, and admin image uploads.
 -- Safe for an existing InfinityFree database; it does not alter existing rows.
 
 CREATE TABLE IF NOT EXISTS uploaded_files (

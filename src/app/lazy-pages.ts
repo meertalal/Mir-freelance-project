@@ -43,7 +43,6 @@ export const AdminServicesPage = lazy(
 );
 export const AdminPortfolioPage = lazy(() => import("../features/admin/pages/AdminPortfolioPage"));
 export const AdminBlogPage = lazy(() => import("../features/admin/pages/AdminBlogPage"));
-export const AdminMediaPage = lazy(() => import("../features/admin/pages/AdminMediaPage"));
 export const AdminFeedbackPage = lazy(() => import("../features/admin/pages/AdminFeedbackPage"));
 export const AdminFaqPage = lazy(() => import("../features/admin/pages/AdminFaqPage"));
 export const AdminCountriesPage = lazy(() => import("../features/admin/pages/AdminCountriesPage"));
