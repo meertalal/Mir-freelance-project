@@ -1,6 +1,8 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { LoaderCircle, Save } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
+import ImageUploadField from "../components/ImageUploadField";
+import usePendingImageUploads from "../hooks/usePendingImageUploads";
 import {
   fetchAdminSettings,
   saveSettings,
@@ -62,6 +64,9 @@ export default function AdminSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState("");
+  const { hasPending, onPendingChange } = usePendingImageUploads();
+  const uploadContextId = "site-settings";
+  const imageUploadPending = hasPending(uploadContextId);
 
   useEffect(() => {
     if (!token) return;
@@ -115,6 +120,10 @@ export default function AdminSettingsPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!token) return;
+    if (imageUploadPending) {
+      setError("Wait for the image upload to finish before saving.");
+      return;
+    }
 
     setSaving(true);
     setError("");
@@ -259,15 +268,17 @@ export default function AdminSettingsPage() {
               />
             </label>
 
-            <label className="block">
-              <span className={adminLabelClass}>Default social image path</span>
-              <input
-                value={settings.seo.og_image}
-                onChange={(event) => updateSeo("og_image", event.target.value)}
-                className={adminFieldClass}
-                placeholder="/image/home-hero/global-connections-world-map.webp"
-              />
-            </label>
+            <ImageUploadField
+              key={uploadContextId}
+              label="Default social image path"
+              value={settings.seo.og_image}
+              onChange={(og_image) => updateSeo("og_image", og_image)}
+              uploadableType="site_asset"
+              uploadContextId={uploadContextId}
+              uploadFieldId="og_image"
+              onPendingChange={onPendingChange}
+              disabled={saving}
+            />
           </div>
         </section>
 
@@ -286,7 +297,11 @@ export default function AdminSettingsPage() {
           </p>
         )}
 
-        <button type="submit" disabled={saving} className={adminPrimaryButtonClass}>
+        <button
+          type="submit"
+          disabled={saving || imageUploadPending}
+          className={adminPrimaryButtonClass}
+        >
           {saving ? (
             <>
               <LoaderCircle className="animate-spin" size={16} />

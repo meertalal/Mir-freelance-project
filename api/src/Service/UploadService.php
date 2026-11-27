@@ -18,6 +18,7 @@ final class UploadService
     public const UPLOADABLE_CASESTUDY = 'case_study';
     public const UPLOADABLE_BLOGPOST = 'blog_post';
     public const UPLOADABLE_FEEDBACKFORM = 'feedback_form';
+    public const UPLOADABLE_SITE_ASSET = 'site_asset';
 
     /** @var list<string> */
     public const ALLOWED_MIME_TYPES = [
@@ -211,35 +212,6 @@ final class UploadService
 
         $this->deleteFile($file);
         $this->files->remove($file);
-    }
-
-    /** @return array<string, mixed> */
-    public function fileData(int $fileId): array
-    {
-        $file = $this->files->find($fileId);
-        if ($file === null) {
-            throw new ApiException('File not found.', 404);
-        }
-
-        return $file->toArray();
-    }
-
-    /** @return array<int, array<string, mixed>> */
-    public function listUnattached(int $limit = 50): array
-    {
-        return array_map(
-            static fn (UploadedFile $file): array => $file->toArray(),
-            $this->files->findUnattached($limit)
-        );
-    }
-
-    /** @return array<int, array<string, mixed>> */
-    public function listAll(int $limit = 100): array
-    {
-        return array_map(
-            static fn (UploadedFile $file): array => $file->toArray(),
-            $this->files->findAll(max(1, min($limit, 500)))
-        );
     }
 
     public function deleteUnattached(int $olderThanDays = 7): int

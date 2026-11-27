@@ -1,6 +1,8 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { GripVertical, LoaderCircle, Plus, Trash2 } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
+import ImageUploadField from "../components/ImageUploadField";
+import usePendingImageUploads from "../hooks/usePendingImageUploads";
 import {
   createService,
   deleteService,
@@ -66,12 +68,16 @@ export default function AdminServicesPage() {
   const [notice, setNotice] = useState("");
 
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [formGeneration, setFormGeneration] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
   const [form, setForm] = useState<ServiceInput>(emptyForm);
   const [saving, setSaving] = useState(false);
   const [workingId, setWorkingId] = useState<number | null>(null);
   const [dragId, setDragId] = useState<number | null>(null);
   const [orderSaving, setOrderSaving] = useState(false);
+  const { hasPending, onPendingChange } = usePendingImageUploads();
+  const uploadContextId = `service:${editingId ?? "new"}:${formGeneration}`;
+  const imageUploadPending = hasPending(uploadContextId);
 
   useEffect(() => {
     if (!token) return;
@@ -99,6 +105,7 @@ export default function AdminServicesPage() {
   }, [token]);
 
   const startCreate = () => {
+    setFormGeneration((generation) => generation + 1);
     setEditingId(null);
     setForm(emptyForm);
     setFormOpen(true);
@@ -107,6 +114,7 @@ export default function AdminServicesPage() {
   };
 
   const startEdit = (item: AdminService) => {
+    setFormGeneration((generation) => generation + 1);
     setEditingId(item.id);
     setForm(toInput(item));
     setFormOpen(true);
@@ -117,6 +125,10 @@ export default function AdminServicesPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!token) return;
+    if (imageUploadPending) {
+      setError("Wait for the image upload to finish before saving.");
+      return;
+    }
 
     setSaving(true);
     setError("");
@@ -266,17 +278,16 @@ export default function AdminServicesPage() {
               </select>
             </label>
 
-            <label className="block">
-              <span className={adminLabelClass}>Image path</span>
-              <input
-                value={form.image}
-                onChange={(event) =>
-                  setForm((current) => ({ ...current, image: event.target.value }))
-                }
-                className={adminFieldClass}
-                placeholder="/image/services/serviceName.webp"
-              />
-            </label>
+            <ImageUploadField
+              key={uploadContextId}
+              label="Image path"
+              value={form.image}
+              onChange={(image) => setForm((current) => ({ ...current, image }))}
+              uploadableType="service"
+              uploadContextId={uploadContextId}
+              uploadFieldId="image"
+              onPendingChange={onPendingChange}
+            />
 
             <label className="block">
               <span className={adminLabelClass}>Image alt text</span>
@@ -322,7 +333,7 @@ export default function AdminServicesPage() {
           </div>
 
           <div className="mt-5 flex gap-2">
-            <button type="submit" disabled={saving} className={adminPrimaryButtonClass}>
+            <button type="submit" disabled={saving || imageUploadPending} className={adminPrimaryButtonClass}>
               {saving && <LoaderCircle className="animate-spin" size={16} />}
               {editingId === null ? "Add service" : "Save changes"}
             </button>

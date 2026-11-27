@@ -11,6 +11,7 @@ import {
   siteUrl,
   websiteSchema,
 } from "../../data/seo.data";
+import { resolveImageUrl } from "../../utils/resolveImageUrl";
 
 function upsertMeta(attr: "name" | "property", key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(
@@ -50,9 +51,7 @@ export default function Seo() {
   const isKnown = pathname in routeSeo;
   const canonical = `${siteUrl}${seo.path === "/" ? "/" : seo.path}`;
   const imagePath = seo.image ?? defaultImage;
-  const image = /^https?:\/\//i.test(imagePath)
-    ? imagePath
-    : `${siteUrl}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
+  const image = resolveImageUrl(imagePath, siteUrl);
   const robots = isKnown ? (seo.robots ?? "index, follow") : "noindex, follow";
 
   useEffect(() => {
@@ -89,7 +88,7 @@ export default function Seo() {
         if (row.description) { upsertMeta("name", "description", row.description); upsertMeta("property", "og:description", row.description); upsertMeta("name", "twitter:description", row.description); }
         if (row.og_title) { upsertMeta("property", "og:title", row.og_title); upsertMeta("name", "twitter:title", row.og_title); }
         if (row.og_description) { upsertMeta("property", "og:description", row.og_description); upsertMeta("name", "twitter:description", row.og_description); }
-        if (row.og_image) { const imageUrl = /^https?:\/\//i.test(row.og_image) ? row.og_image : `${siteUrl}${row.og_image.startsWith("/") ? "" : "/"}${row.og_image}`; upsertMeta("property", "og:image", imageUrl); upsertMeta("name", "twitter:image", imageUrl); }
+        if (row.og_image) { const imageUrl = resolveImageUrl(row.og_image, siteUrl); upsertMeta("property", "og:image", imageUrl); upsertMeta("name", "twitter:image", imageUrl); }
       })
       .catch(() => undefined);
     return () => { cancelled = true; };

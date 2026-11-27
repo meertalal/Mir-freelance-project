@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { defaultImage, siteName, siteUrl } from "../data/seo.data";
 import { apiUrl } from "../features/admin/api/client";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 export type PageSeo = {
   title: string;
@@ -42,9 +43,7 @@ export default function usePageSeo(seo: PageSeo | null) {
     const apply = (entry: PageSeo) => {
       const canonical = siteUrl + entry.path;
       const imagePath = entry.image ?? defaultImage;
-      const image = /^https?:\/\//i.test(imagePath)
-        ? imagePath
-        : new URL(imagePath, siteUrl).toString();
+      const image = resolveImageUrl(imagePath, siteUrl);
       document.title = entry.title;
       upsertMeta("name", "description", entry.description);
       upsertMeta("name", "robots", entry.robots ?? "index, follow");
