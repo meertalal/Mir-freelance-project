@@ -40,12 +40,6 @@ final class UploadedFileRepository
         ], ['createdAt' => 'DESC'], $limit);
     }
 
-    /** @return list<UploadedFile> */
-    public function findAll(int $limit = 100): array
-    {
-        return $this->em->getRepository(UploadedFile::class)->findBy([], ['createdAt' => 'DESC'], $limit);
-    }
-
     public function save(UploadedFile $file): void
     {
         $this->em->persist($file);

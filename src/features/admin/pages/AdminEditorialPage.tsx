@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { GripVertical, LoaderCircle, Plus, Trash2 } from "lucide-react";
 import { useAdminAuth } from "../context/adminAuth";
+import ImageUploadField from "../components/ImageUploadField";
+import usePendingImageUploads from "../hooks/usePendingImageUploads";
 import { ApiError } from "../api/client";
 import { saveContentOrder } from "../api/tools";
 import { moveItem } from "../utils/order";
@@ -13,6 +15,13 @@ import { adminCardClass, adminDangerButtonClass, adminFieldClass, adminHeadingCl
 
 type Mode = "portfolio" | "blog";
 type RecordItem = AdminCaseStudy | AdminBlogPost;
+const contentErrorMessage = (cause: unknown, fallback: string) => {
+  if (cause instanceof ApiError && cause.status === 500) {
+    return `${cause.message} If this is the live InfinityFree site, verify blog_posts and case_studies exist. If missing, import docs/infinityfree-content-module-upgrade.sql in phpMyAdmin; deployments do not run database migrations.`;
+  }
+  return cause instanceof Error ? cause.message : fallback;
+};
+
 const blankCase: CaseStudyInput = { slug: "", title: "", excerpt: "", cover_image: "", cover_image_alt: "", body: "", project_type: "Web application", status: "draft", is_published: false, sort_order: 0, client_company: "", client_name: "", client_role: "", client_website: "", challenge: "", solution: "", results: "" };
 const blankBlog: BlogPostInput = { slug: "", title: "", excerpt: "", cover_image: "", cover_image_alt: "", body: "", category: "Insights", status: "draft", is_published: false, sort_order: 0, author_name: "", author_role: "", author_avatar: "", meta_title: "", meta_description: "", meta_keywords: "" };
 
@@ -22,6 +31,7 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
   const [items, setItems] = useState<RecordItem[]>([]);
   const [form, setForm] = useState<CaseStudyInput | BlogPostInput>(isBlog ? blankBlog : blankCase);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [formGeneration, setFormGeneration] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -29,18 +39,22 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
   const [notice, setNotice] = useState("");
   const [dragId, setDragId] = useState<number | null>(null);
   const [orderSaving, setOrderSaving] = useState(false);
+  const { hasPending, onPendingChange } = usePendingImageUploads();
+  const uploadContextId = `${mode}:${editingId ?? "new"}:${formGeneration}`;
+  const imageUploadPending = hasPending(uploadContextId);
 
   const refresh = useCallback(() => {
     if (!token) return;
     (isBlog ? listBlogPosts(token) : listCaseStudies(token))
       .then((result) => setItems(result.data))
-      .catch((cause) => setError(cause instanceof ApiError ? cause.message : "Could not load content."))
+      .catch((cause) => setError(contentErrorMessage(cause, "Could not load content.")))
       .finally(() => setLoading(false));
   }, [token, isBlog]);
   useEffect(() => { refresh(); }, [refresh]);
 
-  const beginCreate = () => { setEditingId(null); setForm(isBlog ? blankBlog : blankCase); setFormOpen(true); setError(""); setNotice(""); };
+  const beginCreate = () => { setFormGeneration((generation) => generation + 1); setEditingId(null); setForm(isBlog ? blankBlog : blankCase); setFormOpen(true); setError(""); setNotice(""); };
   const beginEdit = (item: RecordItem) => {
+    setFormGeneration((generation) => generation + 1);
     setEditingId(item.id);
     if (isBlog) {
       const post = item as AdminBlogPost;
@@ -58,6 +72,7 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
 
   const submit = async (event: FormEvent) => {
     event.preventDefault(); if (!token) return;
+    if (imageUploadPending) { setError("Wait for the image upload to finish before saving."); return; }
     setSaving(true); setError(""); setNotice("");
     try {
       let saved: RecordItem;
@@ -65,7 +80,7 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
       else saved = (editingId === null ? await createCaseStudy(token, form as CaseStudyInput) : await updateCaseStudy(token, editingId, form as CaseStudyInput)).data;
       setItems((current) => editingId === null ? [saved, ...current] : current.map((item) => item.id === editingId ? saved : item));
       setNotice(`${isBlog ? "Blog post" : "Case study"} saved.`); setFormOpen(false);
-    } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not save content."); }
+    } catch (cause) { setError(contentErrorMessage(cause, "Could not save content.")); }
     finally { setSaving(false); }
   };
 
@@ -74,14 +89,14 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
     try {
       if (isBlog) await deleteBlogPost(token, item.id); else await deleteCaseStudy(token, item.id);
       setItems((current) => current.filter((entry) => entry.id !== item.id)); setNotice("Content deleted.");
-    } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not delete content."); }
+    } catch (cause) { setError(contentErrorMessage(cause, "Could not delete content.")); }
   };
 
   const saveOrder = async () => {
     if (!token || isBlog) return;
     setOrderSaving(true);
     try { await saveContentOrder(token, "portfolio", items.map((item) => item.id)); setNotice("Portfolio order saved."); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not save project order."); }
+    catch (cause) { setError(contentErrorMessage(cause, "Could not save project order.")); }
     finally { setOrderSaving(false); }
   };
 
@@ -95,6 +110,18 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
       {options.area ? <textarea required={options.required} value={String((form as unknown as Record<string, unknown>)[key] ?? "")} onChange={(e) => updateField(key, e.target.value)} className={`${adminFieldClass} min-h-28 resize-y`} placeholder={options.hint} /> : <input required={options.required} value={String((form as unknown as Record<string, unknown>)[key] ?? "")} onChange={(e) => updateField(key, e.target.value)} className={adminFieldClass} placeholder={options.hint} />}
     </label>
   );
+  const imageField = (key: "cover_image" | "author_avatar", label: string, uploadableType: "blog_post" | "case_study") => (
+    <ImageUploadField
+      key={`${uploadContextId}:${key}`}
+      label={label}
+      value={String((form as unknown as Record<string, unknown>)[key] ?? "")}
+      onChange={(value) => updateField(key, value)}
+      uploadableType={uploadableType}
+      uploadContextId={uploadContextId}
+      uploadFieldId={key}
+      onPendingChange={onPendingChange}
+    />
+  );
 
   return <div>
     <div className="flex flex-wrap items-start justify-between gap-3"><div><h1 className={adminHeadingClass}>{isBlog ? "Blog" : "Portfolio"}</h1><p className={adminSubheadingClass}>{isBlog ? "Write, edit, and publish articles." : "Manage the projects and case studies on your portfolio."}</p></div><div className="flex gap-2">{!isBlog && items.length > 1 && <button type="button" disabled={orderSaving} onClick={saveOrder} className={adminSecondaryButtonClass}>{orderSaving ? "Saving…" : "Save order"}</button>}<button type="button" onClick={beginCreate} className={adminPrimaryButtonClass}><Plus size={16} />{isBlog ? "New post" : "New case study"}</button></div></div>
@@ -103,15 +130,15 @@ export default function AdminEditorialPage({ mode }: { mode: Mode }) {
       <div className="flex items-start justify-between gap-3"><div><h2 className="font-montserrat text-lg font-bold text-[#102B4E]">{editingId === null ? "Create" : "Edit"} {isBlog ? "blog post" : "case study"}</h2><p className="mt-1 text-xs text-slate-500">Long text is stored as plain text and shown in the content detail page.</p></div><button type="button" onClick={() => setFormOpen(false)} className={adminSecondaryButtonClass}>Close</button></div>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         {field("title", "Title", { required: true })}{field("slug", "URL slug", { hint: "Generated from title when empty" })}
-        {field(isBlog ? "category" : "project_type", isBlog ? "Category" : "Project type", { required: true })}{field("cover_image", "Cover image path", { hint: "/uploads/filename.webp" })}
+        {field(isBlog ? "category" : "project_type", isBlog ? "Category" : "Project type", { required: true })}{imageField("cover_image", "Cover image path", isBlog ? "blog_post" : "case_study")}
         {field("cover_image_alt", "Cover image alt text")}{field("excerpt", "Short summary", { area: true, wide: true })}
         {field("body", "Full content", { area: true, required: true, wide: true, hint: "Write at least 20 characters." })}
         {!isBlog && <>{field("client_name", "Client name")}{field("client_company", "Client company")}{field("client_role", "Client role")}{field("client_website", "Client website URL")}{field("challenge", "Challenge", { area: true })}{field("solution", "Solution", { area: true })}{field("results", "Results", { area: true })}</>}
-        {isBlog && <>{field("author_name", "Author name")}{field("author_role", "Author role")}{field("author_avatar", "Author avatar path")}{field("meta_title", "SEO title")}{field("meta_description", "SEO description", { area: true })}{field("meta_keywords", "SEO keywords")}</>}
+        {isBlog && <>{field("author_name", "Author name")}{field("author_role", "Author role")}{imageField("author_avatar", "Author avatar path", "blog_post")}{field("meta_title", "SEO title")}{field("meta_description", "SEO description", { area: true })}{field("meta_keywords", "SEO keywords")}</>}
         <label className="block"><span className={adminLabelClass}>Publication status</span><select className={adminFieldClass} value={form.status} onChange={(e) => setForm((current) => ({ ...current, status: e.target.value as "draft" | "published", is_published: e.target.value === "published" }))}><option value="draft">Draft</option><option value="published">Published</option></select></label>
         <label className="block"><span className={adminLabelClass}>Display order</span><input type="number" min="0" className={adminFieldClass} value={form.sort_order} onChange={(e) => setForm((current) => ({ ...current, sort_order: Number(e.target.value) }))} /></label>
       </div>
-      <div className="mt-5 flex gap-2"><button disabled={saving} className={adminPrimaryButtonClass} type="submit">{saving && <LoaderCircle size={16} className="animate-spin" />}Save {isBlog ? "post" : "case study"}</button><button type="button" onClick={() => setFormOpen(false)} className={adminSecondaryButtonClass}>Cancel</button></div>
+      <div className="mt-5 flex gap-2"><button disabled={saving || imageUploadPending} className={adminPrimaryButtonClass} type="submit">{saving && <LoaderCircle size={16} className="animate-spin" />}Save {isBlog ? "post" : "case study"}</button><button type="button" onClick={() => setFormOpen(false)} className={adminSecondaryButtonClass}>Cancel</button></div>
     </form>}
     <div className={`${adminCardClass} mt-5 overflow-hidden`}>
       {loading && <p className="px-5 py-7 text-sm text-slate-500">Loading content…</p>}
