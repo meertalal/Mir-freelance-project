@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { sharedProjects } from "../../../data/site.data";
 import { useCaseStudies } from "../../content/useEditorialContent";
+import { getCmsProjectCategory } from "../utils/projectCategory";
 import { portfolioFilters } from "../data/portfolio-page.data";
 import PortfolioProjectCard from "./PortfolioProjectCard";
 import SectionHeading from "../../../components/shared/SectionHeading";
@@ -40,8 +41,10 @@ export default function PortfolioGrid() {
       const cmsSlugs = new Set(cmsStudies.map((study) => study.slug));
       const cmsProjects = cmsStudies.map((study) => {
         const staticProject = sharedProjects.find((project) => project.id === study.slug);
-        const type = study.projectType.toLowerCase();
-        const category = /mobile|app/.test(type) ? "mobile" : /saas|platform/.test(type) ? "saas" : staticProject?.category ?? "web";
+        const category = getCmsProjectCategory(
+          study.projectType,
+          staticProject?.category,
+        );
         return {
           id: study.slug,
           title: study.title,

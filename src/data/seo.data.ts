@@ -1,7 +1,7 @@
 import { brand } from "./site.data";
 
 export const siteUrl = (
-  import.meta.env.VITE_SITE_URL || "https://mirtalal.web.app"
+  import.meta.env.VITE_SITE_URL || "https://mirtalal.freedev.app"
 ).replace(/\/+$/, "");
 
 export const siteName = brand.name;

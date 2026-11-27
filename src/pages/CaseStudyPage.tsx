@@ -64,11 +64,17 @@ function CmsCaseStudyPage({ study }: { study: SiteCaseStudy }) {
       <section className={`${innerSectionClass} bg-white`}>
         <div className={`${innerContainerClass} grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]`}>
           <article className="space-y-8">
-            <p className="font-inter text-base leading-8 text-[#526987] sm:text-lg">{study.overview}</p>
+            {study.body ? (
+              <div>
+                <h2 className="font-montserrat text-xl font-bold text-[#10234B]">Project Overview</h2>
+                <p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.body}</p>
+              </div>
+            ) : (
+              <p className="font-inter text-base leading-8 text-[#526987] sm:text-lg">{study.excerpt || study.overview}</p>
+            )}
             {study.challenge && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">The Challenge</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.challenge}</p></div>}
             {study.solution && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">The Solution</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.solution}</p></div>}
             {study.results.length > 0 && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">Results</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.results.map((result) => `${result.value}${result.label ? ` — ${result.label}` : ""}`).join("\n")}</p></div>}
-            {study.body && <div><h2 className="font-montserrat text-xl font-bold text-[#10234B]">Project Overview</h2><p className="mt-3 whitespace-pre-line font-inter text-sm leading-7 text-[#526987] sm:text-base">{study.body}</p></div>}
           </article>
           <aside className="h-fit rounded-2xl border border-[#E1EAF6] bg-[#F7FAFF] p-5">
             <h2 className="font-montserrat text-base font-bold text-[#10234B]">Project Details</h2>

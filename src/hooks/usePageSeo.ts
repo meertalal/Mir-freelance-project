@@ -41,7 +41,10 @@ export default function usePageSeo(seo: PageSeo | null) {
     if (!seo) return;
     const apply = (entry: PageSeo) => {
       const canonical = siteUrl + entry.path;
-      const image = siteUrl + (entry.image ?? defaultImage);
+      const imagePath = entry.image ?? defaultImage;
+      const image = /^https?:\/\//i.test(imagePath)
+        ? imagePath
+        : new URL(imagePath, siteUrl).toString();
       document.title = entry.title;
       upsertMeta("name", "description", entry.description);
       upsertMeta("name", "robots", entry.robots ?? "index, follow");

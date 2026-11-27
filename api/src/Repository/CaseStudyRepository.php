@@ -21,6 +21,20 @@ final class CaseStudyRepository
         return $this->em->getRepository(CaseStudy::class)->findOneBy(['slug' => $slug]);
     }
 
+    public function findPublishedBySlug(string $slug): ?CaseStudy
+    {
+        return $this->em->createQueryBuilder()
+            ->select('c')
+            ->from(CaseStudy::class, 'c')
+            ->where('c.slug = :slug')
+            ->andWhere('c.isPublished = true')
+            ->andWhere('c.status = :status')
+            ->setParameter('slug', $slug)
+            ->setParameter('status', CaseStudy::STATUS_PUBLISHED)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     /** @return list<CaseStudy> */
     public function all(bool $publishedOnly = false): array
     {
@@ -31,7 +45,9 @@ final class CaseStudyRepository
             ->addOrderBy('c.id', 'ASC');
 
         if ($publishedOnly) {
-            $qb->andWhere('c.isPublished = true');
+            $qb->andWhere('c.isPublished = true')
+                ->andWhere('c.status = :publishedStatus')
+                ->setParameter('publishedStatus', CaseStudy::STATUS_PUBLISHED);
         }
 
         return $qb->getQuery()->getResult();

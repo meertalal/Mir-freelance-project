@@ -43,7 +43,7 @@ final class BlogPostService
 
     public function getBySlug(string $slug): BlogPost
     {
-        $blogPost = $this->blogPosts->findBySlug($slug);
+        $blogPost = $this->blogPosts->findPublishedBySlug($slug);
         if ($blogPost === null) {
             throw new ApiException('Blog post not found.', 404);
         }

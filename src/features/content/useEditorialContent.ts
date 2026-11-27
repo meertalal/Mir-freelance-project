@@ -49,11 +49,13 @@ const coverClasses = [
   "from-[#144e78] via-[#0b3a63] to-[#071f38]",
 ];
 
-function parseArticle(body: string, excerpt: string) {
+export function parseArticle(body: string, excerpt: string) {
   const sections: BlogPost["sections"] = [];
   let heading = "Article";
   let paragraphs: string[] = [];
   let bullets: string[] = [];
+  let hasLeadingHeading = false;
+  let hasContent = false;
   const flush = () => {
     if (paragraphs.length || bullets.length) sections.push({ heading, paragraphs, ...(bullets.length ? { bullets } : {}) });
     paragraphs = [];
@@ -64,16 +66,21 @@ function parseArticle(body: string, excerpt: string) {
     const line = raw.trim();
     if (!line) continue;
     if (line.startsWith("## ") || line.startsWith("### ")) {
+      if (!hasContent) hasLeadingHeading = true;
       flush();
       heading = line.replace(/^#{2,3}\s+/, "");
     } else if (/^[-*]\s+/.test(line)) {
       bullets.push(line.replace(/^[-*]\s+/, ""));
+      hasContent = true;
     } else {
       paragraphs.push(line.replace(/^#\s+/, ""));
+      hasContent = true;
     }
   }
   flush();
-  const intro = sections[0]?.paragraphs.shift() || excerpt;
+  const intro = hasLeadingHeading
+    ? excerpt
+    : sections[0]?.paragraphs.shift() || excerpt;
   return { intro, sections: sections.filter((section) => section.paragraphs.length || section.bullets?.length) };
 }
 
@@ -132,16 +139,11 @@ let caseRemote = false;
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((listener) => listener());
 
-async function load() {
+async function loadBlogFeed() {
   try {
-    const [blogResponse, caseResponse] = await Promise.all([
-      fetch(apiUrl("/api/blog"), { headers: { Accept: "application/json" } }),
-      fetch(apiUrl("/api/case-studies"), { headers: { Accept: "application/json" } }),
-    ]);
-    const [blogPayload, casePayload] = await Promise.all([
-      blogResponse.ok ? blogResponse.json() : null,
-      caseResponse.ok ? caseResponse.json() : null,
-    ]);
+    const response = await fetch(apiUrl("/api/blog"), { headers: { Accept: "application/json" } });
+    if (!response.ok) return;
+    const blogPayload = await response.json();
     if (Array.isArray(blogPayload?.data)) {
       const remoteRows = blogPayload.data as BlogRow[];
       const remotePosts: SiteBlogPost[] = remoteRows.map((row, index) => mapBlog(row, index));
@@ -149,6 +151,16 @@ async function load() {
       posts = [...remotePosts, ...fallbackBlogPosts.filter((post) => !remoteSlugs.has(post.slug))];
       blogRemote = true;
     }
+  } catch {
+    // Keep checked-in posts available if this feed fails.
+  }
+}
+
+async function loadCaseStudyFeed() {
+  try {
+    const response = await fetch(apiUrl("/api/case-studies"), { headers: { Accept: "application/json" } });
+    if (!response.ok) return;
+    const casePayload = await response.json();
     if (Array.isArray(casePayload?.data)) {
       const remoteRows = casePayload.data as CaseStudyRow[];
       const remoteStudies: SiteCaseStudy[] = remoteRows.map((row) => {
@@ -172,13 +184,16 @@ async function load() {
       caseRemote = true;
     }
   } catch {
-    // Keep the checked-in content available if the API is unreachable.
-  } finally {
-    loaded = true;
-    blogSnapshot = { data: posts, loaded, remote: blogRemote };
-    caseSnapshot = { data: studies, loaded, remote: caseRemote };
-    emit();
+    // Keep checked-in case studies available if this feed fails.
   }
+}
+
+async function load() {
+  await Promise.all([loadBlogFeed(), loadCaseStudyFeed()]);
+  loaded = true;
+  blogSnapshot = { data: posts, loaded, remote: blogRemote };
+  caseSnapshot = { data: studies, loaded, remote: caseRemote };
+  emit();
 }
 
 function subscribe(listener: () => void) {
