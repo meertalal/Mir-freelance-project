@@ -277,6 +277,7 @@ export default function AdminSettingsPage() {
               uploadContextId={uploadContextId}
               uploadFieldId="og_image"
               onPendingChange={onPendingChange}
+              disabled={saving}
             />
           </div>
         </section>

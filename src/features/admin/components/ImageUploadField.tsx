@@ -18,6 +18,7 @@ type ImageUploadFieldProps = {
   uploadContextId: string;
   uploadFieldId: string;
   onPendingChange: (key: string, pending: boolean) => void;
+  disabled?: boolean;
   required?: boolean;
   hint?: string;
   wide?: boolean;
@@ -31,6 +32,7 @@ export default function ImageUploadField({
   uploadContextId,
   uploadFieldId,
   onPendingChange,
+  disabled = false,
   required = false,
   hint = "Upload an image or enter an existing image path.",
   wide = false,
@@ -115,6 +117,7 @@ export default function ImageUploadField({
           required={required}
           maxLength={255}
           className={adminFieldClass}
+          disabled={disabled}
           value={value}
           onChange={(event) => updatePath(event.target.value)}
           placeholder="/uploads/image.webp"
@@ -126,12 +129,12 @@ export default function ImageUploadField({
           className="sr-only"
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
-          disabled={uploading}
+          disabled={disabled || uploading}
           onChange={upload}
         />
         <button
           type="button"
-          disabled={uploading}
+          disabled={disabled || uploading}
           onClick={() => inputRef.current?.click()}
           className={adminSecondaryButtonClass}
         >
